@@ -50,6 +50,10 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
   }
 
   @Override
+  public void resetEncoder() {
+    m_motor.setSelectedSensorPosition(0);
+  }
+  @Override
   public void setSensorPhase(boolean phase) {
     m_motor.setSensorPhase(phase);
   }

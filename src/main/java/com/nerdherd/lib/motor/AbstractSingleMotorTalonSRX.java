@@ -37,4 +37,6 @@ public abstract class AbstractSingleMotorTalonSRX extends AbstractSingleMotor {
     public abstract void configSensor(FeedbackDevice device);
 
     public abstract void setSensorPhase(boolean phase);
+
+    public abstract void resetEncoder();
 }
