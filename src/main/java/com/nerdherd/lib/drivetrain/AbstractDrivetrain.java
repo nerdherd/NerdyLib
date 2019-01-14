@@ -24,7 +24,7 @@ public abstract class AbstractDrivetrain extends Subsystem {
 
     public abstract void addDesiredVelocities(double leftVel, double rightVel);
 
-    public abstract void setPositionMotionMagic(double leftPos, double rightPos);
+    public abstract void setPositionMotionMagic(double leftPos, double rightPos, int accel, int vel);
 
     public abstract void setPowerZero();
 
