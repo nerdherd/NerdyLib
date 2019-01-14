@@ -21,6 +21,11 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
   private NerdyTalon m_motor;
   private String m_name;
 
+  /**
+   * 
+   * @param talonID CAN ID of talon
+   * @param subsystemName String name of subsystem to display on smart dashboard
+   */
   public SingleMotorTalonSRX(int talonID, String subsystemName) {
     m_name = subsystemName;
     m_motor = new NerdyTalon(talonID); 
