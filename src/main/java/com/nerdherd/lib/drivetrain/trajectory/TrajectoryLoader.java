@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.trajectory;
+package com.nerdherd.lib.drivetrain.trajectory;
 
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;

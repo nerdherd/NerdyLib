@@ -8,7 +8,7 @@
 package com.nerdherd.lib.drivetrain.auto;
 
 import com.nerdherd.lib.drivetrain.AbstractDrivetrain;
-import com.nerdherd.lib.drivetrain.TrajectoryFollower;
+import com.nerdherd.lib.drivetrain.trajectory.TrajectoryFollower;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
