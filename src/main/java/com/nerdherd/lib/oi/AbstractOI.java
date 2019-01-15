@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib;
+package com.nerdherd.lib.oi;
 
 /**
  * Add your docs here.

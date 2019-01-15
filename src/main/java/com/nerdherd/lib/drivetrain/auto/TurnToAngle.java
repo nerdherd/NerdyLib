@@ -1,7 +1,7 @@
 package com.nerdherd.lib.drivetrain.auto;
 
 import com.nerdherd.lib.drivetrain.AbstractDrivetrain;
-import com.nerdherd.lib.misc.NerdyMath;
+// import com.nerdherd.lib.misc.NerdyMath;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;

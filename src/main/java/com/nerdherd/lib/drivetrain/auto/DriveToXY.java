@@ -31,7 +31,7 @@ public class DriveToXY extends Command {
     	m_useStraightPID = useStraightPID;
 		m_straightPower = straightPower;
 		m_rotP = rotP;
-		m_distP = m_distP;
+		m_distP = straightP;
         requires(m_drive);
     }
 

@@ -7,6 +7,13 @@
 
 package com.nerdherd.robot;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.nerdherd.lib.drivers.NerdyTalon;
+import com.nerdherd.lib.drivetrain.Drivetrain;
+import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
+import com.nerdherd.lib.motor.SingleMotorTalonSRX;
+import com.nerdherd.lib.oi.DefaultOI;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -19,14 +26,32 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
+  
+  public static Drivetrain drive;
+  public static SingleMotorTalonSRX climberWheelLeft, climberWheelRight;
+  public static DefaultOI oi;
   @Override
   public void robotInit() {
+    drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 
+    new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID)}, 
+    new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID)}, 
+    false, true);
+    drive.configMaxVelocity(3000);
+    drive.configSensorPhase(true, false);
+    drive.configStaticFeedforward(0.1, 0.1);
+    drive.configTicksPerFoot(2600, 2600);
+    drive.configDate("2019_1_15_");
 
-   
+    climberWheelLeft = new SingleMotorTalonSRX(RobotMap.kClimberWheelLeftID, "Climber Wheel Left");
+    climberWheelLeft.configSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+    climberWheelLeft.configPIDF(0, 0, 0, 0);
+    climberWheelRight = new SingleMotorTalonSRX(RobotMap.kClimberWheelRightID, "Climber Wheel Right");
+    climberWheelRight.configSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+    climberWheelRight.configPIDF(0, 0, 0, 0);
+  
+    oi = new DefaultOI();
+
+    drive.setDefaultCommand(new ArcadeDrive(drive, oi));
   }
 
   /**
@@ -39,7 +64,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // System.out.println()
+    drive.reportToSmartDashboard();
+    climberWheelLeft.reportToSmartDashboard();
+    climberWheelRight.reportToSmartDashboard();
   }
 
   /**
@@ -49,6 +76,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    drive.stopLog();
   }
 
   @Override
@@ -91,10 +119,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
+    drive.startLog();
 
   }
 
@@ -104,6 +129,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    drive.logToCSV();
   }
 
   /**
