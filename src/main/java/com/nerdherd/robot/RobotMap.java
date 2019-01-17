@@ -15,10 +15,10 @@ package com.nerdherd.robot;
  */
 public class RobotMap {
   
-  public static final int kLeftMasterTalonID = 0;
-  public static final int kRightMasterTalonID = 0;
-  public static final int kLeftSlaveTalonID = 0;
-  public static final int kRightSlaveTalonID = 0;
+  public static final int kLeftMasterTalonID = 1;
+  public static final int kRightMasterTalonID = 2;
+  public static final int kLeftSlaveTalonID = 5;
+  public static final int kRightSlaveTalonID = 4;
 
   public static final int kClimberWheelLeftID = 0;
   public static final int kClimberWheelRightID = 0;

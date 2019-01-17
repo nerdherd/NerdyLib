@@ -28,6 +28,7 @@ public class ArcadeDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        SmartDashboard.putBoolean("Arcade Drvie Running", true);    
     	m_leftPower = m_oi.getDriveJoyLeftX() + m_oi.getDriveJoyRightY();
     	m_rightPower = -m_oi.getDriveJoyLeftX() + m_oi.getDriveJoyRightY();
     	
