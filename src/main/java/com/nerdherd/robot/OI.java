@@ -7,6 +7,7 @@
 
 package com.nerdherd.robot;
 
+import com.nerdherd.lib.drivetrain.characterization.OpenLoopDrive;
 import com.nerdherd.lib.motor.commands.SetMotorPositionPID;
 import com.nerdherd.lib.motor.commands.SetMotorPower;
 import com.nerdherd.lib.oi.DefaultOI;
@@ -21,12 +22,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI extends DefaultOI{
   
   
-  JoystickButton trigger_1;
+  JoystickButton trigger_1, button_2;
   
   public OI() {
     super();
-    trigger_1 = new JoystickButton(super.operatorJoy, 1);
-    SmartDashboard.putData("Set Climber Wheel Position", new SetMotorPositionPID(Robot.climberWheelLeft, 1024));
-    SmartDashboard.putData("Retract Climber Wheel", new SetMotorPower(Robot.climberWheelLeft, -0.1));
+    trigger_1 = new JoystickButton(super.driveJoyLeft, 1);
+    trigger_1.whenPressed(new OpenLoopDrive(Robot.drive, 0.2));
+    button_2 = new JoystickButton(super.driveJoyLeft, 2);
+    button_2.whenPressed(new OpenLoopDrive(Robot.drive, 0));
+    // SmartDashboard.putData("Set Climber Wheel Position", new SetMotorPositionPID(Robot.climberWheelLeft, 1024));
+    // SmartDashboard.putData("Retract Climber Wheel", new SetMotorPower(Robot.climberWheelLeft, -0.1));
+    SmartDashboard.putData("Test Drive", new OpenLoopDrive(Robot.drive, 0.2));
+
   }
 }

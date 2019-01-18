@@ -15,11 +15,14 @@ import edu.wpi.first.wpilibj.Joystick;
 public class DefaultOI extends AbstractOI{
 
     
-    public Joystick driveJoyLeft = new Joystick(0);
-    public Joystick driveJoyRight = new Joystick(1);
-    public Joystick operatorJoy = new Joystick(2);
+    public Joystick driveJoyLeft;
+    public Joystick driveJoyRight;
+    public Joystick operatorJoy;
 
     public DefaultOI() {
+        driveJoyLeft = new Joystick(0);
+        driveJoyRight = new Joystick(1);
+        operatorJoy = new Joystick(2);
 
     }
 
@@ -27,6 +30,7 @@ public class DefaultOI extends AbstractOI{
     /**
      * @return input power from left drive joystick Y (-1.0 to +1.0)
      */
+    @Override
     public double getDriveJoyLeftY() {
         // return -gamepadJoy.getRawAxis(1);
         return -driveJoyLeft.getY();
@@ -35,6 +39,7 @@ public class DefaultOI extends AbstractOI{
     /**
      * @return input power from right drive joystick Y (-1.0 to +1.0)
      */
+    @Override
     public double getDriveJoyRightY() {
         // return -gamepadJoy.getRawAxis(3);
         return -driveJoyRight.getY();
@@ -43,6 +48,7 @@ public class DefaultOI extends AbstractOI{
     /**
      * @return input power from left drive joystick X (-1.0 to +1.0)
      */
+    @Override
     public double getDriveJoyLeftX() {
         // return gamepadJoy.getRawAxis(0);
         return driveJoyLeft.getX();
@@ -51,6 +57,7 @@ public class DefaultOI extends AbstractOI{
     /**
      * @return input power from right drive joystick X (-1.0 to +1.0)
      */
+    @Override
     public double getDriveJoyRightX() {
         // return gamepadJoy.getRawAxis(2);
         return driveJoyRight.getX();
