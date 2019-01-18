@@ -7,12 +7,14 @@
 
 package com.nerdherd.lib.motor;
 
+import com.nerdherd.lib.misc.Loggable;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public abstract class AbstractSingleMotor extends Subsystem {
+public abstract class AbstractSingleMotor extends Subsystem implements Loggable {
   
   public abstract void setPower(double power);
 
@@ -20,6 +22,6 @@ public abstract class AbstractSingleMotor extends Subsystem {
 
   public abstract void setInversion(boolean inversion);
   
-    public abstract double getVoltage();
+  public abstract double getVoltage();
     
 }

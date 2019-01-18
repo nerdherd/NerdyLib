@@ -199,5 +199,22 @@ public class NerdyMath {
 	    public static double distanceFormula(double x1, double y1, double x2, double y2) {
 	    	return Math.sqrt(Math.pow((x1-x2), 2) + Math.pow((y1-y2), 2));
 	    	
-	    }
+		}
+		
+		/**
+		 * @param bool
+		 * @return 1 if true, 0 if false
+		 */
+		public static int boolToInt(boolean bool) {
+			return (bool) ? 1 : 0;
+		}
+
+		/**
+		 * Returns a double from a boolean because BadLog is dumbe and I'm not bothering with fixing it yet
+		 * @param bool
+		 * @return 1 if true, 0 if false
+		 */
+		public static double boolToDouble(boolean bool) {
+			return (bool) ? 1.0 : 0.0;
+		}
 }

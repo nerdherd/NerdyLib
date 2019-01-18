@@ -5,21 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.oi;
-
-import com.nerdherd.lib.misc.Loggable;
+package com.nerdherd.lib.misc;
 
 /**
  * Add your docs here.
  */
-public abstract class AbstractOI implements Loggable {
+public interface Loggable {
 
-    public abstract double getDriveJoyLeftX();
-    public abstract double getDriveJoyLeftY();
+  public void initLoggingData();
 
-    public abstract double getDriveJoyRightX();
-    public abstract double getDriveJoyRightY();
-
-    public abstract double getOperatorJoyX();
-    public abstract double getOperatorJoyY();
 }

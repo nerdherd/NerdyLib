@@ -7,6 +7,9 @@
 
 package com.nerdherd.lib.oi;
 
+import com.nerdherd.lib.misc.NerdyMath;
+
+import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -71,5 +74,16 @@ public class DefaultOI extends AbstractOI{
     @Override
     public double getOperatorJoyY() {
         return -operatorJoy.getY();
+    }
+
+    // TODO: test this and make sure it functions properly
+    @Override
+    public void initLoggingData() {
+        for (int i = 1; i < 12; i++) {
+            int current_number = i;
+            BadLog.createTopic("OI/Left Joystick/Button: " + i, "bool", () -> NerdyMath.boolToDouble(driveJoyLeft.getRawButton(current_number)));
+            BadLog.createTopic("OI/Right Joystick/Button: " + i, "bool", () -> NerdyMath.boolToDouble(driveJoyRight.getRawButton(current_number)));
+            BadLog.createTopic("OI/Operator Joystick/Button: " + i, "bool", () -> NerdyMath.boolToDouble(operatorJoy.getRawButton(current_number)));
+        }
     }
 }

@@ -8,8 +8,6 @@
 package com.nerdherd.robot;
 
 import com.nerdherd.lib.drivetrain.characterization.OpenLoopDrive;
-import com.nerdherd.lib.motor.commands.SetMotorPositionPID;
-import com.nerdherd.lib.motor.commands.SetMotorPower;
 import com.nerdherd.lib.oi.DefaultOI;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

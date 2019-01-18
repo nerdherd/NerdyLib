@@ -10,6 +10,7 @@ package com.nerdherd.lib.motor;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -53,5 +54,10 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  @Override
+  public void initLoggingData() {
+    BadLog.createTopic("Voltage", "V", () -> getVoltage());
   }
 }

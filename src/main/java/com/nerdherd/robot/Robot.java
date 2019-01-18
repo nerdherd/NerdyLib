@@ -7,11 +7,9 @@
 
 package com.nerdherd.robot;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.nerdherd.lib.drivers.NerdyTalon;
 import com.nerdherd.lib.drivetrain.Drivetrain;
 import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
-import com.nerdherd.lib.motor.SingleMotorTalonSRX;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;

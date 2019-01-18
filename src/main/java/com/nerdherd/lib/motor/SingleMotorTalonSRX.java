@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.nerdherd.lib.drivers.NerdyTalon;
 
+import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -118,5 +119,13 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  @Override
+  public void initLoggingData() {
+    BadLog.createTopic("Position", "ticks", () -> getPosition());
+    BadLog.createTopic("Velocity", "STU", () -> getVelocity());
+    BadLog.createTopic("Voltage", "V", () -> getVoltage());
+    BadLog.createTopic("Current", "Amps", () -> getCurrent());
   }
 }
