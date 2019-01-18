@@ -1,4 +1,4 @@
-package com.nerdherd.lib.drivers;
+package com.nerdherd.lib.motor;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;

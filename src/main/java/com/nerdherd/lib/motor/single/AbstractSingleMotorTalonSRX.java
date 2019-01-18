@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.motor;
+package com.nerdherd.lib.motor.single;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.motor;
+package com.nerdherd.lib.motor.single;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -23,10 +23,16 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
   private VictorSPX m_motor;
   private String m_name;
 
-  public SingleMotorVictorSPX(int victorID, String subsystemName) {
+   /**
+   * 
+   * @param victorID CAN ID of victor
+   * @param subsystemName String name of subsystem to display on smart dashboard
+   */
+  public SingleMotorVictorSPX(int victorID, String subsystemName, boolean inversion) {
     m_name = subsystemName;
     m_motor = new VictorSPX(victorID); 
     m_motor.configFactoryDefault();
+    setInversion(inversion);
   }
 
   @Override

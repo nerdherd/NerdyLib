@@ -7,7 +7,7 @@
 
 package com.nerdherd.lib.motor.commands;
 
-import com.nerdherd.lib.motor.AbstractSingleMotor;
+import com.nerdherd.lib.motor.single.AbstractSingleMotor;
 
 import edu.wpi.first.wpilibj.command.Command;
 

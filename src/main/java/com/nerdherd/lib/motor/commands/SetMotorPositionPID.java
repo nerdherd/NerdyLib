@@ -7,7 +7,7 @@
 
 package com.nerdherd.lib.motor.commands;
 
-import com.nerdherd.lib.motor.AbstractSingleMotorTalonSRX;
+import com.nerdherd.lib.motor.single.AbstractSingleMotorTalonSRX;
 
 import edu.wpi.first.wpilibj.command.Command;
 

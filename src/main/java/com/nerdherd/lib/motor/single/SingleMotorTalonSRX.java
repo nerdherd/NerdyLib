@@ -5,11 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.motor;
+package com.nerdherd.lib.motor.single;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.nerdherd.lib.drivers.NerdyTalon;
+import com.nerdherd.lib.motor.NerdyTalon;
 
 import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,10 +27,12 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
    * @param talonID CAN ID of talon
    * @param subsystemName String name of subsystem to display on smart dashboard
    */
-  public SingleMotorTalonSRX(int talonID, String subsystemName) {
+  public SingleMotorTalonSRX(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     m_name = subsystemName;
     m_motor = new NerdyTalon(talonID); 
     m_motor.configDefaultSettings();
+    setInversion(inversion);
+    setSensorPhase(sensorPhase);
   }
 
   public void configPIDF(double kP, double kI, double kD, double kF) {

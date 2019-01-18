@@ -7,34 +7,37 @@
 
 package com.nerdherd.lib.motor.commands;
 
-import com.nerdherd.lib.motor.single.AbstractSingleMotorTalonSRX;
+import com.nerdherd.lib.motor.dual.AbstractDualMotorIntake;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+public class SetDualMotorPower extends Command {
 
-public class ResetSingleMotorEncoder extends Command {
-
-  private AbstractSingleMotorTalonSRX m_motor;
-  public ResetSingleMotorEncoder(AbstractSingleMotorTalonSRX motor) {
-    m_motor = motor;
-    requires(m_motor);
+  private AbstractDualMotorIntake m_intake;
+  double m_leftPower, m_rightPower;
+  
+  public SetDualMotorPower(AbstractDualMotorIntake intake, double leftPower, double rightPower) {
+    m_intake = intake;
+    m_leftPower = leftPower;
+    m_rightPower = rightPower;
+    requires(m_intake);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    m_motor.resetEncoder();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    m_intake.setPower(m_leftPower, m_rightPower);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

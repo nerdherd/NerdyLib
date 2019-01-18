@@ -5,23 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.motor;
-
-import com.nerdherd.lib.misc.Loggable;
+package com.nerdherd.lib.motor.dual;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public abstract class AbstractSingleMotor extends Subsystem implements Loggable {
-  
-  public abstract void setPower(double power);
+public abstract class AbstractDualMotorIntake extends Subsystem{
 
-  public abstract void reportToSmartDashboard();
-
-  public abstract void setInversion(boolean inversion);
-  
-  public abstract double getVoltage();
-    
+    public abstract void setPower(double leftPower, double rightPower);
 }
