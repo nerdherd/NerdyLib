@@ -1,4 +1,4 @@
-package com.nerdherd.lib.drivetrain.trajectory;
+package com.nerdherd.lib.drivetrain.trajectory.pathfinder;
 
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;

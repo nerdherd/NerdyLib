@@ -7,22 +7,24 @@
 
 package com.nerdherd.lib.drivetrain.auto;
 
+import java.util.ArrayList;
+
 import com.nerdherd.lib.drivetrain.AbstractDrivetrain;
-import com.nerdherd.lib.drivetrain.trajectory.pathfinder.TrajectoryFollower;
+import com.nerdherd.lib.drivetrain.trajectory.falconlib.FalconTrajectoryFollower;
+import com.nerdherd.lib.drivetrain.trajectory.falconlib.TrajectoryPoint;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import jaci.pathfinder.Trajectory;
 
-public class DriveTrajectory extends Command {
+public class DriveFalconTrajectory extends Command {
   
-  private TrajectoryFollower m_controller;
+  private FalconTrajectoryFollower m_controller;
   private double m_leftVelocity, m_rightVelocity, m_startTime, m_time, m_lastTime;
   private AbstractDrivetrain m_drive;
 
-  public DriveTrajectory(AbstractDrivetrain drive, Trajectory traj, int lookahead, Boolean goingForwards, double kP, double kD) {
+  public DriveFalconTrajectory(AbstractDrivetrain drive, ArrayList<TrajectoryPoint> traj, int lookahead, Boolean goingForwards, double kP, double kD) {
     m_drive = drive;
-    m_controller = new TrajectoryFollower(traj, lookahead, goingForwards, kP, kD);
+    m_controller = new FalconTrajectoryFollower(traj, lookahead, goingForwards, kP, kD);
     requires(m_drive);
   }
 
