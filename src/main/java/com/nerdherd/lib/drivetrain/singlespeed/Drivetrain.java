@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.drivetrain;
+package com.nerdherd.lib.drivetrain.singlespeed;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -131,6 +131,14 @@ public class Drivetrain extends AbstractDrivetrain {
     m_rightMaster.configCurrentLimitContinuous(continuous);
     m_rightMaster.configCurrentLimitPeak(peak);
   }
+
+  public void configLeftPIDF(double kP, double kI, double kD, double kF) {
+	  m_leftMaster.configPIDF(kP, kI, kD, kF, 0);
+  }
+
+  public void configRightPIDF(double kP, double kI, double kD, double kF) {
+	m_rightMaster.configPIDF(kP, kI, kD, kF, 0);
+}
 
 	public void setPower(double leftPower, double rightPower) {
 

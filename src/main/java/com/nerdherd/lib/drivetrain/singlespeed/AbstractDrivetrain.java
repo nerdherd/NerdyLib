@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.drivetrain;
+package com.nerdherd.lib.drivetrain.singlespeed;
 
 /**
  * Add your docs here.

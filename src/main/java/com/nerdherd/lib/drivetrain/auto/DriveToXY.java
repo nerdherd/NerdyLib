@@ -1,6 +1,6 @@
 package com.nerdherd.lib.drivetrain.auto;
 
-import com.nerdherd.lib.drivetrain.AbstractDrivetrain;
+import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 import com.nerdherd.lib.misc.NerdyMath;
 
 import edu.wpi.first.wpilibj.command.Command;

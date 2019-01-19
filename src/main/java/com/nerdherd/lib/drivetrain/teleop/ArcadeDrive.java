@@ -1,7 +1,7 @@
 package com.nerdherd.lib.drivetrain.teleop;
 
 import com.nerdherd.lib.oi.AbstractOI;
-import com.nerdherd.lib.drivetrain.AbstractDrivetrain;
+import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -28,10 +28,8 @@ public class ArcadeDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        SmartDashboard.putBoolean("Arcade Drvie Running", true);    
     	m_leftPower = m_oi.getDriveJoyLeftX() + m_oi.getDriveJoyRightY();
     	m_rightPower = -m_oi.getDriveJoyLeftX() + m_oi.getDriveJoyRightY();
-    	
     	m_drive.setPower(m_leftPower, m_rightPower);
     }
 

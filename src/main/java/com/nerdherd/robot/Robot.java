@@ -7,7 +7,7 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.drivetrain.Drivetrain;
+import com.nerdherd.lib.drivetrain.singlespeed.Drivetrain;
 import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
 import com.nerdherd.lib.motor.NerdyTalon;
 
@@ -25,29 +25,22 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends TimedRobot {
   
   public static Drivetrain drive;
-  // public static SingleMotorTalonSRX climberWheelLeft, climberWheelRight;
   public static OI oi;
   @Override
   public void robotInit() {
     drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 
-    new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID)}, 
-    new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID)}, 
-    false, true);
+    new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 
+    new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 
+    true, false);
     drive.configMaxVelocity(3000);
-    drive.configSensorPhase(true, true);
+    drive.configSensorPhase(true, false);
     drive.configStaticFeedforward(0.1, 0.1);
     drive.configTicksPerFoot(2600, 2600);
-    drive.configDate("2019_1_15_");
+    drive.configLeftPIDF(0, 0, 0, 0);
+    drive.configRightPIDF(0, 0, 0, 0);
+    drive.configDate("2019_1_18_");
 
-    // climberWheelLeft = new SingleMotorTalonSRX(RobotMap.kClimberWheelLeftID, "Climber Wheel Left");
-    // climberWheelLeft.configSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-    // climberWheelLeft.configPIDF(0, 0, 0, 0);
-    // climberWheelRight = new SingleMotorTalonSRX(RobotMap.kClimberWheelRightID, "Climber Wheel Right");
-    // climberWheelRight.configSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-    // climberWheelRight.configPIDF(0, 0, 0, 0);
-  
     oi = new OI();
-
     drive.configDefaultCommand(new ArcadeDrive(drive, oi));
   }
 
@@ -62,7 +55,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     drive.reportToSmartDashboard();
-    // climberWheelLeft.reportToSmartDashboard();
+    // arm.reportToSmartDashboard();
     // climberWheelRight.reportToSmartDashboard();
   }
 

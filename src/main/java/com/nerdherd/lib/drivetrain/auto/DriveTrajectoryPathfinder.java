@@ -9,7 +9,7 @@ package com.nerdherd.lib.drivetrain.auto;
 
 import java.io.File;
 
-import com.nerdherd.lib.drivetrain.AbstractDrivetrain;
+import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

@@ -34,6 +34,19 @@ public class Piston extends Subsystem {
     m_piston.set(Value.kOff);
   }
 
+  public void switchPosition() {
+    if (getValue() == Value.kForward) {
+      m_piston.set(Value.kReverse);
+    }
+    else if (getValue() == Value.kReverse) {
+      m_piston.set(Value.kForward);
+    }
+  }
+
+  public DoubleSolenoid.Value getValue() {
+    return m_piston.get();
+  }
+
   @Override
   public void initDefaultCommand() {
   }
