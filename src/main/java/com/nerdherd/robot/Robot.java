@@ -33,12 +33,12 @@ public class Robot extends TimedRobot {
     new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 
     true, false);
     drive.configMaxVelocity(3000);
-    drive.configSensorPhase(true, false);
-    drive.configStaticFeedforward(0.1, 0.1);
-    drive.configTicksPerFoot(2600, 2600);
+    drive.configSensorPhase(false, false);
+    drive.configStaticFeedforward(0, 0);
+    drive.configTicksPerFoot(17000, 17000);
     drive.configLeftPIDF(0, 0, 0, 0);
     drive.configRightPIDF(0, 0, 0, 0);
-    drive.configDate("2019_1_18_");
+    drive.configDate("2019_1_19_");
 
     oi = new OI();
     drive.configDefaultCommand(new ArcadeDrive(drive, oi));
@@ -55,6 +55,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     drive.reportToSmartDashboard();
+    drive.calcXY();
     // arm.reportToSmartDashboard();
     // climberWheelRight.reportToSmartDashboard();
   }

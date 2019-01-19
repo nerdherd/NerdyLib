@@ -40,7 +40,7 @@ public class Drivetrain extends AbstractDrivetrain {
     private String m_date;
     private String m_filePath1 = "/media/sda1/logs/";
 	private String m_filePath2 = "/home/lvuser/logs/";
-	private String m_fileName = m_date + "drive_characterization";
+	private String m_fileName;
     private File m_file;
     public FileWriter m_writer;
     private boolean writeException = false;
@@ -76,7 +76,8 @@ public class Drivetrain extends AbstractDrivetrain {
     m_leftMaster.setNeutralMode(NeutralMode.Brake);
     m_rightMaster.setNeutralMode(NeutralMode.Brake);
     m_leftMaster.configDefaultSettings();
-    m_rightMaster.configDefaultSettings();
+    m_rightMaster.configDefaultSettings();m_leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    m_rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     configFollowerVictors(leftSlaves, m_leftMaster);
     configFollowerVictors(rightSlaves, m_rightMaster);
   }
@@ -122,7 +123,8 @@ public class Drivetrain extends AbstractDrivetrain {
   }
 
   public void configDate(String date) {
-    m_date = date;
+	m_date = date;
+	m_fileName = m_date + "drive";
   }
 
   public void configCurrentLimit(int peak, int continuous) {

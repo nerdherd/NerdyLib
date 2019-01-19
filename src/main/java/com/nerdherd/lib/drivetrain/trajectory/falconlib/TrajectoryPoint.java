@@ -12,7 +12,7 @@ package com.nerdherd.lib.drivetrain.trajectory.falconlib;
  */
 public class TrajectoryPoint {
 
-    double x, y, theta, acceleration, velocity;
+    public double x, y, theta, acceleration, velocity;
     
     public TrajectoryPoint(double x, double y, double theta, double acceleration, double velocity) {
         this.x = x;
