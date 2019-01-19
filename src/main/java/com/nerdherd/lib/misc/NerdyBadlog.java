@@ -18,6 +18,7 @@ public class NerdyBadlog {
   public static BadLog log;
 
   // TODO: adjust path so that there's path, filename, and adds a number depending on how many pre-existing logs there are
+  // TODO: also add a thing to check whether a directory exists because Badlog dies if the flash drive isn't there
   public static void init(String path, Loggable... toLog) {
     log = BadLog.init(path);
     BadLog.createTopic("Time", "s", () -> Timer.getFPGATimestamp(), "hide", "delta", "xaxis");

@@ -9,6 +9,7 @@ package com.nerdherd.robot;
 
 import com.nerdherd.lib.drivetrain.Drivetrain;
 import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
+import com.nerdherd.lib.misc.NerdyBadlog;
 import com.nerdherd.lib.motor.NerdyTalon;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -49,6 +50,7 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     drive.configDefaultCommand(new ArcadeDrive(drive, oi));
+    NerdyBadlog.init("/media/sda1/logs/test.csv", oi);
   }
 
   /**
@@ -61,6 +63,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    NerdyBadlog.log();
     drive.reportToSmartDashboard();
     // climberWheelLeft.reportToSmartDashboard();
     // climberWheelRight.reportToSmartDashboard();

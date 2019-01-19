@@ -76,14 +76,14 @@ public class DefaultOI extends AbstractOI{
         return -operatorJoy.getY();
     }
 
-    // TODO: test this and make sure it functions properly
+    // TODO: do something about the whole OI logging slowing things down and other issues thing
     @Override
     public void initLoggingData() {
-        for (int i = 1; i < 12; i++) {
-            int current_number = i;
-            BadLog.createTopic("OI/Left Joystick/Button: " + i, "bool", () -> NerdyMath.boolToDouble(driveJoyLeft.getRawButton(current_number)));
-            BadLog.createTopic("OI/Right Joystick/Button: " + i, "bool", () -> NerdyMath.boolToDouble(driveJoyRight.getRawButton(current_number)));
-            BadLog.createTopic("OI/Operator Joystick/Button: " + i, "bool", () -> NerdyMath.boolToDouble(operatorJoy.getRawButton(current_number)));
-        }
+        // for (int i = 1; i < 12; i++) {
+        //     int current_number = i;
+        //     BadLog.createTopic("OI/Left Joystick/Button " + i, "bool", () -> NerdyMath.boolToDouble(driveJoyLeft.getRawButton(current_number)));
+        //     BadLog.createTopic("OI/Right Joystick/Button " + i, "bool", () -> NerdyMath.boolToDouble(driveJoyRight.getRawButton(current_number)));
+        //     BadLog.createTopic("OI/Operator Joystick/Button " + i, "bool", () -> NerdyMath.boolToDouble(operatorJoy.getRawButton(current_number)));
+        // }
     }
 }

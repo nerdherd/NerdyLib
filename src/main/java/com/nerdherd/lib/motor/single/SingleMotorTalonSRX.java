@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
  
-  private NerdyTalon m_motor;
-  private String m_name;
+  protected NerdyTalon m_motor;
+  protected String m_name;
 
   /**
    * 
