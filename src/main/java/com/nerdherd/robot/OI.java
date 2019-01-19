@@ -8,6 +8,8 @@
 package com.nerdherd.robot;
 
 import com.nerdherd.lib.drivetrain.characterization.OpenLoopDrive;
+import com.nerdherd.lib.motor.commands.MotorVoltageRamping;
+import com.nerdherd.lib.motor.commands.ResetSingleMotorEncoder;
 import com.nerdherd.lib.oi.DefaultOI;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -31,6 +33,8 @@ public class OI extends DefaultOI{
     // SmartDashboard.putData("Set Climber Wheel Position", new SetMotorPositionPID(Robot.climberWheelLeft, 1024));
     // SmartDashboard.putData("Retract Climber Wheel", new SetMotorPower(Robot.climberWheelLeft, -0.1));
     SmartDashboard.putData("Test Drive", new OpenLoopDrive(Robot.drive, 0.2));
+    SmartDashboard.putData("Voltage ramp elevator", new MotorVoltageRamping(Robot.elevator, 0.25 / 12.0));
+    SmartDashboard.putData("Reset elevator encoder", new ResetSingleMotorEncoder(Robot.elevator));
 
   }
 }

@@ -11,6 +11,7 @@ import com.nerdherd.lib.drivetrain.Drivetrain;
 import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
 import com.nerdherd.lib.misc.NerdyBadlog;
 import com.nerdherd.lib.motor.NerdyTalon;
+import com.nerdherd.lib.motor.single.SingleMotorElevator;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -26,6 +27,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends TimedRobot {
   
   public static Drivetrain drive;
+  public static SingleMotorElevator elevator;
   // public static SingleMotorTalonSRX climberWheelLeft, climberWheelRight;
   public static OI oi;
   @Override
@@ -40,6 +42,8 @@ public class Robot extends TimedRobot {
     drive.configTicksPerFoot(2600, 2600);
     drive.configDate("2019_1_15_");
 
+    elevator = new SingleMotorElevator(0, "Elevator", false, false); 
+
     // climberWheelLeft = new SingleMotorTalonSRX(RobotMap.kClimberWheelLeftID, "Climber Wheel Left");
     // climberWheelLeft.configSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
     // climberWheelLeft.configPIDF(0, 0, 0, 0);
@@ -50,7 +54,7 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     drive.configDefaultCommand(new ArcadeDrive(drive, oi));
-    NerdyBadlog.init("/media/sda1/logs/test.csv", oi);
+    NerdyBadlog.init("/media/sda1/logs/test.csv", elevator);
   }
 
   /**
