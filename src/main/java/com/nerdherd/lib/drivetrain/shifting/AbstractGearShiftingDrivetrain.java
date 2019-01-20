@@ -5,20 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.drivetrain.trajectory.falconlib;
+package com.nerdherd.lib.drivetrain.shifting;
+
+import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 /**
  * Add your docs here.
  */
-public class TrajectoryPoint {
+public abstract class AbstractGearShiftingDrivetrain extends AbstractDrivetrain{
 
-    public double x, y, theta, acceleration, velocity;
-    
-    public TrajectoryPoint(double x, double y, double theta, double acceleration, double velocity) {
-        this.x = x;
-        this.y = y;
-        this.theta = theta;
-        this.acceleration = acceleration;
-        this.velocity = velocity;
-    }
+    public abstract void shiftHigh();
+
+    public abstract void shiftLow();
+
+    public abstract void switchShift();
+
+    public abstract boolean isHighGear();
 }
+

@@ -7,7 +7,7 @@
 
 package com.nerdherd.lib.drivetrain.auto;
 
-import com.nerdherd.lib.drivetrain.AbstractDrivetrain;
+import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 import com.nerdherd.lib.drivetrain.trajectory.pathfinder.TrajectoryFollower;
 
 import edu.wpi.first.wpilibj.Timer;

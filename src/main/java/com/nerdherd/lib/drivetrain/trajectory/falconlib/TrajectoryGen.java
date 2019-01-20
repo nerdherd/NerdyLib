@@ -7,6 +7,7 @@
 
 package com.nerdherd.lib.drivetrain.trajectory.falconlib;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,36 +25,22 @@ import org.ghrobotics.lib.mathematics.units.LengthKt;
 import org.ghrobotics.lib.mathematics.units.TimeUnitsKt;
 import org.ghrobotics.lib.mathematics.units.derivedunits.AccelerationKt;
 import org.ghrobotics.lib.mathematics.units.derivedunits.VelocityKt;
+import org.ghrobotics.lib.types.Interpolatable;
+import org.ghrobotics.lib.types.VaryInterpolatable;
 
 
 /**
 @author DylanB, FRC 687
 FalconLib is written by FRC 5190
  */
-// public class TrajectoryGen {
-
-//     TrajectoryGenerator m_gen;
-
-//     public TrajectoryGen(double maxDX, double maxDY, double maxDTheta) {
-//         TrajectoryGenerator m_gen = new TrajectoryGenerator(new Length(maxDX), new Length(maxDY), new Rotation2d(Math.toRadians(maxDTheta)));
-//     }
-
-//     public static TrajectoryGen getDefaulTrajectoryGen() {
-//         return new TrajectoryGen(2/12, 0.25/12, 5);
-//     }
-
-//     public Trajectory generateTrajectory(List<Pose2d> waypoints, double maxCentripetalAccel, double startVelocity, double endVelocity, double maxVelocity, double maxAcceleration, boolean reversed) {
-//         return m_gen.generateTrajectory(waypoints, Arrays.asList(new CentripetalAccelerationConstraint(maxCentripetalAccel)), new Velocity<Length>(startVelocity, new Length(startVelocity)), new Velocity<Length>(endVelocity, new Length(endVelocity)),
-//          new Velocity<Length>(maxVelocity, new Length(maxVelocity)), new Acceleration<Length>(maxAcceleration, new Length(maxAcceleration)), reversed);
-//     }
-
-    
-// }
-
 public class TrajectoryGen {
 
     TrajectoryGenerator m_gen;
-    public TrajectoryGen() {
+    // TrajectoryIterator<Comparable<? extends Object>, VaryInterpolatable<Interpolatable<Double>>> iterator;
+    // TrajectoryIterator<Double, VaryInterpolatable<? extends VaryInterpolatable>> iterator;
+    TrajectoryIterator iterator;
+    // VaryInterpolatable<Object> i;
+    public TrajectoryGen() { 
         m_gen = TrajectoryGeneratorKt.getDefaultTrajectoryGenerator();
     }
 
@@ -65,10 +52,10 @@ public class TrajectoryGen {
              VelocityKt.getVelocity(LengthKt.getFeet(endVelocity)),
               VelocityKt.getVelocity(LengthKt.getFeet(maxVelocity)), 
               AccelerationKt.getAcceleration(LengthKt.getFeet(accel)), reversed);
-        TrajectoryIterator iterator = falconTraj.iterator();
+        iterator = falconTraj.iterator();
         ArrayList<TrajectoryPoint> trajPoints = new ArrayList<>();
         while (!iterator.isDone()) {
-            TrajectorySamplePoint point = iterator.getCurrentState();
+            TrajectorySamplePoint<? extends Object> point = iterator.getCurrentState();
             TimedEntry point2 = (TimedEntry) point.component1();
             Pose2dWithCurvature point3 = (Pose2dWithCurvature) point2.getState();
             double x = point3.component1().getTranslation().getX().getFeet();

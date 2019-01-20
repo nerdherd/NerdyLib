@@ -9,7 +9,7 @@ package com.nerdherd.lib.drivetrain.auto;
 
 import java.util.ArrayList;
 
-import com.nerdherd.lib.drivetrain.AbstractDrivetrain;
+import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 import com.nerdherd.lib.drivetrain.trajectory.falconlib.FalconTrajectoryFollower;
 import com.nerdherd.lib.drivetrain.trajectory.falconlib.TrajectoryPoint;
 
