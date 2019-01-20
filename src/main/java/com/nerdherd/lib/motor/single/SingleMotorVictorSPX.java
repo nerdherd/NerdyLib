@@ -64,6 +64,6 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
 
   @Override
   public void initLoggingData() {
-    BadLog.createTopic("Voltage", "V", () -> getVoltage());
+    BadLog.createTopic(m_name + "/Voltage", "V", () -> getVoltage());
   }
 }

@@ -125,9 +125,9 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
 
   @Override
   public void initLoggingData() {
-    BadLog.createTopic("Position", "ticks", () -> getPosition());
-    BadLog.createTopic("Velocity", "STU", () -> getVelocity());
-    BadLog.createTopic("Voltage", "V", () -> getVoltage());
-    BadLog.createTopic("Current", "Amps", () -> getCurrent());
+    BadLog.createTopic(m_name + "/Position", "ticks", () -> getPosition());
+    BadLog.createTopic(m_name + "/Velocity", "STU", () -> getVelocity());
+    BadLog.createTopic(m_name + "/Voltage", "V", () -> getVoltage());
+    BadLog.createTopic(m_name + "/Current", "Amps", () -> getCurrent());
   }
 }

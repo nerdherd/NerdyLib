@@ -23,7 +23,7 @@ public class SingleMotorElevator extends SingleMotorTalonSRX {
   }
 
   public void configGravityFF(double newGravityFF) {
-    m_gravityFF = newGravityFF;
+    m_gravityFF = newGravityFF / 12.0;
   }
 
   public void setPowerWithFF(double power) {
