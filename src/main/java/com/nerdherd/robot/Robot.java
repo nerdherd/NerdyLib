@@ -36,10 +36,10 @@ public class Robot extends TimedRobot {
     true, false);
     drive.configMaxVelocity(20000);
     drive.configSensorPhase(false, false);
-    drive.configStaticFeedforward(0.9875, 1.267);
+    drive.configStaticFeedforward(1.25, 1.25);
     drive.configTicksPerFoot(17000, 17000);
-    drive.configLeftPIDF(0, 0, 0, 0.03053655);
-    drive.configRightPIDF(0, 0, 0, 0.0338613);
+    drive.configLeftPIDF(0, 0, 0, 0.0278597);
+    drive.configRightPIDF(0, 0, 0, 0.032693375);
     drive.configDate("2019_1_19_");
 
     

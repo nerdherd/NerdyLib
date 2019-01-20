@@ -38,7 +38,7 @@ public class OI extends DefaultOI{
     SmartDashboard.putData("Reset Encoders", new ResetDriveEncoders(Robot.drive));
     SmartDashboard.putData("Reset Gyro", new ResetGyro(Robot.drive));
     SmartDashboard.putData("Drive Characterization Test", new DriveCharacterizationTest(Robot.drive, 0.75));
-    SmartDashboard.putData("Motion Magic Test", new DriveDistanceMotionMagic(Robot.drive, 25000, 3000, 6000));
+    SmartDashboard.putData("Motion Magic Test", new DriveDistanceMotionMagic(Robot.drive, 25000, 6000, 8000));
 
   }
 }

@@ -100,8 +100,8 @@ public class Drivetrain extends AbstractDrivetrain {
   }
   
   public void configStaticFeedforward(double leftStatic, double rightStatic) {
-    kLeftStatic = leftStatic;
-    kRightStatic = rightStatic;
+    kLeftStatic = leftStatic/12;
+    kRightStatic = rightStatic/12;
   }
   
   public void configMaxVelocity(double maxVel) {
