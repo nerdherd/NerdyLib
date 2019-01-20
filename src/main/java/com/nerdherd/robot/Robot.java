@@ -9,8 +9,10 @@ package com.nerdherd.robot;
 
 import com.nerdherd.lib.drivetrain.singlespeed.Drivetrain;
 import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
+import com.nerdherd.lib.misc.NerdyBadlog;
 import com.nerdherd.lib.motor.NerdyTalon;
-import com.nerdherd.lib.pneumatics.Piston;
+import com.nerdherd.lib.motor.single.SingleMotorElevator;
+
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -26,25 +28,36 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends TimedRobot {
   
   public static Drivetrain drive;
+
+  public static SingleMotorElevator elevator;
+  // public static SingleMotorTalonSRX climberWheelLeft, climberWheelRight;
+
   public static OI oi;
   
   @Override
   public void robotInit() {
     drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 
-    new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 
-    new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 
-    true, false);
-    drive.configMaxVelocity(20000);
-    drive.configSensorPhase(false, false);
-    drive.configStaticFeedforward(1.25, 1.25);
-    drive.configTicksPerFoot(17000, 17000);
-    drive.configLeftPIDF(0, 0, 0, 0.0278597);
-    drive.configRightPIDF(0, 0, 0, 0.032693375);
-    drive.configDate("2019_1_19_");
+    new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID)}, 
+    new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID)}, 
+    false, true);
+    drive.configMaxVelocity(3000);
+    drive.configSensorPhase(true, true);
+    drive.configStaticFeedforward(0.1, 0.1);
+    drive.configTicksPerFoot(2600, 2600);
+    drive.configDate("2019_1_15_");
 
-    
+    elevator = new SingleMotorElevator(0, "Elevator", false, false); 
+
+    // climberWheelLeft = new SingleMotorTalonSRX(RobotMap.kClimberWheelLeftID, "Climber Wheel Left");
+    // climberWheelLeft.configSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+    // climberWheelLeft.configPIDF(0, 0, 0, 0);
+    // climberWheelRight = new SingleMotorTalonSRX(RobotMap.kClimberWheelRightID, "Climber Wheel Right");
+    // climberWheelRight.configSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+    // climberWheelRight.configPIDF(0, 0, 0, 0);
+  
     oi = new OI();
     drive.configDefaultCommand(new ArcadeDrive(drive, oi));
+    NerdyBadlog.init("/media/sda1/logs/test.csv", elevator);
   }
 
   /**
@@ -57,6 +70,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    NerdyBadlog.log();
     drive.reportToSmartDashboard();
     drive.calcXY();
     // arm.reportToSmartDashboard();
