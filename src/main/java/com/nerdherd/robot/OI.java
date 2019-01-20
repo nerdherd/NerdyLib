@@ -7,6 +7,7 @@
 
 package com.nerdherd.robot;
 
+import com.nerdherd.lib.drivetrain.auto.DriveDistanceMotionMagic;
 import com.nerdherd.lib.drivetrain.auto.ResetDriveEncoders;
 import com.nerdherd.lib.drivetrain.auto.ResetGyro;
 import com.nerdherd.lib.drivetrain.characterization.DriveCharacterizationTest;
@@ -36,7 +37,8 @@ public class OI extends DefaultOI{
     SmartDashboard.putData("Test Drive", new OpenLoopDrive(Robot.drive, 0.2));
     SmartDashboard.putData("Reset Encoders", new ResetDriveEncoders(Robot.drive));
     SmartDashboard.putData("Reset Gyro", new ResetGyro(Robot.drive));
-    SmartDashboard.putData("Drive Characterization Test", new DriveCharacterizationTest(Robot.drive, 0.25));
+    SmartDashboard.putData("Drive Characterization Test", new DriveCharacterizationTest(Robot.drive, 0.75));
+    SmartDashboard.putData("Motion Magic Test", new DriveDistanceMotionMagic(Robot.drive, 25000, 3000, 6000));
 
   }
 }

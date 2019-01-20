@@ -10,6 +10,7 @@ package com.nerdherd.robot;
 import com.nerdherd.lib.drivetrain.singlespeed.Drivetrain;
 import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
 import com.nerdherd.lib.motor.NerdyTalon;
+import com.nerdherd.lib.pneumatics.Piston;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -26,20 +27,22 @@ public class Robot extends TimedRobot {
   
   public static Drivetrain drive;
   public static OI oi;
+  
   @Override
   public void robotInit() {
     drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 
     new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 
     new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 
     true, false);
-    drive.configMaxVelocity(3000);
+    drive.configMaxVelocity(20000);
     drive.configSensorPhase(false, false);
-    drive.configStaticFeedforward(0, 0);
+    drive.configStaticFeedforward(0.9875, 1.267);
     drive.configTicksPerFoot(17000, 17000);
-    drive.configLeftPIDF(0, 0, 0, 0);
-    drive.configRightPIDF(0, 0, 0, 0);
+    drive.configLeftPIDF(0, 0, 0, 0.03053655);
+    drive.configRightPIDF(0, 0, 0, 0.0338613);
     drive.configDate("2019_1_19_");
 
+    
     oi = new OI();
     drive.configDefaultCommand(new ArcadeDrive(drive, oi));
   }
