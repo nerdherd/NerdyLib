@@ -3,6 +3,7 @@ package com.nerdherd.lib.drivetrain.auto;
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -17,8 +18,9 @@ public class DriveDistanceMotionMagic extends Command {
     public DriveDistanceMotionMagic(AbstractDrivetrain drive, double distance, double accel, double velocity) {
         m_drive = drive;
         m_distance = distance;
-        accel = (int) accel;
-        velocity = (int) velocity;
+        m_accel = (int) accel;
+        m_velocity = (int) velocity;
+        
        requires(m_drive);
     }
 

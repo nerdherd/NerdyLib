@@ -50,7 +50,7 @@ public class FalconTrajectoryFollower {
         // Get point closest to the robot, based off the last point to the robot was closest to
         m_robotSegment = getClosestSegment(m_robotX, m_robotY, m_trajectory, m_robotIndex, 3);
         // m_robotIndex = m_trajectoryList.indexOf(m_robotSegment);
-        m_robotIndex = 
+        m_robotIndex = m_trajectory.indexOf(m_robotSegment);
         m_lookaheadIndex = m_robotIndex + m_lookahead;
         if (m_lookaheadIndex > m_trajectory.size() - 1) {
             m_lookaheadIndex = m_trajectory.size() - 1;
