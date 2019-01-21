@@ -15,15 +15,21 @@ import com.ctre.phoenix.motorcontrol.DemandType;
  */
 public class SingleMotorElevator extends SingleMotorTalonSRX {
 
-  private double m_gravityFF;
+  private double m_gravityFF, m_staticFF;
+  private static final double kStaticFrictionDeadband = 5;
 
   public SingleMotorElevator(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     super(talonID, subsystemName, inversion, sensorPhase);
     m_gravityFF = 0;
+    m_staticFF = 0;
   }
 
   public void configGravityFF(double newGravityFF) {
     m_gravityFF = newGravityFF / 12.0;
+  }
+
+  public void configStaticFF(double newStaticFF) {
+    m_staticFF = newStaticFF / 12.0;
   }
 
   public void setPowerWithFF(double power) {
@@ -36,17 +42,32 @@ public class SingleMotorElevator extends SingleMotorTalonSRX {
 
   @Override
   public void setPosition(double pos) {
-    m_motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, m_gravityFF);
+    if (Math.abs(getVelocity()) <= kStaticFrictionDeadband) {
+      m_motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
+        m_gravityFF + (Math.signum(pos - getPosition()) * m_staticFF));
+    } else {
+      m_motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, m_gravityFF);
+    }
   }
   
   @Override
   public void setPositionMotionMagic(double pos) {
-    m_motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, m_gravityFF);
+    if (Math.abs(getVelocity()) <= kStaticFrictionDeadband) {
+      m_motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, 
+        m_gravityFF + (Math.signum(pos - getPosition()) * m_staticFF));
+    } else {
+      m_motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, m_gravityFF);
+    }
   }
 
   @Override
   public void setVelocity(double vel) {
-    m_motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, m_gravityFF);
+    if (Math.abs(getVelocity()) <= kStaticFrictionDeadband) {
+      m_motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, 
+        m_gravityFF + (Math.signum(vel - getVelocity()) * m_staticFF));
+    } else {
+      m_motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, m_gravityFF);
+    }
   }
 
 }
