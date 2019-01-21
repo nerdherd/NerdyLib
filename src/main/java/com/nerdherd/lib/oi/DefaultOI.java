@@ -7,7 +7,6 @@
 
 package com.nerdherd.lib.oi;
 
-import com.nerdherd.lib.misc.NerdyMath;
 
 import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.Joystick;

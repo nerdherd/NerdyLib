@@ -24,7 +24,7 @@ public class FalconTrajectoryFollower {
     private Boolean m_goingForwards;
 
     private double m_robotX, m_robotY, m_targetAngle, m_velocity,
-            m_error, m_leftDesiredVel, m_rightDesiredVel, m_kP, m_kD, m_turn, m_dT, m_lastError;
+            m_error, m_leftDesiredVel, m_rightDesiredVel, m_kP, m_kD, m_turn, m_lastError;
     private int m_lookaheadIndex, m_robotIndex, m_lookahead;
     // private List m_trajectoryList;
 

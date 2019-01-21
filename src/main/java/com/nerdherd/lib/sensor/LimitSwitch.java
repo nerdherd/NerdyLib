@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystem;
+package com.nerdherd.lib.sensor;
 
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;

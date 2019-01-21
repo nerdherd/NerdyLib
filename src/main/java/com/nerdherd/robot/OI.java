@@ -7,10 +7,6 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.drivetrain.auto.DriveDistanceMotionMagic;
-import com.nerdherd.lib.drivetrain.auto.ResetDriveEncoders;
-import com.nerdherd.lib.drivetrain.auto.ResetGyro;
-import com.nerdherd.lib.drivetrain.characterization.DriveCharacterizationTest;
 import com.nerdherd.lib.drivetrain.characterization.OpenLoopDrive;
 import com.nerdherd.lib.motor.commands.MotorVoltageRamping;
 import com.nerdherd.lib.motor.commands.ResetSingleMotorEncoder;

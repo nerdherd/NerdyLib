@@ -7,8 +7,6 @@
 
 package com.nerdherd.lib.drivetrain.auto;
 
-import java.io.File;
-
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -50,19 +48,7 @@ public class DriveTrajectoryPathfinder extends Command {
     requires(m_drive);
   }
 
-  // public DriveTrajectoryPathfinder(AbstractDrivetrain drive, String file) {
-  //   m_drive = drive;
-  //   File traj = new File("/home/lvuser/paths/" + file + "_source.traj");
-  //   SmartDashboard.putBoolean("Source exists", true);
-  //   m_sourceTrajectory = Pathfinder.readFromFile(traj);
-  //   File leftTraj = new File("/home/lvuser/paths/" + file + "_left.traj");
-  //   SmartDashboard.putBoolean("Left exists", true);
-  //   m_leftTrajectory = Pathfinder.readFromFile(leftTraj);
-  //   File rightTraj = new File("/home/lvuser/paths/" + file + "_right.traj");
-  //   SmartDashboard.putBoolean("Right exists", true);
-  //   m_rightTrajectory = Pathfinder.readFromFile(rightTraj);
-    
-  // }
+ 
 
   // Called just before this Command runs the first time
   @Override

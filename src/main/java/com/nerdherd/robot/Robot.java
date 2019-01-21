@@ -13,7 +13,6 @@ import com.nerdherd.lib.misc.NerdyBadlog;
 import com.nerdherd.lib.motor.NerdyTalon;
 import com.nerdherd.lib.motor.single.SingleMotorElevator;
 
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
