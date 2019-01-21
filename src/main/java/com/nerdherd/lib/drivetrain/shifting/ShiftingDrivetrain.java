@@ -7,19 +7,18 @@
 
 package com.nerdherd.lib.drivetrain.shifting;
 
-import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public abstract class AbstractGearShiftingDrivetrain extends AbstractDrivetrain{
+public class ShiftingDrivetrain extends Subsystem {
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
 
-    public abstract void shiftHigh();
-
-    public abstract void shiftLow();
-
-    public abstract void switchShift();
-
-    public abstract boolean isHighGear();
+  @Override
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
+  }
 }
-

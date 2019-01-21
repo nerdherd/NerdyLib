@@ -3,6 +3,7 @@ package com.nerdherd.lib.motor;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 /**
  * 
@@ -57,5 +58,22 @@ public class NerdyTalon extends TalonSRX {
 		super.configMotionAcceleration(accel, 0);
 		super.configMotionCruiseVelocity(cruise_vel, 0);
 	}
+	
+	public void configFollowerVictors(VictorSPX[] followers) {
+		for (VictorSPX controller : followers) {
+		  controller.follow(this);
+		  controller.setInverted(this.getInverted());
+		  controller.setNeutralMode(NeutralMode.Brake);
+		}
+	  }
+	
+	  public void configFollowerTalons(NerdyTalon[] followers) {
+		for (NerdyTalon controller : followers) {
+		  controller.follow(this);
+		  controller.setInverted(this.getInverted());
+		  controller.setNeutralMode(NeutralMode.Brake);
+		  controller.configDefaultSettings();
+		}
+	  }
 	
 }
