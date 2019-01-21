@@ -62,10 +62,9 @@ public class Drivetrain extends AbstractDrivetrain {
     m_rightMaster.configDefaultSettings();
     m_leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     m_rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    configFollowerTalons(leftSlaves, m_leftMaster);
-    configFollowerTalons(rightSlaves, m_rightMaster);
-
-    m_nav = new AHRS(SPI.Port.kMXP);
+    m_leftMaster.configFollowerTalons(leftSlaves);
+    m_rightMaster.configFollowerTalons(rightSlaves);
+	m_nav = new AHRS(SPI.Port.kMXP);
   }
 
   public Drivetrain(int leftTalonMasterID, int rightTalonMasterID, VictorSPX[] leftSlaves, VictorSPX[] rightSlaves, boolean leftInversion, boolean rightInversion) {
@@ -78,25 +77,8 @@ public class Drivetrain extends AbstractDrivetrain {
     m_leftMaster.configDefaultSettings();
     m_rightMaster.configDefaultSettings();m_leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     m_rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    configFollowerVictors(leftSlaves, m_leftMaster);
-    configFollowerVictors(rightSlaves, m_rightMaster);
-  }
-
-  private void configFollowerVictors(VictorSPX[] followers, NerdyTalon master) {
-    for (VictorSPX controller : followers) {
-      controller.follow(master);
-      controller.setInverted(master.getInverted());
-      controller.setNeutralMode(NeutralMode.Brake);
-    }
-  }
-
-  private void configFollowerTalons(NerdyTalon[] followers, NerdyTalon master) {
-    for (NerdyTalon controller : followers) {
-      controller.follow(master);
-      controller.setInverted(master.getInverted());
-      controller.setNeutralMode(NeutralMode.Brake);
-      controller.configDefaultSettings();
-    }
+    m_leftMaster.configFollowerVictors(leftSlaves);
+    m_rightMaster.configFollowerVictors(rightSlaves);
   }
   
   public void configStaticFeedforward(double leftStatic, double rightStatic) {

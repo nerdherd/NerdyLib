@@ -16,7 +16,7 @@ public class TrajectoryFollower {
     private Boolean m_goingForwards;
 
     private double m_robotX, m_robotY, m_targetAngle, m_velocity,
-            m_error, m_leftDesiredVel, m_rightDesiredVel, m_kP, m_kD, m_turn, m_dT, m_lastError;
+            m_error, m_leftDesiredVel, m_rightDesiredVel, m_kP, m_kD, m_turn, m_lastError;
     private int m_lookaheadIndex, m_robotIndex, m_lookahead;
     private List m_trajectoryList;
 
@@ -73,7 +73,6 @@ public class TrajectoryFollower {
 
     public static Trajectory.Segment getClosestSegment(double x, double y, Trajectory trajectory, int index, int range) {
         double min = 1000000;
-        int segIndex = 0;
         int counter = index - range;
         int max = index + range;
         if (max > trajectory.length() - 1) {

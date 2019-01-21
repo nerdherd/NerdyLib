@@ -7,7 +7,6 @@
 
 package com.nerdherd.lib.drivetrain.trajectory.falconlib;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,8 +24,6 @@ import org.ghrobotics.lib.mathematics.units.LengthKt;
 import org.ghrobotics.lib.mathematics.units.TimeUnitsKt;
 import org.ghrobotics.lib.mathematics.units.derivedunits.AccelerationKt;
 import org.ghrobotics.lib.mathematics.units.derivedunits.VelocityKt;
-import org.ghrobotics.lib.types.Interpolatable;
-import org.ghrobotics.lib.types.VaryInterpolatable;
 
 
 /**
