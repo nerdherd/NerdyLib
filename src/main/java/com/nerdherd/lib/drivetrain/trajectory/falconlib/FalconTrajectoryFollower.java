@@ -17,7 +17,6 @@ import jaci.pathfinder.Pathfinder;
  * Add your docs here.
  */
 public class FalconTrajectoryFollower {
-
     
     private ArrayList<TrajectoryPoint> m_trajectory;
     private TrajectoryPoint m_robotSegment, m_lookaheadSegment;
@@ -26,10 +25,6 @@ public class FalconTrajectoryFollower {
     private double m_robotX, m_robotY, m_targetAngle, m_velocity,
             m_error, m_leftDesiredVel, m_rightDesiredVel, m_kP, m_kD, m_turn, m_lastError;
     private int m_lookaheadIndex, m_robotIndex, m_lookahead;
-    // private List m_trajectoryList;
-
-
-
 
     public FalconTrajectoryFollower(ArrayList<TrajectoryPoint> traj, int lookahead, boolean goingForwards, double kP, double kD) {
         m_trajectory = traj;
@@ -38,7 +33,6 @@ public class FalconTrajectoryFollower {
         m_robotIndex = 0;
         m_kP = kP;
         m_kD = kD;
-        // m_trajectoryList = Arrays.asList(m_trajectory.segments);
         m_lookaheadIndex = 0;
         m_lastError = 0;
     }
@@ -49,15 +43,14 @@ public class FalconTrajectoryFollower {
         robotTheta = Pathfinder.boundHalfDegrees(robotTheta);
         // Get point closest to the robot, based off the last point to the robot was closest to
         m_robotSegment = getClosestSegment(m_robotX, m_robotY, m_trajectory, m_robotIndex, 3);
-        // m_robotIndex = m_trajectoryList.indexOf(m_robotSegment);
         m_robotIndex = m_trajectory.indexOf(m_robotSegment);
         m_lookaheadIndex = m_robotIndex + m_lookahead;
         if (m_lookaheadIndex > m_trajectory.size() - 1) {
             m_lookaheadIndex = m_trajectory.size() - 1;
         }
-        m_velocity = m_robotSegment.velocity;
         m_lookaheadSegment = m_trajectory.get(m_lookaheadIndex);
-        m_targetAngle = Math.toDegrees(m_lookaheadSegment.theta);
+        m_velocity = m_lookaheadSegment.velocity;
+        m_targetAngle = m_lookaheadSegment.theta;
         if (!m_goingForwards) {
             robotTheta += 180;
             m_velocity = -m_velocity; 
