@@ -32,7 +32,7 @@ public abstract class AbstractDrivetrain extends Subsystem {
 
     public abstract void resetYaw();
 
-    public abstract void resetXY();
+    public abstract void setXY(double x, double y);
 
     public abstract double getRawYaw();
 

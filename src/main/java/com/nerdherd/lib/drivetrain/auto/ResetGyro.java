@@ -22,7 +22,7 @@ public class ResetGyro extends Command {
     protected void initialize() {
 	SmartDashboard.putString("Current Drive Command", "ResetGyro");
     m_drive.resetYaw();
-    m_drive.resetXY();
+    m_drive.setXY(0, 0);
     }
 
     @Override
