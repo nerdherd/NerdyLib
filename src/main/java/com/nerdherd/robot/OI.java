@@ -52,8 +52,14 @@ public class OI extends DefaultOI{
     SmartDashboard.putData("Velocity Test", new VelocityTest(Robot.drive, 15000, 5));
 
     TrajectoryGen gen = new TrajectoryGen();
-    ArrayList<TrajectoryPoint> traj = gen.generateTrajectory(Arrays.asList(new Pose2D(0, 0, 0).pose, new Pose2D(5,5, 0).pose), 
-    4.5, 0. , 0., 4., 4., false);
-    SmartDashboard.putData("drive falcon traj", new DriveFalconTrajectory(Robot.drive, traj, 3, true, 0.3, 0));
+    ArrayList<TrajectoryPoint> traj = gen.generateTrajectory(Arrays.asList(new Pose2D(5, 5, 0).pose, new Pose2D(10, 10, 0).pose), 
+    20, 0. , 0., 4., 7., false);
+    ArrayList<TrajectoryPoint> farRightRocket = gen.generateTrajectory(Arrays.asList(new Pose2D(5, 10, 0).pose, new Pose2D(21.5, 2, -150).pose), 
+    100, 0. , 0., 15., 15., false);
+    ArrayList<TrajectoryPoint> farRightRocket2 = gen.generateTrajectory(Arrays.asList(new Pose2D(21.5, 2, 30).pose, new Pose2D(19, 6, 180).pose, new Pose2D(9, 2.5, 180).pose), 
+    100, 0. , 0., 15., 15., false);
+    SmartDashboard.putData("far right rocketo autoo", new DriveFalconTrajectory(Robot.drive, farRightRocket, 3, true, 0.15, 0));
+    SmartDashboard.putData("far right rocketo autoo twooo", new DriveFalconTrajectory(Robot.drive, farRightRocket2, 3, false, 0.15, 0));
+
   }
 }

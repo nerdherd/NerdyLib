@@ -21,9 +21,11 @@ public class DriveFalconTrajectory extends Command {
   private FalconTrajectoryFollower m_controller;
   private double m_leftVelocity, m_rightVelocity, m_startTime, m_time, m_lastTime;
   private AbstractDrivetrain m_drive;
+  private ArrayList<TrajectoryPoint> m_traj;
 
   public DriveFalconTrajectory(AbstractDrivetrain drive, ArrayList<TrajectoryPoint> traj, int lookahead, Boolean goingForwards, double kP, double kD) {
     m_drive = drive;
+    m_traj = traj;
     m_controller = new FalconTrajectoryFollower(traj, lookahead, goingForwards, kP, kD);
     requires(m_drive);
   }
@@ -34,6 +36,7 @@ public class DriveFalconTrajectory extends Command {
     m_startTime = Timer.getFPGATimestamp();
     m_lastTime = Timer.getFPGATimestamp();
     m_time = Timer.getFPGATimestamp() - m_startTime;
+    m_drive.setXY(m_traj.get(0).x, m_traj.get(0).y);
   }
 
   // Called repeatedly when this Command is scheduled to run

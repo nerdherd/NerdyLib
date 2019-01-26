@@ -19,6 +19,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
+import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.NerdyTalon;
 
 import edu.wpi.first.wpilibj.SPI;
@@ -36,7 +37,7 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	private NerdyTalon m_leftMaster, m_rightMaster;
 	private AHRS m_nav;
-
+	private AutoChooser m_chooser;
 	private double m_previousDistance, m_currentX, m_currentY, m_angleOffset, m_xOffset, m_yOffset;
 	private String m_date;
 	private String m_filePath1 = "/media/sda1/logs/";
@@ -105,6 +106,9 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_rightMaster.configFollowerVictors(rightSlaves);
 	}
 
+	public void configAutoChooser(AutoChooser chooser) {
+		m_chooser = chooser;
+	}
 	/**
 	 * set static friction feedforwards for use in velocity control, view Oblarg's
 	 * drive charcterization paper for more info
@@ -313,7 +317,7 @@ public class Drivetrain extends AbstractDrivetrain {
 	}
 
 	public double getRawYaw() {
-		return -m_nav.getAngle();
+		return -m_nav.getAngle() + m_chooser.getDirection();
 	}
 
 	public void resetYaw() {
@@ -383,6 +387,7 @@ public class Drivetrain extends AbstractDrivetrain {
 	 * @param rightVel
 	 */
 	public void setVelocityFPS(double leftVel, double rightVel) {
+		addDesiredVelocities(leftVel, rightVel);
 		setVelocity(fpsToTalonVelocityUnits(leftVel, kLeftTicksPerFoot),
 				fpsToTalonVelocityUnits(rightVel, kRightTicksPerFoot));
 	}
@@ -472,7 +477,7 @@ public class Drivetrain extends AbstractDrivetrain {
 				m_writer = new FileWriter(m_file);
 				m_writer.append(
 						"Time,RightPosition,LeftPosition,RightVelocity,LeftVelocity,RightDesiredVel,LeftDesiredVel,RightVoltage,LeftVoltage,"
-								+ "RightMasterCurrent,LeftMasterCurrent,BusVoltage,Yaw,Pitch,Roll,"
+								+ "RightMasterCurrent,LeftMasterCurrent,Yaw,Pitch,Roll,"
 								+ "LeftVelocityFPS,RightVelocityFPS,RobotX,RobotY,LookaheadX,LookaheadY,AngularVelX,AngularVelY,AngularVelZ,AccelX,AccelY,AccelZ\n");
 				m_writer.flush();
 				m_logStartTime = Timer.getFPGATimestamp();

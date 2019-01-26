@@ -9,6 +9,7 @@ package com.nerdherd.robot;
 
 import com.nerdherd.lib.drivetrain.singlespeed.Drivetrain;
 import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
+import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.misc.NerdyBadlog;
 import com.nerdherd.lib.motor.NerdyTalon;
 import com.nerdherd.lib.motor.single.SingleMotorElevator;
@@ -27,7 +28,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends TimedRobot {
   
   public static Drivetrain drive;
-
+  public static AutoChooser chooser;
   // public static SingleMotorElevator elevator;
   // public static SingleMotorTalonSRX climberWheelLeft, climberWheelRight;
 
@@ -35,20 +36,21 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotInit() {
+    chooser = new AutoChooser();
     drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
     new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
     new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 	
     true, false);
+    drive.configAutoChooser(chooser);
     drive.configMaxVelocity(30000);
     drive.configSensorPhase(false, false);
     drive.configStaticFeedforward(1.152, 1.228);
     drive.configTicksPerFoot(17000, 17000);
-    drive.configDate("2019_1_21_");
+    drive.configDate("2019_1_25_");
     drive.configLeftPIDF(0.05, 0, 0, 0.028004625);
     drive.configRightPIDF(0.05, 0, 0, 0.030084725);
 
     // elevator = new SingleMotorElevator(0, "Elevator", false, false); 
-
     // climberWheelLeft = new SingleMotorTalonSRX(RobotMap.kClimberWheelLeftID, "Climber Wheel Left");
     // climberWheelLeft.configSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
     // climberWheelLeft.configPIDF(0, 0, 0, 0);
