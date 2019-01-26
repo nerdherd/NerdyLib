@@ -17,6 +17,7 @@ import com.nerdherd.lib.drivetrain.auto.ResetGyro;
 import com.nerdherd.lib.drivetrain.characterization.DriveCharacterizationTest;
 import com.nerdherd.lib.drivetrain.characterization.OpenLoopDrive;
 import com.nerdherd.lib.drivetrain.characterization.VelocityTest;
+import com.nerdherd.lib.drivetrain.characterization.VelocityTestFPS;
 import com.nerdherd.lib.drivetrain.trajectory.falconlib.Pose2D;
 import com.nerdherd.lib.drivetrain.trajectory.falconlib.TrajectoryGen;
 import com.nerdherd.lib.drivetrain.trajectory.falconlib.TrajectoryPoint;
@@ -36,10 +37,10 @@ public class OI extends DefaultOI{
   
   public OI() {
     super();
-    trigger_1 = new JoystickButton(super.driveJoyLeft, 1);
-    trigger_1.whenPressed(new OpenLoopDrive(Robot.drive, 0.2));
-    button_2 = new JoystickButton(super.driveJoyLeft, 2);
-    button_2.whenPressed(new OpenLoopDrive(Robot.drive, 0));
+    // trigger_1 = new JoystickButton(super.driveJoyLeft, 1);
+    // trigger_1.whenPressed(new OpenLoopDrive(Robot.drive, 0.2));
+    // button_2 = new JoystickButton(super.driveJoyLeft, 2);
+    // button_2.whenPressed(new OpenLoopDrive(Robot.drive, 0));
     // SmartDashboard.putData("Set Climber Wheel Position", new SetMotorPositionPID(Robot.climberWheelLeft, 1024));
     // SmartDashboard.putData("Retract Climber Wheel", new SetMotorPower(Robot.climberWheelLeft, -0.1));
     SmartDashboard.putData("Test Drive", new OpenLoopDrive(Robot.drive, 0.5));
@@ -49,17 +50,20 @@ public class OI extends DefaultOI{
     SmartDashboard.putData("Reset Encoders", new ResetDriveEncoders(Robot.drive));
     SmartDashboard.putData("Reset Gyro", new ResetGyro(Robot.drive));
     SmartDashboard.putData("Drive Motion Magic", new DriveDistanceMotionMagic(Robot.drive, 50000, 10000, 30000));
-    SmartDashboard.putData("Velocity Test", new VelocityTest(Robot.drive, 15000, 5));
+    // SmartDashboard.putData("Velocity Test", new VelocityTest(Robot.drive, 15000, 5));
+    SmartDashboard.putData("Velocity Test FPS", new VelocityTestFPS(Robot.drive, 10, 5));
 
     TrajectoryGen gen = new TrajectoryGen();
-    ArrayList<TrajectoryPoint> traj = gen.generateTrajectory(Arrays.asList(new Pose2D(5, 5, 0).pose, new Pose2D(10, 10, 0).pose), 
-    20, 0. , 0., 4., 7., false);
+    // ArrayList<TrajectoryPoint> traj = gen.generateTrajectory(Arrays.asList(new Pose2D(5, 5, 0).pose, new Pose2D(10, 10, 0).pose), 
+    // 20, 0. , 0., 4., 7., false);
     ArrayList<TrajectoryPoint> farRightRocket = gen.generateTrajectory(Arrays.asList(new Pose2D(5, 10, 0).pose, new Pose2D(21.5, 2, -150).pose), 
-    100, 0. , 0., 15., 15., false);
+    10, 0. , 0., 10., 15., false);
     ArrayList<TrajectoryPoint> farRightRocket2 = gen.generateTrajectory(Arrays.asList(new Pose2D(21.5, 2, 30).pose, new Pose2D(19, 6, 180).pose, new Pose2D(9, 2.5, 180).pose), 
-    100, 0. , 0., 15., 15., false);
+    100, 0. , 0., 10., 15., false);
+    // ArrayList<TrajectoryPoint> straightLine = gen.generateTrajectory(Arrays.asList(new Pose2D(0, 0, 0).pose, new Pose2D(50, 0, 0).pose), 
+    // 1000, 0. , 0., 5., 15., false);
     SmartDashboard.putData("far right rocketo autoo", new DriveFalconTrajectory(Robot.drive, farRightRocket, 3, true, 0.15, 0));
     SmartDashboard.putData("far right rocketo autoo twooo", new DriveFalconTrajectory(Robot.drive, farRightRocket2, 3, false, 0.15, 0));
-
+    // SmartDashboard.putData("Straight Line", new DriveFalconTrajectory(Robot.drive, straightLine, 3, true, 0.15, 0));
   }
 }

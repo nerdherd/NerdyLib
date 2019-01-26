@@ -44,11 +44,11 @@ public class TrajectoryGen {
     public ArrayList<TrajectoryPoint> generateTrajectory(List<Pose2d> waypoints, double centripetalAccel, double startVelocity, double endVelocity, double maxVelocity, double accel, boolean reversed) {
         TimedTrajectory<Pose2dWithCurvature> falconTraj = m_gen.generateTrajectory(waypoints, 
         Collections.singletonList(
-            new CentripetalAccelerationConstraint(AccelerationKt.getAcceleration(LengthKt.getFeet(centripetalAccel)))),
-             VelocityKt.getVelocity(LengthKt.getFeet(startVelocity)),
-             VelocityKt.getVelocity(LengthKt.getFeet(endVelocity)),
-              VelocityKt.getVelocity(LengthKt.getFeet(maxVelocity)), 
-              AccelerationKt.getAcceleration(LengthKt.getFeet(accel)), reversed);
+            new CentripetalAccelerationConstraint(AccelerationKt.getAcceleration(LengthKt.getFeet(centripetalAccel / 0.3)))),
+             VelocityKt.getVelocity(LengthKt.getFeet(startVelocity / 0.3)),
+             VelocityKt.getVelocity(LengthKt.getFeet(endVelocity / 0.3)),
+              VelocityKt.getVelocity(LengthKt.getFeet(maxVelocity / 0.3)), 
+              AccelerationKt.getAcceleration(LengthKt.getFeet(accel / 0.3)), reversed);
         iterator = falconTraj.iterator();
         ArrayList<TrajectoryPoint> trajPoints = new ArrayList<>();
         while (!iterator.isDone()) {

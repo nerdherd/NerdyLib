@@ -16,6 +16,7 @@ import com.nerdherd.lib.motor.single.SingleMotorElevator;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -36,6 +37,7 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotInit() {
+    System.out.println("hello world");
     chooser = new AutoChooser();
     drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
     new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
@@ -44,11 +46,18 @@ public class Robot extends TimedRobot {
     drive.configAutoChooser(chooser);
     drive.configMaxVelocity(30000);
     drive.configSensorPhase(false, false);
-    drive.configStaticFeedforward(1.152, 1.228);
+    
     drive.configTicksPerFoot(17000, 17000);
-    drive.configDate("2019_1_25_");
+    drive.configDate("2019_1_26_");
+    // floor
     drive.configLeftPIDF(0.05, 0, 0, 0.028004625);
     drive.configRightPIDF(0.05, 0, 0, 0.030084725);
+    drive.configStaticFeedforward(1.152, 1.228);
+
+    // cart
+    // drive.configLeftPIDF(0.05, 0, 0, 0.026995605);
+    // drive.configRightPIDF(0.05, 0, 0, 0.026487175);
+    // drive.configStaticFeedforward(0.760, 1.386);
 
     // elevator = new SingleMotorElevator(0, "Elevator", false, false); 
     // climberWheelLeft = new SingleMotorTalonSRX(RobotMap.kClimberWheelLeftID, "Climber Wheel Left");
