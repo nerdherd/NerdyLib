@@ -16,8 +16,6 @@ import com.nerdherd.lib.drivetrain.auto.ResetDriveEncoders;
 import com.nerdherd.lib.drivetrain.auto.ResetGyro;
 import com.nerdherd.lib.drivetrain.characterization.DriveCharacterizationTest;
 import com.nerdherd.lib.drivetrain.characterization.OpenLoopDrive;
-import com.nerdherd.lib.drivetrain.characterization.VelocityTest;
-import com.nerdherd.lib.drivetrain.characterization.VelocityTestFPS;
 import com.nerdherd.lib.drivetrain.trajectory.falconlib.Pose2D;
 import com.nerdherd.lib.drivetrain.trajectory.falconlib.TrajectoryGen;
 import com.nerdherd.lib.drivetrain.trajectory.falconlib.TrajectoryPoint;
@@ -51,7 +49,7 @@ public class OI extends DefaultOI{
     SmartDashboard.putData("Reset Gyro", new ResetGyro(Robot.drive));
     SmartDashboard.putData("Drive Motion Magic", new DriveDistanceMotionMagic(Robot.drive, 50000, 20000, 15000));
     // SmartDashboard.putData("Velocity Test", new VelocityTest(Robot.drive, 15000, 5));
-    SmartDashboard.putData("Velocity Test FPS", new VelocityTestFPS(Robot.drive, 10, 5));
+    // SmartDashboard.putData("Velocity Test FPS", new VelocityTestFPS(Robot.drive, 10, 5));
 
     TrajectoryGen gen = new TrajectoryGen();
     // ArrayList<TrajectoryPoint> traj = gen.generateTrajectory(Arrays.asList(new Pose2D(5, 5, 0).pose, new Pose2D(10, 10, 0).pose), 

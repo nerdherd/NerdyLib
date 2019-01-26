@@ -5,10 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.motor.single;
+package com.nerdherd.lib.motor.single.mechanisms;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
+import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 
 /**
  * Add your docs here.
