@@ -11,6 +11,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.nerdherd.lib.misc.NerdyMath;
 
+import badlog.lib.BadLog;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * Add your docs here.
  */
@@ -52,9 +55,19 @@ public class SingleMotorArm extends SingleMotorTalonSRX {
       m_gravityFF * Math.cos(NerdyMath.degreesToRadians(getAngle())));
   }
 
+  public void setAngle(double angle) {
+    m_motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      m_gravityFF * Math.cos(NerdyMath.degreesToRadians(getAngle())));
+  }
+
   @Override
   public void setPosition(double pos) {
     m_motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
+      m_gravityFF * Math.cos(NerdyMath.degreesToRadians(getAngle())));
+  }
+
+  public void setAngleMotionMagic(double angle) {
+    m_motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
       m_gravityFF * Math.cos(NerdyMath.degreesToRadians(getAngle())));
   }
   
@@ -70,8 +83,28 @@ public class SingleMotorArm extends SingleMotorTalonSRX {
       m_gravityFF * Math.cos(NerdyMath.degreesToRadians(getAngle())));
   }
 
+  public double angleToTicks(double angle) {
+    return (angle - m_angleOffset) / m_angleRatio;
+  }
+
+  public double ticksToAngle(double ticks) {
+    return (m_angleRatio * ticks) + m_angleOffset;
+  }
+
   public double getAngle() {
-    return (m_angleRatio * getPosition()) + m_angleOffset;
+    return ticksToAngle(this.getPosition());
+  }
+
+  @Override
+  public void reportToSmartDashboard() {
+    super.reportToSmartDashboard();
+    SmartDashboard.putNumber(m_name + " Angle", getAngle());
+  }
+
+  @Override
+  public void initLoggingData() {
+    super.initLoggingData();
+    BadLog.createTopic(m_name + "/Angle", "deg", () -> getAngle());
   }
 
 }
