@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.motor.commands;
+package com.nerdherd.lib.motor.commands.mechanisms;
 
 import com.nerdherd.lib.motor.single.mechanisms.SingleMotorArm;
 

@@ -9,65 +9,72 @@ package com.nerdherd.lib.motor.single.mechanisms;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
-import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 
 /**
  * Add your docs here.
  */
-public class SingleMotorElevator extends SingleMotorTalonSRX {
-
-  private double m_gravityFF, m_staticFF;
-  private static final double kStaticFrictionDeadband = 5;
+public class SingleMotorElevator extends GravityAffectedMechanism {
 
   public SingleMotorElevator(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     super(talonID, subsystemName, inversion, sensorPhase);
-    m_gravityFF = 0;
-    m_staticFF = 0;
+    super.m_gravityFF = 0;
+    super.m_staticFF = 0;
   }
 
-  public void configGravityFF(double newGravityFF) {
-    m_gravityFF = newGravityFF / 12.0;
+  public double getFFIfMoving() {
+    return m_gravityFF;
   }
 
-  public void configStaticFF(double newStaticFF) {
-    m_staticFF = newStaticFF / 12.0;
+  public double getFFIfNotMoving(double error) {
+    double sign = Math.signum(error);
+    return m_gravityFF + sign * m_staticFF;
   }
 
   public void setPowerWithFF(double power) {
-    m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, m_gravityFF);
+    if (isNotMoving()) {
+      m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
+        getFFIfNotMoving(power));
+    } else {
+      m_motor.set(ControlMode.Position, power, DemandType.ArbitraryFeedForward, getFFIfMoving());
+    }
   }
 
   public void setVoltageWithFF(double voltage) {
-    m_motor.set(ControlMode.PercentOutput, voltage/12, DemandType.ArbitraryFeedForward, m_gravityFF);
+    if (isNotMoving()) {
+      m_motor.set(ControlMode.PercentOutput, voltage/12.0, DemandType.ArbitraryFeedForward, 
+        getFFIfNotMoving(voltage));
+    } else {
+      m_motor.set(ControlMode.Position, voltage/12.0, DemandType.ArbitraryFeedForward, getFFIfMoving());
+    }
   }
 
   @Override
   public void setPosition(double pos) {
-    if (Math.abs(getVelocity()) <= kStaticFrictionDeadband) {
+    if (isNotMoving()) {
       m_motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
-        m_gravityFF + (Math.signum(pos - getPosition()) * m_staticFF));
+        getFFIfNotMoving(pos - getPosition()));
     } else {
-      m_motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, m_gravityFF);
+      m_motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, getFFIfMoving());
     }
   }
   
   @Override
   public void setPositionMotionMagic(double pos) {
-    if (Math.abs(getVelocity()) <= kStaticFrictionDeadband) {
+    if (isNotMoving()) {
       m_motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, 
-        m_gravityFF + (Math.signum(pos - getPosition()) * m_staticFF));
+        getFFIfNotMoving(pos - getPosition()));
     } else {
-      m_motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, m_gravityFF);
+      m_motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, getFFIfMoving());
     }
   }
 
   @Override
   public void setVelocity(double vel) {
-    if (Math.abs(getVelocity()) <= kStaticFrictionDeadband) {
+    if (isNotMoving()) {
       m_motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, 
-        m_gravityFF + (Math.signum(vel - getVelocity()) * m_staticFF));
+        getFFIfNotMoving(vel - getVelocity()));
     } else {
-      m_motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, m_gravityFF);
+      m_motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, getFFIfMoving());
     }
   }
 
