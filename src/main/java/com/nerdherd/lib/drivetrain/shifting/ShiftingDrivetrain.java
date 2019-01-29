@@ -19,33 +19,28 @@ public class ShiftingDrivetrain extends Drivetrain {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private Piston m_leftShift, m_rightShift;
+  private Piston  m_shifter;
 
-  public ShiftingDrivetrain(int leftTalonMasterID, int rightTalonMasterID, NerdyTalon[] leftSlaves, NerdyTalon[] rightSlaves, boolean leftInversion, boolean rightInversion, Piston leftShift, Piston rightShift) {
+  public ShiftingDrivetrain(int leftTalonMasterID, int rightTalonMasterID, NerdyTalon[] leftSlaves, NerdyTalon[] rightSlaves, boolean leftInversion, boolean rightInversion, Piston shifter) {
     super(leftTalonMasterID, rightTalonMasterID, leftSlaves, rightSlaves, leftInversion, rightInversion);
-    m_leftShift = leftShift;
-    m_rightShift = rightShift;
+    m_shifter = shifter;
   }
 
-  public ShiftingDrivetrain(int leftTalonMasterID, int rightTalonMasterID, VictorSPX[] leftSlaves, VictorSPX[] rightSlaves, boolean leftInversion, boolean rightInversion, Piston leftShift, Piston rightShift) {
+  public ShiftingDrivetrain(int leftTalonMasterID, int rightTalonMasterID, VictorSPX[] leftSlaves, VictorSPX[] rightSlaves, boolean leftInversion, boolean rightInversion, Piston shifter) {
     super(leftTalonMasterID, rightTalonMasterID, leftSlaves, rightSlaves, leftInversion, rightInversion);
-    m_leftShift = leftShift;
-    m_rightShift = rightShift;
+    m_shifter = shifter;
   }
 
   public void shiftHigh() {
-    m_leftShift.setForwards();
-    m_rightShift.setForwards();
+    m_shifter.setForwards();
   }
   
   public void shiftLow() {
-    m_leftShift.setReverse();
-    m_rightShift.setReverse();
+    m_shifter.setReverse();
   }
 
   public void switchShift() {
-    m_leftShift.switchPosition();
-    m_rightShift.switchPosition();
+    m_shifter.switchPosition();
   }
   
   @Override
