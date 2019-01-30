@@ -55,7 +55,6 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	/**
 	 * Standard Tank Drive
-	 * 
 	 * @param leftTalonMasterID  ID for left master talon
 	 * @param rightTalonMasterID ID for right master talon
 	 * @param leftSlaves         array of NerdyTalons to follow left master
