@@ -36,20 +36,20 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     System.out.println("hello world");
     chooser = new AutoChooser();
-    drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
-    new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
-    new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 	
-    true, false);
-    drive.configAutoChooser(chooser);
-    drive.configMaxVelocity(30000);
-    drive.configSensorPhase(false, false);
+    // drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
+    // new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
+    // new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 	
+    // true, false);
+    // drive.configAutoChooser(chooser);
+    // drive.configMaxVelocity(30000);
+    // drive.configSensorPhase(false, false);
     
-    drive.configTicksPerFoot(17000, 17000);
-    drive.configDate("2019_1_26_");
-    // floor
-    drive.configLeftPIDF(0.05, 0, 0, 0.028004625);
-    drive.configRightPIDF(0.05, 0, 0, 0.030084725);
-    drive.configStaticFeedforward(1.152, 1.228);
+    // drive.configTicksPerFoot(17000, 17000);
+    // drive.configDate("2019_1_26_");
+    // // floor
+    // drive.configLeftPIDF(0.05, 0, 0, 0.028004625);
+    // drive.configRightPIDF(0.05, 0, 0, 0.030084725);
+    // drive.configStaticFeedforward(1.152, 1.228);
 
     // cart
     // drive.configLeftPIDF(0.05, 0, 0, 0.026995605);

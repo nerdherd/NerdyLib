@@ -46,12 +46,12 @@ public class OI extends DefaultOI{
     // SmartDashboard.putData("Voltage Ramp", new DriveCharacterizationTest(Robot.drive, 0.25));
     // SmartDashboard.putData("Voltage ramp elevator", new MotorVoltageRamping(Robot.elevator, 0.25 / 12.0));
     // SmartDashboard.putData("Reset elevator encoder", new ResetSingleMotorEncoder(Robot.elevator));
-    SmartDashboard.putData("Reset Encoders", new ResetDriveEncoders(Robot.drive));
-    SmartDashboard.putData("Reset Gyro", new ResetGyro(Robot.drive));
-    SmartDashboard.putData("Drive Motion Magic", new DriveDistanceMotionMagic(Robot.drive, 50000, 20000, 15000));
+    // SmartDashboard.putData("Reset Encoders", new ResetDriveEncoders(Robot.drive));
+    // SmartDashboard.putData("Reset Gyro", new ResetGyro(Robot.drive));
+    // SmartDashboard.putData("Drive Motion Magic", new DriveDistanceMotionMagic(Robot.drive, 50000, 20000, 15000));
     // SmartDashboard.putData("Velocity Test", new VelocityTest(Robot.drive, 15000, 5));
     // SmartDashboard.putData("Velocity Test FPS", new VelocityTestFPS(Robot.drive, 10, 5));
-    SmartDashboard.putData("Turn To Angle Motion Magic", new TurnToAngleMotionMagic(Robot.drive, 90., 50000*0.2, 20000 *0.2, 17688.26817));
+    // SmartDashboard.putData("Turn To Angle Motion Magic", new TurnToAngleMotionMagic(Robot.drive, 90., 50000*0.2, 20000 *0.2, 17688.26817));
 
 
 
