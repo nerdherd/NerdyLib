@@ -36,7 +36,7 @@ public class SingleMotorElevator extends GravityAffectedMechanism {
     m_distanceOffset = newDistanceOffset;
   }
 
-  public void configAngleConversion(double newDistanceRatio, double newDistanceOffset) {
+  public void configHeightConversion(double newDistanceRatio, double newDistanceOffset) {
     m_distanceRatio = newDistanceRatio;
     m_distanceOffset = newDistanceOffset;
   }
