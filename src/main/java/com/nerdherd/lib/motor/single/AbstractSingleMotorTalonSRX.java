@@ -46,6 +46,11 @@ public abstract class AbstractSingleMotorTalonSRX extends AbstractSingleMotor {
      * @param kF
      */
     public abstract void configPIDF(double kP, double kI, double kD, double kF);
+
+    /**
+     * Configure TalonSRX deadband
+     */
+    public abstract void configTalonDeadband(double deadband);
   
     /**
      * Get the mechanism's velocity
