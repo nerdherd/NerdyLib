@@ -35,7 +35,7 @@ public class SingleMotorElevator extends GravityAffectedMechanism {
       m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
         getFFIfNotMoving(power));
     } else {
-      m_motor.set(ControlMode.Position, power, DemandType.ArbitraryFeedForward, getFFIfMoving());
+      m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, getFFIfMoving());
     }
   }
 
@@ -44,7 +44,7 @@ public class SingleMotorElevator extends GravityAffectedMechanism {
       m_motor.set(ControlMode.PercentOutput, voltage/12.0, DemandType.ArbitraryFeedForward, 
         getFFIfNotMoving(voltage));
     } else {
-      m_motor.set(ControlMode.Position, voltage/12.0, DemandType.ArbitraryFeedForward, getFFIfMoving());
+      m_motor.set(ControlMode.PercentOutput, voltage/12.0, DemandType.ArbitraryFeedForward, getFFIfMoving());
     }
   }
 
