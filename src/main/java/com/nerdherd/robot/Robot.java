@@ -12,6 +12,7 @@ import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
 import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.NerdyTalon;
 import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -36,6 +37,17 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     System.out.println("hello world");
     chooser = new AutoChooser();
+    drive = new Drivetrain(5, 6,
+		new VictorSPX[] {
+		  new VictorSPX(0),
+				new VictorSPX(1)
+		},
+		new VictorSPX[] {
+		  new VictorSPX(2),
+		  new VictorSPX(3)
+		},
+		true, false);
+		drive.configAutoChooser(chooser);
     // drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
     // new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
     // new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 	

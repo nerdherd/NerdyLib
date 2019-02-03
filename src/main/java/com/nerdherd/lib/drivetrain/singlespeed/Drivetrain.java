@@ -103,6 +103,7 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 		m_leftMaster.configFollowerVictors(leftSlaves);
 		m_rightMaster.configFollowerVictors(rightSlaves);
+		m_nav = new AHRS(SPI.Port.kMXP);
 	}
 
 	public void configAutoChooser(AutoChooser chooser) {
