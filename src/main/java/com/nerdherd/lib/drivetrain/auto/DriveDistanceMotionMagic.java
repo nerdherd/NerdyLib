@@ -31,7 +31,7 @@ public class DriveDistanceMotionMagic extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	m_error = m_distance - m_drive.getAverageEncoderPosition();
+        m_error = m_distance - m_drive.getAverageEncoderPosition();
     	m_drive.setPositionMotionMagic(m_distance, m_distance, m_accel, m_velocity);
     }
 

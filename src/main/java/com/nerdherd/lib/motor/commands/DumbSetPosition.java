@@ -8,30 +8,19 @@
 package com.nerdherd.lib.motor.commands;
 
 import com.nerdherd.lib.motor.single.AbstractSingleMotorTalonSRX;
+import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetMotorPositionPID extends Command {
+public class DumbSetPosition extends Command {
 
   private AbstractSingleMotorTalonSRX m_motor;
-  private double m_pos;
-  private boolean m_holdPosition;
-  private double m_threshold;
-
-  public SetMotorPositionPID(AbstractSingleMotorTalonSRX motor, double pos) {
+  private double m_position, m_tolerance, m_power;
+  public DumbSetPosition(AbstractSingleMotorTalonSRX motor, double position, double power, double tolerance) {
     m_motor = motor;
-    m_pos = pos;
-    m_holdPosition = true;
-    m_threshold = 0;
-    requires(m_motor);
-  }
-
-  public SetMotorPositionPID(AbstractSingleMotorTalonSRX motor, double pos, double threshold, boolean holdPosition) {
-    m_motor = motor;
-    m_pos = pos;
-    m_threshold = threshold;
-    m_holdPosition = holdPosition;
-    requires(m_motor);
+    m_position = position;
+    m_power = power;
+    m_tolerance = tolerance;
   }
 
   // Called just before this Command runs the first time
@@ -42,27 +31,19 @@ public class SetMotorPositionPID extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    m_motor.setPosition(m_pos);
+    m_motor.setPower(m_power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // return false;
-    if (m_holdPosition) {
-      return false;
-    } else {
-      return Math.abs(m_pos - m_motor.getPosition()) <= m_threshold;
-    }
-    
+    return Math.abs(m_position - m_motor.getPosition()) <= m_tolerance; 
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    if (!m_holdPosition) {
-      m_motor.setPower(0);
-    }
+    m_motor.setPower(0);
   }
 
   // Called when another command which requires one or more of the same

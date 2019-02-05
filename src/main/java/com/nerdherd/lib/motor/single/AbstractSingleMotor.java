@@ -16,12 +16,26 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public abstract class AbstractSingleMotor extends Subsystem implements Loggable {
   
+  /**
+   * Set power in a percentage (-1 to 1) to the motor controller
+   * @param power percentage -1 to 1, which is equivalent to -12 to 12 Volts
+   */
   public abstract void setPower(double power);
 
+  /**
+   * Report sensor data to smart dashboard
+   */
   public abstract void reportToSmartDashboard();
 
+  /**
+   * Set the boolean inversion of the motor controller
+   * @param inversion
+   */
   public abstract void setInversion(boolean inversion);
   
+  /**
+   * get the output voltage of the motor
+   */
   public abstract double getVoltage();
     
 }
