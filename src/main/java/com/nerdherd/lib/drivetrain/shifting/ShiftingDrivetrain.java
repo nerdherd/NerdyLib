@@ -13,41 +13,68 @@ import com.nerdherd.lib.motor.NerdyTalon;
 import com.nerdherd.lib.pneumatics.Piston;
 
 /**
- * Add your docs here.
+ * Drivetrain with gear shift, assumes that the gear shifter uses one double solenoid
+ * Is compatible with all other drivetrain commands
  */
 public class ShiftingDrivetrain extends Drivetrain {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private Piston m_leftShift, m_rightShift;
+  private Piston  m_shifter;
 
-  public ShiftingDrivetrain(int leftTalonMasterID, int rightTalonMasterID, NerdyTalon[] leftSlaves, NerdyTalon[] rightSlaves, boolean leftInversion, boolean rightInversion, Piston leftShift, Piston rightShift) {
+  /**
+	 * Standard Tank Drive with a gear shifter
+	 * 
+	 * @param leftTalonMasterID  ID for left master talon
+	 * @param rightTalonMasterID ID for right master talon
+	 * @param leftSlaves         array of NerdyTalons to follow left master
+	 * @param rightSlaves        array of NerdyTalons to follow right master
+	 * @param leftInversion      inversion of left side of drivetrain
+	 * @param rightInversion     inversion of right side of drivetrain
+   * @param shifter             piston for the gear shifter
+	 */
+  public ShiftingDrivetrain(int leftTalonMasterID, int rightTalonMasterID, NerdyTalon[] leftSlaves, NerdyTalon[] rightSlaves, boolean leftInversion, boolean rightInversion, Piston shifter) {
     super(leftTalonMasterID, rightTalonMasterID, leftSlaves, rightSlaves, leftInversion, rightInversion);
-    m_leftShift = leftShift;
-    m_rightShift = rightShift;
+    m_shifter = shifter;
   }
 
-  public ShiftingDrivetrain(int leftTalonMasterID, int rightTalonMasterID, VictorSPX[] leftSlaves, VictorSPX[] rightSlaves, boolean leftInversion, boolean rightInversion, Piston leftShift, Piston rightShift) {
+  /**
+	 * Standard Tank Drive with a gear shifter
+	 * 
+	 * @param leftTalonMasterID  ID for left master talon
+	 * @param rightTalonMasterID ID for right master talon
+	 * @param leftSlaves         array of VictorSPXs to follow left master
+	 * @param rightSlaves        array of VictorSPXs to follow right master
+	 * @param leftInversion      inversion of left side of drivetrain
+	 * @param rightInversion     inversion of right side of drivetrain
+   * @param shifter             piston for the gear shifter
+	 */
+  public ShiftingDrivetrain(int leftTalonMasterID, int rightTalonMasterID, VictorSPX[] leftSlaves, VictorSPX[] rightSlaves, boolean leftInversion, boolean rightInversion, Piston shifter) {
     super(leftTalonMasterID, rightTalonMasterID, leftSlaves, rightSlaves, leftInversion, rightInversion);
-    m_leftShift = leftShift;
-    m_rightShift = rightShift;
+    m_shifter = shifter;
   }
 
+  /**
+   * Shift into high gear
+   */
   public void shiftHigh() {
-    m_leftShift.setForwards();
-    m_rightShift.setForwards();
+    m_shifter.setForwards();
   }
   
+  /**
+   * Shift into low gear
+   */
   public void shiftLow() {
-    m_leftShift.setReverse();
-    m_rightShift.setReverse();
+    m_shifter.setReverse();
   }
 
+  /**
+   * Shift from high gear to low gear or vice versa
+   */
   public void switchShift() {
-    m_leftShift.switchPosition();
-    m_rightShift.switchPosition();
+    m_shifter.switchPosition();
   }
-  
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

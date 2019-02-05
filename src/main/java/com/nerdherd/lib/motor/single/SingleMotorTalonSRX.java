@@ -61,6 +61,10 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
     m_motor.configSelectedFeedbackSensor(device);
   }
 
+  public void configTalonDeadband(double deadband) {
+    m_motor.configNeutralDeadband(deadband);
+  }
+
   @Override
   public void setInversion(boolean inversion) {
     m_motor.setInverted(inversion);

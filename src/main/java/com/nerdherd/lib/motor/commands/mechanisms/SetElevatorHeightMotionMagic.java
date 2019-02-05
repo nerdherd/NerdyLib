@@ -5,33 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.motor.commands;
+package com.nerdherd.lib.motor.commands.mechanisms;
 
-import com.nerdherd.lib.motor.single.AbstractSingleMotorTalonSRX;
-
+import com.nerdherd.lib.motor.single.mechanisms.SingleMotorElevator;
 import edu.wpi.first.wpilibj.command.Command;
+  
+public class SetElevatorHeightMotionMagic extends Command {
+  
+  private SingleMotorElevator m_elevator;
+  private double m_height;
 
-public class SetMotorPositionPID extends Command {
-
-  private AbstractSingleMotorTalonSRX m_motor;
-  private double m_pos;
-  private boolean m_holdPosition;
-  private double m_threshold;
-
-  public SetMotorPositionPID(AbstractSingleMotorTalonSRX motor, double pos) {
-    m_motor = motor;
-    m_pos = pos;
-    m_holdPosition = true;
-    m_threshold = 0;
-    requires(m_motor);
-  }
-
-  public SetMotorPositionPID(AbstractSingleMotorTalonSRX motor, double pos, double threshold, boolean holdPosition) {
-    m_motor = motor;
-    m_pos = pos;
-    m_threshold = threshold;
-    m_holdPosition = holdPosition;
-    requires(m_motor);
+  public SetElevatorHeightMotionMagic(SingleMotorElevator elevator, double height) {
+    m_elevator = elevator;
+    m_height = height;
+    requires(m_elevator);
   }
 
   // Called just before this Command runs the first time
@@ -42,27 +29,18 @@ public class SetMotorPositionPID extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    m_motor.setPosition(m_pos);
+    m_elevator.setHeightMotionMagic(m_height);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // return false;
-    if (m_holdPosition) {
-      return false;
-    } else {
-      return Math.abs(m_pos - m_motor.getPosition()) <= m_threshold;
-    }
-    
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    if (!m_holdPosition) {
-      m_motor.setPower(0);
-    }
   }
 
   // Called when another command which requires one or more of the same

@@ -14,7 +14,7 @@ import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Add your docs here.
+ * Generic Single motor controlled by a VictorSPX
  */
 public class SingleMotorVictorSPX extends AbstractSingleMotor {
   // Put methods for controlling this subsystem
@@ -27,6 +27,7 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
    * 
    * @param victorID CAN ID of victor
    * @param subsystemName String name of subsystem to display on smart dashboard
+   * @param inversion boolean inversion of the VictorSPX
    */
   public SingleMotorVictorSPX(int victorID, String subsystemName, boolean inversion) {
     m_name = subsystemName;

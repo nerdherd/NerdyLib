@@ -5,64 +5,39 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.motor.commands;
+package com.nerdherd.lib.misc;
 
-import com.nerdherd.lib.motor.single.AbstractSingleMotorTalonSRX;
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetMotorPositionPID extends Command {
+public class WaitTime extends Command {
 
-  private AbstractSingleMotorTalonSRX m_motor;
-  private double m_pos;
-  private boolean m_holdPosition;
-  private double m_threshold;
+  private double m_seconds, m_startTime;
 
-  public SetMotorPositionPID(AbstractSingleMotorTalonSRX motor, double pos) {
-    m_motor = motor;
-    m_pos = pos;
-    m_holdPosition = true;
-    m_threshold = 0;
-    requires(m_motor);
-  }
-
-  public SetMotorPositionPID(AbstractSingleMotorTalonSRX motor, double pos, double threshold, boolean holdPosition) {
-    m_motor = motor;
-    m_pos = pos;
-    m_threshold = threshold;
-    m_holdPosition = holdPosition;
-    requires(m_motor);
+  public WaitTime(double seconds) {
+    m_seconds = seconds;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    m_startTime = Timer.getFPGATimestamp();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    m_motor.setPosition(m_pos);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // return false;
-    if (m_holdPosition) {
-      return false;
-    } else {
-      return Math.abs(m_pos - m_motor.getPosition()) <= m_threshold;
-    }
-    
+    return Timer.getFPGATimestamp() - m_startTime >= m_seconds;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    if (!m_holdPosition) {
-      m_motor.setPower(0);
-    }
   }
 
   // Called when another command which requires one or more of the same

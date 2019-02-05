@@ -10,6 +10,8 @@ package com.nerdherd.robot;
 import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
 import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.NerdyTalon;
+import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -27,7 +29,6 @@ public class Robot extends TimedRobot {
   // public static Drivetrain drive;
   public static AutoChooser chooser;
   // public static SingleMotorElevator elevator;
-  // public static SingleMotorTalonSRX climberWheelLeft, climberWheelRight;
 
   public static OI oi;
   
@@ -35,6 +36,20 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     System.out.println("hello world");
     chooser = new AutoChooser();
+<<<<<<< HEAD
+=======
+    drive = new Drivetrain(5, 6,
+		new VictorSPX[] {
+		  new VictorSPX(0),
+				new VictorSPX(1)
+		},
+		new VictorSPX[] {
+		  new VictorSPX(2),
+		  new VictorSPX(3)
+		},
+		true, false);
+		drive.configAutoChooser(chooser);
+>>>>>>> master
     // drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
     // new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
     // new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 	
@@ -56,12 +71,6 @@ public class Robot extends TimedRobot {
     // drive.configStaticFeedforward(0.760, 1.386);
 
     // elevator = new SingleMotorElevator(0, "Elevator", false, false); 
-    // climberWheelLeft = new SingleMotorTalonSRX(RobotMap.kClimberWheelLeftID, "Climber Wheel Left");
-    // climberWheelLeft.configSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-    // climberWheelLeft.configPIDF(0, 0, 0, 0);
-    // climberWheelRight = new SingleMotorTalonSRX(RobotMap.kClimberWheelRightID, "Climber Wheel Right");
-    // climberWheelRight.configSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-    // climberWheelRight.configPIDF(0, 0, 0, 0);
   
     oi = new OI();
     // drive.configDefaultCommand(new ArcadeDrive(drive, oi));

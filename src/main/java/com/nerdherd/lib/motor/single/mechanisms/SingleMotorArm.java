@@ -43,13 +43,23 @@ public class SingleMotorArm extends GravityAffectedMechanism {
   }
 
   public void setPowerWithFF(double power) {
-    m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
-      m_gravityFF * Math.cos(NerdyMath.degreesToRadians(getAngle())));
+    if (isNotMoving()) {
+      m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
+        getFFIfNotMoving(power));
+    } else {
+      m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
+        getFFIfMoving());
+    }
   }
 
   public void setVoltageWithFF(double voltage) {
-    m_motor.set(ControlMode.PercentOutput, voltage/12, DemandType.ArbitraryFeedForward, 
-      m_gravityFF * Math.cos(NerdyMath.degreesToRadians(getAngle())));
+    if (isNotMoving()) {
+      m_motor.set(ControlMode.PercentOutput, voltage / 12., DemandType.ArbitraryFeedForward, 
+        getFFIfNotMoving(voltage));
+    } else {
+      m_motor.set(ControlMode.PercentOutput, voltage / 12., DemandType.ArbitraryFeedForward, 
+        getFFIfMoving());
+    }
   }
 
   public double getFFIfMoving() {
