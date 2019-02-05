@@ -7,7 +7,6 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.drivetrain.singlespeed.Drivetrain;
 import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
 import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.NerdyTalon;
@@ -25,7 +24,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class Robot extends TimedRobot {
   
-  public static Drivetrain drive;
+  // public static Drivetrain drive;
   public static AutoChooser chooser;
   // public static SingleMotorElevator elevator;
   // public static SingleMotorTalonSRX climberWheelLeft, climberWheelRight;
@@ -36,20 +35,20 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     System.out.println("hello world");
     chooser = new AutoChooser();
-    drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
-    new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
-    new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 	
-    true, false);
-    drive.configAutoChooser(chooser);
-    drive.configMaxVelocity(30000);
-    drive.configSensorPhase(false, false);
+    // drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
+    // new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
+    // new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 	
+    // true, false);
+    // drive.configAutoChooser(chooser);
+    // drive.configMaxVelocity(30000);
+    // drive.configSensorPhase(false, false);
     
-    drive.configTicksPerFoot(17000, 17000);
-    drive.configDate("2019_1_26_");
-    // floor
-    drive.configLeftPIDF(0.05, 0, 0, 0.028004625);
-    drive.configRightPIDF(0.05, 0, 0, 0.030084725);
-    drive.configStaticFeedforward(1.152, 1.228);
+    // drive.configTicksPerFoot(17000, 17000);
+    // drive.configDate("2019_1_26_");
+    // // floor
+    // drive.configLeftPIDF(0.05, 0, 0, 0.028004625);
+    // drive.configRightPIDF(0.05, 0, 0, 0.030084725);
+    // drive.configStaticFeedforward(1.152, 1.228);
 
     // cart
     // drive.configLeftPIDF(0.05, 0, 0, 0.026995605);
@@ -65,7 +64,7 @@ public class Robot extends TimedRobot {
     // climberWheelRight.configPIDF(0, 0, 0, 0);
   
     oi = new OI();
-    drive.configDefaultCommand(new ArcadeDrive(drive, oi));
+    // drive.configDefaultCommand(new ArcadeDrive(drive, oi));
     // NerdyBadlog.init("/media/sda1/logs/test.csv", elevator);
   }
 
@@ -80,9 +79,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     // NerdyBadlog.log();
-    drive.reportToSmartDashboard();
-    drive.calcXY();
-    // arm.reportToSmartDashboard();
+    // drive.reportToSmartDashboard();
+    // drive.calcXY();
+    // // arm.reportToSmartDashboard();
     // climberWheelRight.reportToSmartDashboard();
   }
 
@@ -93,7 +92,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    drive.stopLog();
+    // drive.stopLog();
   }
 
   @Override
@@ -136,7 +135,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    drive.startLog();
+    // drive.startLog();
 
   }
 
@@ -146,7 +145,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    drive.logToCSV();
+    // drive.logToCSV();
   }
 
   /**
