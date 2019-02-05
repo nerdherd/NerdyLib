@@ -23,8 +23,8 @@ public class LimitSwitch extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public LimitSwitch() {
-    m_limit = new TalonSRX(14);
+  public LimitSwitch(int talonID) {
+    m_limit = new TalonSRX(talonID);
   
   }
 
