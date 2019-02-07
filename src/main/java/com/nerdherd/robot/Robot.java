@@ -7,7 +7,6 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.drivetrain.singlespeed.Drivetrain;
 import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
 import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.NerdyTalon;
@@ -27,7 +26,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 public class Robot extends TimedRobot {
   
-  public static Drivetrain drive;
+  // public static Drivetrain drive;
   public static AutoChooser chooser;
   // public static SingleMotorElevator elevator;
 
@@ -37,17 +36,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     System.out.println("hello world");
     chooser = new AutoChooser();
-    drive = new Drivetrain(5, 6,
-		new VictorSPX[] {
-		  new VictorSPX(0),
-				new VictorSPX(1)
-		},
-		new VictorSPX[] {
-		  new VictorSPX(2),
-		  new VictorSPX(3)
-		},
-		true, false);
-		drive.configAutoChooser(chooser);
     // drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
     // new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
     // new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 	
@@ -71,7 +59,7 @@ public class Robot extends TimedRobot {
     // elevator = new SingleMotorElevator(0, "Elevator", false, false); 
   
     oi = new OI();
-    drive.configDefaultCommand(new ArcadeDrive(drive, oi));
+    // drive.configDefaultCommand(new ArcadeDrive(drive, oi));
     // NerdyBadlog.init("/media/sda1/logs/test.csv", elevator);
   }
 
@@ -86,9 +74,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     // NerdyBadlog.log();
-    drive.reportToSmartDashboard();
-    drive.calcXY();
-    // arm.reportToSmartDashboard();
+    // drive.reportToSmartDashboard();
+    // drive.calcXY();
+    // // arm.reportToSmartDashboard();
     // climberWheelRight.reportToSmartDashboard();
   }
 
@@ -99,7 +87,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    drive.stopLog();
+    // drive.stopLog();
   }
 
   @Override
@@ -142,7 +130,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    drive.startLog();
+    // drive.startLog();
 
   }
 
@@ -152,7 +140,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    drive.logToCSV();
+    // drive.logToCSV();
   }
 
   /**
