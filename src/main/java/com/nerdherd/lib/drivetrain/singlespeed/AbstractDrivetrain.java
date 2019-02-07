@@ -36,6 +36,8 @@ public abstract class AbstractDrivetrain extends Subsystem {
 
     public abstract double getRawYaw();
 
+    public abstract double getAngularVelocity();
+
     public abstract double getLeftOutputVoltage();
 
     public abstract double getLeftMasterCurrent();

@@ -320,9 +320,15 @@ public class Drivetrain extends AbstractDrivetrain {
 		return -m_nav.getAngle() + m_chooser.getDirection();
 	}
 
+	public double getAngularVelocity() {
+		return -m_nav.getRate();
+	}
+	
 	public void resetYaw() {
 		m_nav.reset();
 	}
+
+
 
 	public double getAverageEncoderPosition() {
 		return (getRightMasterPosition() + getLeftMasterPosition()) / 2;
