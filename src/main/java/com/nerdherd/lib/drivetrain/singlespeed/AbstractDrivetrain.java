@@ -16,6 +16,8 @@ public abstract class AbstractDrivetrain extends Subsystem {
 
     public abstract void setPower(double leftPower, double rightPower);
 
+    public abstract void setPowerFeedforward(double leftPower, double rightPower);
+
     public abstract void setVoltage(double leftVoltage, double rightVoltage);
 
     public abstract void setVelocity(double leftVel, double rightVel);

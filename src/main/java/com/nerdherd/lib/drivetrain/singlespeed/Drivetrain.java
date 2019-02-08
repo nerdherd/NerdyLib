@@ -221,6 +221,12 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_rightMaster.set(ControlMode.PercentOutput, rightPower);
 	}
 
+	@Override
+	public void setPowerFeedforward(double leftPower, double rightPower) {
+		m_leftMaster.set(ControlMode.PercentOutput, leftPower, DemandType.ArbitraryFeedForward, kLeftStatic * Math.signum(leftPower));
+		m_rightMaster.set(ControlMode.PercentOutput, rightPower, DemandType.ArbitraryFeedForward, kRightStatic * Math.signum(rightPower));
+	}
+
 	/** Set voltage to the drivetrain, from -12 to 12 volts
 	 * @param leftVoltage
 	 * @param rightVoltage

@@ -59,11 +59,8 @@ public class TurnToAngle extends Command {
 	m_prevTimestamp = Timer.getFPGATimestamp();
 
 	double power = m_rotP * m_error + m_rotD * m_dTerm;
-	// power = NerdyMath.threshold(power, m_RotMinPower, m_RotPMaxPower);
-	// power = Math.min(m_RotPMaxPower,
-	// Math.max(-m_RotPMaxPower, power));
 
-	m_drive.setPower( power, power);
+	m_drive.setPowerFeedforward( power, power);
 	if (Math.abs(m_error) <= 2) {
 	    m_counter += 1;
 	} else {
