@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
     // new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 	
     // true, false);
     // drive.configAutoChooser(chooser);
-    // drive.configMaxVelocity(30000);
+    // // drive.configMaxVelocity(30000);
     // drive.configSensorPhase(false, false);
     
     // drive.configTicksPerFoot(17000, 17000);

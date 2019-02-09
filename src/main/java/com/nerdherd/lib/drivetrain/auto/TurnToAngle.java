@@ -1,15 +1,16 @@
 package com.nerdherd.lib.drivetrain.auto;
 
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
-// import com.nerdherd.lib.misc.NerdyMath;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import jaci.pathfinder.Pathfinder;
 
 /**
  * Turn to a specified angle (no vision, absolute)
  * @author tedklin
+ * modified by dylan barva
  */
 
 public class TurnToAngle extends Command {
@@ -30,15 +31,14 @@ public class TurnToAngle extends Command {
      * @param timeout
      * @param tolerance
      */
-    public TurnToAngle(double angle, int tolerance, double timeout, double rotP, double rotD) {
-	m_desiredAngle = angle;
-    m_tolerance = tolerance;
-    m_rotP = rotP;
-    m_rotD = rotD;
-	m_timeout = timeout;
-
-	// subsystem dependencies
-	requires(m_drive);
+    public TurnToAngle(AbstractDrivetrain drive, double angle, int tolerance, double timeout, double rotP, double rotD) {
+        m_drive = drive;
+        m_desiredAngle = angle;
+        m_tolerance = tolerance;
+        m_rotP = rotP;
+        m_rotD = rotD;
+        m_timeout = timeout;
+	    requires(m_drive);
     }
 
     @Override
@@ -50,17 +50,13 @@ public class TurnToAngle extends Command {
 
     @Override
     protected void execute() {
-	double robotAngle = (360 - m_drive.getRawYaw()) % 360;
-	m_error = -m_desiredAngle - robotAngle;
-	m_error = (m_error > 180) ? m_error - 360 : m_error;
-	m_error = (m_error < -180) ? m_error + 360 : m_error;
-
+    m_error = Pathfinder.boundHalfDegrees(m_desiredAngle - m_drive.getRawYaw());
 	m_dTerm = (m_prevError - m_error) / (m_prevTimestamp - Timer.getFPGATimestamp());
 	m_prevTimestamp = Timer.getFPGATimestamp();
 
 	double power = m_rotP * m_error + m_rotD * m_dTerm;
 
-	m_drive.setPowerFeedforward( power, power);
+	m_drive.setPowerFeedforward(-power, power);
 	if (Math.abs(m_error) <= 2) {
 	    m_counter += 1;
 	} else {
