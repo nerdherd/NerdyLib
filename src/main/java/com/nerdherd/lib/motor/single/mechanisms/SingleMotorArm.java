@@ -44,20 +44,20 @@ public class SingleMotorArm extends GravityAffectedMechanism {
 
   public void setPowerWithFF(double power) {
     if (isNotMoving()) {
-      m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
         getFFIfNotMoving(power));
     } else {
-      m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
         getFFIfMoving());
     }
   }
 
   public void setVoltageWithFF(double voltage) {
     if (isNotMoving()) {
-      m_motor.set(ControlMode.PercentOutput, voltage / 12., DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.PercentOutput, voltage / 12., DemandType.ArbitraryFeedForward, 
         getFFIfNotMoving(voltage));
     } else {
-      m_motor.set(ControlMode.PercentOutput, voltage / 12., DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.PercentOutput, voltage / 12., DemandType.ArbitraryFeedForward, 
         getFFIfMoving());
     }
   }
@@ -75,30 +75,30 @@ public class SingleMotorArm extends GravityAffectedMechanism {
   @Override
   public void setPosition(double pos) {
     if (isNotMoving()) {
-      m_motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
         getFFIfNotMoving(pos - getPosition()));
     } else {
-      m_motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
         getFFIfMoving());
     }
   }
 
   public void setAngle(double angle) {
     if (isNotMoving()) {
-      m_motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
         getFFIfNotMoving(angle - getAngle()));
     } else {
-      m_motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
         getFFIfMoving());
     }
   }
 
   public void setAngleMotionMagic(double angle) {
     if (isNotMoving()) {
-      m_motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
         getFFIfNotMoving(angle - getAngle()));
     } else {
-      m_motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
         getFFIfMoving());
     }
   }
@@ -106,10 +106,10 @@ public class SingleMotorArm extends GravityAffectedMechanism {
   @Override
   public void setPositionMotionMagic(double pos) {
     if (isNotMoving()) {
-      m_motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, 
         getFFIfNotMoving(pos - getPosition()));
     } else {
-      m_motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, 
         getFFIfMoving());
     }
   }
@@ -117,10 +117,10 @@ public class SingleMotorArm extends GravityAffectedMechanism {
   @Override
   public void setVelocity(double vel) {
     if (isNotMoving()) {
-      m_motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, 
         getFFIfNotMoving(vel - getVelocity()));
     } else {
-      m_motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, 
+      motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, 
         getFFIfMoving());
     }
   }

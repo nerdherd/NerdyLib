@@ -9,32 +9,36 @@ package com.nerdherd.lib.sensor;
 
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.nerdherd.lib.misc.Loggable;
+import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
  * Add your docs here.
  */
-public class LimitSwitch extends Subsystem {
+public class TalonTach extends BooleanSensor implements Loggable {
 
-  private final TalonSRX m_limit; 
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  private final TalonSRX m_limit;
 
-  public LimitSwitch(int talonID) {
+  public TalonTach(int talonID, String sensorName, boolean isInverted) {
+    super(sensorName, isInverted);
     m_limit = new TalonSRX(talonID);
-  
   }
 
-  public void reportToSmartDashboard(){
-    SmartDashboard.putBoolean("Limit Switch Forward", m_limit.getSensorCollection().isFwdLimitSwitchClosed());
-    SmartDashboard.putBoolean("Limit Switch Reverse", m_limit.getSensorCollection().isRevLimitSwitchClosed());
+  public TalonTach(SingleMotorTalonSRX talonSubsystem, String sensorName, boolean isInverted) {
+    super(sensorName, isInverted);
+    m_limit = talonSubsystem.motor;
+  }
+
+  public TalonTach(TalonSRX talon, String sensorName, boolean isInverted) {
+    super(sensorName, isInverted);
+    m_limit = talon;
   }
 
   @Override
-  protected void initDefaultCommand() {
-
+  public boolean get() {
+    return m_limit.getSensorCollection().isFwdLimitSwitchClosed();
   }
 }
