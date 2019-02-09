@@ -44,9 +44,6 @@ repositories {
     maven {
         url "https://jitpack.io"
     }
-    flatDir {
-        dirs 'libs'
-    }
 }
 
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
@@ -58,7 +55,7 @@ dependencies {
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
     testCompile 'junit:junit:4.12'
     compile 'com.github.5190GreenHopeRobotics:FalconLibrary:2019.1.15'
-    compile files('/libs/badlog.jar')
+    compile 'com.github.nerdherd:badlog:bb49ca38f2ea0a201327ba36960695590a97b708'
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
