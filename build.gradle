@@ -58,7 +58,7 @@ dependencies {
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
     testCompile 'junit:junit:4.12'
     compile 'com.github.5190GreenHopeRobotics:FalconLibrary:2019.1.15'
-    compile group: '', name: 'badlog', version: ''
+    compile files('/libs/badlog.jar')
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
