@@ -8,18 +8,18 @@
 package com.nerdherd.lib.motor.commands.mechanisms;
 
 import com.nerdherd.lib.motor.single.mechanisms.GravityAffectedMechanism;
-import com.nerdherd.lib.sensor.HallSensor;
+import com.nerdherd.lib.sensor.BooleanSensor;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ZeroMechanismWithHallEffect extends Command {
 
   private GravityAffectedMechanism m_mechanism;
-  private HallSensor m_hallSensor;
+  private BooleanSensor m_hallSensor;
   private double m_rate;
 
   public ZeroMechanismWithHallEffect(GravityAffectedMechanism mechanism, 
-    HallSensor hallEffectSensor, double descentRate) {
+    BooleanSensor hallEffectSensor, double descentRate) {
       m_mechanism = mechanism;
       m_hallSensor = hallEffectSensor;
       m_rate = descentRate;
