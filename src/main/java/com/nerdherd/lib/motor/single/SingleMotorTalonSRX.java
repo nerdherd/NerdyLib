@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
  
-  protected NerdyTalon m_motor;
+  public NerdyTalon motor;
   protected String m_name;
 
   /**
@@ -30,96 +30,96 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
    */
   public SingleMotorTalonSRX(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     m_name = subsystemName;
-    m_motor = new NerdyTalon(talonID); 
-    m_motor.configDefaultSettings();
+    motor = new NerdyTalon(talonID); 
+    motor.configDefaultSettings();
     setInversion(inversion);
     setSensorPhase(sensorPhase);
   }
 
   public void configFollowersTalons(NerdyTalon[] followers) {
-    m_motor.configFollowerTalons(followers);
+    motor.configFollowerTalons(followers);
   }
 
   public void configFollowerVictors(VictorSPX[] followers) {
-    m_motor.configFollowerVictors(followers);
+    motor.configFollowerVictors(followers);
   }
 
   public void configPIDF(double kP, double kI, double kD, double kF) {
-    m_motor.configPIDF(kP, kI, kD, kF, 0);
+    motor.configPIDF(kP, kI, kD, kF, 0);
   }
 
   public void configCurrentLimit(int peak, int continuous) {
-    m_motor.configCurrentLimitContinuous(continuous);
-    m_motor.configCurrentLimitPeak(peak);
+    motor.configCurrentLimitContinuous(continuous);
+    motor.configCurrentLimitPeak(peak);
   }
 
   public void configMotionMagic(int accel, int cruise_vel) {
-    m_motor.configMotionMagic(accel, cruise_vel);
+    motor.configMotionMagic(accel, cruise_vel);
   }
 
   public void configSensor(FeedbackDevice device) {
-    m_motor.configSelectedFeedbackSensor(device);
+    motor.configSelectedFeedbackSensor(device);
   }
 
   public void configTalonDeadband(double deadband) {
-    m_motor.configNeutralDeadband(deadband);
+    motor.configNeutralDeadband(deadband);
   }
 
   @Override
   public void setInversion(boolean inversion) {
-    m_motor.setInverted(inversion);
+    motor.setInverted(inversion);
   }
 
   @Override
   public void resetEncoder() {
-    m_motor.setSelectedSensorPosition(0);
+    motor.setSelectedSensorPosition(0);
   }
   @Override
   public void setSensorPhase(boolean phase) {
-    m_motor.setSensorPhase(phase);
+    motor.setSensorPhase(phase);
   }
   
   public void setPower(double power) {
-    m_motor.set(ControlMode.PercentOutput, power);
+    motor.set(ControlMode.PercentOutput, power);
   }
 
   public void setVoltage(double voltage) {
-    m_motor.set(ControlMode.PercentOutput, voltage/12);
+    motor.set(ControlMode.PercentOutput, voltage/12);
   }
 
   @Override
   public void setPosition(double pos) {
-    m_motor.set(ControlMode.Position, pos);
+    motor.set(ControlMode.Position, pos);
   }
   
   @Override
   public void setPositionMotionMagic(double pos) {
-    m_motor.set(ControlMode.MotionMagic, pos);
+    motor.set(ControlMode.MotionMagic, pos);
   }
 
   @Override
   public void setVelocity(double vel) {
-    m_motor.set(ControlMode.Velocity, vel);
+    motor.set(ControlMode.Velocity, vel);
   }
 
   @Override
   public double getCurrent() {
-    return m_motor.getOutputCurrent();
+    return motor.getOutputCurrent();
   }
 
   @Override
   public double getPosition() {
-    return m_motor.getSelectedSensorPosition();
+    return motor.getSelectedSensorPosition();
   }
 
   @Override
   public double getVelocity() {
-    return m_motor.getSelectedSensorVelocity();
+    return motor.getSelectedSensorVelocity();
   }
 
   @Override
   public double getVoltage() {
-    return m_motor.getMotorOutputVoltage();
+    return motor.getMotorOutputVoltage();
   }
 
   @Override

@@ -12,7 +12,7 @@ import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 /**
  * Add your docs here.
  */
-public abstract class GravityAffectedMechanism extends SingleMotorTalonSRX{
+public abstract class GravityAffectedMechanism extends SingleMotorTalonSRX {
 
   public GravityAffectedMechanism(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     super(talonID, subsystemName, inversion, sensorPhase);

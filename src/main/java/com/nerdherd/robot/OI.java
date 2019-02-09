@@ -7,23 +7,10 @@
 
 package com.nerdherd.robot;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import com.nerdherd.lib.drivetrain.auto.DriveDistanceMotionMagic;
-import com.nerdherd.lib.drivetrain.auto.DriveFalconTrajectory;
-import com.nerdherd.lib.drivetrain.auto.ResetDriveEncoders;
-import com.nerdherd.lib.drivetrain.auto.ResetGyro;
-import com.nerdherd.lib.drivetrain.auto.TurnToAngleMotionMagic;
-import com.nerdherd.lib.drivetrain.characterization.DriveCharacterizationTest;
-import com.nerdherd.lib.drivetrain.characterization.OpenLoopDrive;
-import com.nerdherd.lib.drivetrain.trajectory.falconlib.Pose2D;
 import com.nerdherd.lib.drivetrain.trajectory.falconlib.TrajectoryGen;
-import com.nerdherd.lib.drivetrain.trajectory.falconlib.TrajectoryPoint;
 import com.nerdherd.lib.oi.DefaultOI;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
