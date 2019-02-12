@@ -22,15 +22,15 @@ public class SingleMotorTalonSRXWithLimitSwitch extends SingleMotorTalonSRX {
     public boolean getLimitSwitch() {
         if (m_useForwardLimitSwitch) {
             if (m_invertLimitSwitch) {
-                return super.m_motor.getSensorCollection().isFwdLimitSwitchClosed();
+                return super.motor.getSensorCollection().isFwdLimitSwitchClosed();
             } else {
-                return !super.m_motor.getSensorCollection().isFwdLimitSwitchClosed();
+                return !super.motor.getSensorCollection().isFwdLimitSwitchClosed();
             }
         } else {
             if (m_invertLimitSwitch) {
-                return super.m_motor.getSensorCollection().isRevLimitSwitchClosed();
+                return super.motor.getSensorCollection().isRevLimitSwitchClosed();
             } else {
-                return !super.m_motor.getSensorCollection().isRevLimitSwitchClosed();
+                return !super.motor.getSensorCollection().isRevLimitSwitchClosed();
             }
         }
     }
