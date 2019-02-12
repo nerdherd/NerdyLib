@@ -217,4 +217,18 @@ public class NerdyMath {
 		public static double boolToDouble(boolean bool) {
 			return (bool) ? 1.0 : 0.0;
 		}
+
+		/**
+		 * Bounds a number between a minimum and maximum
+		 * @param value
+		 * 			The value
+		 * @param min
+		 * 			The minimum value
+		 * @param max
+		 * 			The maximum value
+		 * @return The bounded value
+		 */
+		public static double boundBetween(double value, double min, double max) {
+			return Math.min(max, Math.max(min, value));
+		}
 }
