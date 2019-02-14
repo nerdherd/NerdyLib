@@ -231,4 +231,16 @@ public class NerdyMath {
 		public static double boundBetween(double value, double min, double max) {
 			return Math.min(max, Math.max(min, value));
 		}
+
+		/**
+		 * Compares two numbers and determines if they are equal to a specified precision
+		 * @param val1
+		 * @param val2
+		 * @param epsilon
+		 * 			The precision the values are compared with
+		 * @return true if the values are equal to the specified precision, false otherwise
+		 */
+		public static boolean isApproximately(double val1, double val2, double epsilon) {
+			return Math.abs(val1 - val2) < epsilon;
+		}
 }
