@@ -21,24 +21,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TalonTach extends BooleanSensor implements Loggable {
 
   private final TalonSRX m_limit;
+  private boolean m_isForward;
 
-  public TalonTach(int talonID, String sensorName, boolean isInverted) {
+  public TalonTach(int talonID, String sensorName, boolean isInverted, boolean isForward) {
     super(sensorName, isInverted);
     m_limit = new TalonSRX(talonID);
+    m_isForward = isForward;
   }
 
-  public TalonTach(SingleMotorTalonSRX talonSubsystem, String sensorName, boolean isInverted) {
+  public TalonTach(SingleMotorTalonSRX talonSubsystem, String sensorName, 
+                    boolean isInverted, boolean isForward) {
     super(sensorName, isInverted);
     m_limit = talonSubsystem.motor;
+    m_isForward = isForward;
   }
 
-  public TalonTach(TalonSRX talon, String sensorName, boolean isInverted) {
+  public TalonTach(TalonSRX talon, String sensorName, boolean isInverted, boolean isForward) {
     super(sensorName, isInverted);
     m_limit = talon;
+    m_isForward = isForward;
   }
 
   @Override
   public boolean get() {
-    return m_limit.getSensorCollection().isFwdLimitSwitchClosed();
+    if (m_isForward) {
+      return m_limit.getSensorCollection().isFwdLimitSwitchClosed();
+    } else {
+      return m_limit.getSensorCollection().isRevLimitSwitchClosed();
+    }
   }
 }
