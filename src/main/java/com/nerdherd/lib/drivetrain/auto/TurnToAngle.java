@@ -50,19 +50,17 @@ public class TurnToAngle extends Command {
 
     @Override
     protected void execute() {
-    m_error = Pathfinder.boundHalfDegrees(m_desiredAngle - m_drive.getRawYaw());
-	m_dTerm = (m_prevError - m_error) / (m_prevTimestamp - Timer.getFPGATimestamp());
-	m_prevTimestamp = Timer.getFPGATimestamp();
-
-	double power = m_rotP * m_error + m_rotD * m_dTerm;
-
-	m_drive.setPowerFeedforward(-power, power);
-	if (Math.abs(m_error) <= 2) {
-	    m_counter += 1;
-	} else {
-	    m_counter = 0;
-	}
-	m_prevError = m_error;
+        m_error = Pathfinder.boundHalfDegrees(m_desiredAngle - m_drive.getRawYaw());
+        m_dTerm = (m_prevError - m_error) / (m_prevTimestamp - Timer.getFPGATimestamp());
+        m_prevTimestamp = Timer.getFPGATimestamp();
+        double power = m_rotP * m_error + m_rotD * m_dTerm;
+        m_drive.setPowerFeedforward(-power, power);
+        if (Math.abs(m_error) <= 2) {
+            m_counter += 1;
+        } else {
+            m_counter = 0;
+        }
+        m_prevError = m_error;
     }
 
     @Override
