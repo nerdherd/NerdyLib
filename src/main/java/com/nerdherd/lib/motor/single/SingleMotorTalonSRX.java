@@ -10,9 +10,9 @@ package com.nerdherd.lib.motor.single;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.nerdherd.lib.misc.NerdyBadlog;
 import com.nerdherd.lib.motor.NerdyTalon;
 
-import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -138,9 +138,9 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
 
   @Override
   public void initLoggingData() {
-    BadLog.createTopic(m_name + "/Position", "ticks", () -> getPosition());
-    BadLog.createTopic(m_name + "/Velocity", "STU", () -> getVelocity());
-    BadLog.createTopic(m_name + "/Voltage", "V", () -> getVoltage());
-    BadLog.createTopic(m_name + "/Current", "Amps", () -> getCurrent());
+    NerdyBadlog.createTopic(m_name + "/Position", () -> getPosition());
+    NerdyBadlog.createTopic(m_name + "/Velocity", () -> getVelocity());
+    NerdyBadlog.createTopic(m_name + "/Voltage", () -> getVoltage());
+    NerdyBadlog.createTopic(m_name + "/Current", () -> getCurrent());
   }
 }

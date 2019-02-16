@@ -8,9 +8,9 @@
 package com.nerdherd.lib.sensor;
 
 import com.nerdherd.lib.misc.Loggable;
+import com.nerdherd.lib.misc.NerdyBadlog;
 import com.nerdherd.lib.misc.NerdyMath;
 
-import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -43,7 +43,7 @@ public abstract class BooleanSensor implements Loggable {
 
   @Override
   public void initLoggingData() {
-    BadLog.createTopic(m_name + "/Value", "bool", () -> NerdyMath.boolToDouble(this.getValue()));
+    NerdyBadlog.createTopic(m_name + "/Value", () -> NerdyMath.boolToDouble(this.getValue()));
   }
 
 }

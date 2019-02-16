@@ -8,7 +8,6 @@
 package com.nerdherd.lib.oi;
 
 
-import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**

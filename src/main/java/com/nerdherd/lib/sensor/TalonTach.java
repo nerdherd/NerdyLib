@@ -9,16 +9,13 @@ package com.nerdherd.lib.sensor;
 
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.nerdherd.lib.misc.Loggable;
 import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
  * Add your docs here.
  */
-public class TalonTach extends BooleanSensor implements Loggable {
+public class TalonTach extends BooleanSensor {
 
   private final TalonSRX m_limit;
   private boolean m_isForward;
