@@ -30,7 +30,8 @@ public class NerdyBadlog {
   public static void init(String directory, String filename, Loggable... toLog) {
     // Check that the directory exists
     String pathToUse;
-    if (!(new File(directory)).isDirectory()) {
+    File dir = new File(directory);
+    if (!(dir.isDirectory())) {
       pathToUse = kDefaultPath;
     } else {
       pathToUse = directory;
@@ -38,8 +39,8 @@ public class NerdyBadlog {
 
     int fileNumber = 0;
     for (int i = 0; i < kMaxNumFiles; i++) {
-      File file = (new File(pathToUse + filename + String.valueOf(i)));
-      if (file.exists() && !file.isDirectory()) {
+      File file = (new File(pathToUse + filename + String.valueOf(i) + ".csv"));
+      if (!file.exists() && !file.isDirectory()) {
         fileNumber = i;
         break;
       }
