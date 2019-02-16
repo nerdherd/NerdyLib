@@ -9,8 +9,8 @@ package com.nerdherd.lib.motor.single.mechanisms;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
+import com.nerdherd.lib.misc.NerdyBadlog;
 
-import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -137,7 +137,7 @@ public class SingleMotorElevator extends GravityAffectedMechanism {
   @Override
   public void initLoggingData() {
     super.initLoggingData();
-    BadLog.createTopic(m_name + "/Height", "in", () -> getHeight());
+    NerdyBadlog.createTopic(m_name + "/Height", () -> getHeight());
   }
 
 }

@@ -9,8 +9,8 @@ package com.nerdherd.lib.motor.single;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.nerdherd.lib.misc.NerdyBadlog;
 
-import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -65,6 +65,6 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
 
   @Override
   public void initLoggingData() {
-    BadLog.createTopic(m_name + "/Voltage", "V", () -> getVoltage());
+    NerdyBadlog.createTopic(m_name + "/Voltage", () -> getVoltage());
   }
 }

@@ -9,9 +9,9 @@ package com.nerdherd.lib.motor.single.mechanisms;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
+import com.nerdherd.lib.misc.NerdyBadlog;
 import com.nerdherd.lib.misc.NerdyMath;
 
-import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -146,7 +146,7 @@ public class SingleMotorArm extends GravityAffectedMechanism {
   @Override
   public void initLoggingData() {
     super.initLoggingData();
-    BadLog.createTopic(m_name + "/Angle", "deg", () -> getAngle());
+    NerdyBadlog.createTopic(m_name + "/Angle", () -> getAngle());
   }
 
 }
