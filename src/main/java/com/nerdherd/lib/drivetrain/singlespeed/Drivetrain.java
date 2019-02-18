@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -35,7 +36,8 @@ public class Drivetrain extends AbstractDrivetrain {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
-	private NerdyTalon m_leftMaster, m_rightMaster;
+	protected NerdyTalon m_leftMaster, m_rightMaster;
+	protected IMotorController[] m_leftSlaves, m_rightSlaves;
 	private AHRS m_nav;
 	private AutoChooser m_chooser;
 	private double m_previousDistance, m_currentX, m_currentY, m_angleOffset, m_xOffset, m_yOffset;
@@ -50,7 +52,6 @@ public class Drivetrain extends AbstractDrivetrain {
 	private double m_leftDesiredVel, m_rightDesiredVel;
 	public double m_lookaheadX, m_lookaheadY;
 	public double kLeftStatic, kRightStatic, kMaxVelocity, kLeftTicksPerFoot, kRightTicksPerFoot;
-
 	public Command defaultCommand;
 
 	/**
@@ -76,6 +77,8 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 		m_leftMaster.configFollowerTalons(leftSlaves);
 		m_rightMaster.configFollowerTalons(rightSlaves);
+		m_leftSlaves = leftSlaves;
+		m_rightSlaves = rightSlaves;
 		m_nav = new AHRS(SPI.Port.kMXP);
 	}
 
@@ -103,7 +106,28 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 		m_leftMaster.configFollowerVictors(leftSlaves);
 		m_rightMaster.configFollowerVictors(rightSlaves);
+		m_leftSlaves = leftSlaves;
+		m_rightSlaves = rightSlaves;
 		m_nav = new AHRS(SPI.Port.kMXP);
+	}
+
+	public void configNeutralMode(NeutralMode mode) {
+		m_leftMaster.setNeutralMode(mode);
+		m_rightMaster.setNeutralMode(mode);
+		for (IMotorController follower : m_leftSlaves) {
+			follower.setNeutralMode(mode);
+		}
+		for (IMotorController follower : m_rightSlaves) {
+			follower.setNeutralMode(mode);
+		}
+	}
+
+	public void setBrakeMode() {
+		configNeutralMode(NeutralMode.Brake);
+	}
+
+	public void setCoastMode() {
+		configNeutralMode(NeutralMode.Coast);
 	}
 
 	public void configAutoChooser(AutoChooser chooser) {
