@@ -23,6 +23,10 @@ public class SubscribedLoggable implements Loggable {
         m_dataInferMode = dataInferMode;
     }
 
+    public SubscribedLoggable(String name) {
+        this(name, DataInferMode.DEFAULT);
+    }
+
     @Override
     public void initLoggingData() {
         BadLog.createTopicSubscriber(m_name, "ul", m_dataInferMode);
