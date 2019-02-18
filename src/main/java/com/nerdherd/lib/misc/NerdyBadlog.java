@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  * Add your docs here.
  */
-public class NerdyBadlog {
+public class NerdyBadlog extends Badlog {
 
   private static final int kMaxNumFiles = 971;
   private static final String kDefaultPath = "/home/lvuser/logs/";
@@ -64,10 +64,6 @@ public class NerdyBadlog {
   public static void log() {
     log.updateTopics();
     log.log();
-  }
-
-  public static void createTopic(String name, Supplier<Double> supplier) {
-    BadLog.createTopic(name, supplier);
   }
 
 }
