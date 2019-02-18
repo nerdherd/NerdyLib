@@ -47,6 +47,14 @@ public class Piston extends Subsystem {
     return m_piston.get();
   }
 
+  public boolean isForwards() {
+    return Value.kForward == getValue();
+  }
+
+  public boolean isReverse() {
+    return Value.kReverse == getValue();
+  }
+
   @Override
   public void initDefaultCommand() {
   }
