@@ -75,7 +75,6 @@ public class FalconTrajectoryFollower {
 
     public static TrajectoryPoint getClosestSegment(double x, double y, ArrayList<TrajectoryPoint> trajectory, int index, int range) {
         double min = 1000000;
-        int segIndex = 0;
         int counter = index - range;
         int max = index + range;
         if (max > trajectory.size() - 1) {

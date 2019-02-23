@@ -7,7 +7,6 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.drivetrain.trajectory.falconlib.TrajectoryGen;
 import com.nerdherd.lib.oi.DefaultOI;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -40,7 +39,6 @@ public class OI extends DefaultOI{
     // SmartDashboard.putData("Velocity Test FPS", new VelocityTestFPS(Robot.drive, 10, 5));
     // SmartDashboard.putData("Turn To Angle Motion Magic", new TurnToAngleMotionMagic(Robot.drive, 90., 50000*0.2, 20000 *0.2, 17688.26817));
 
-    TrajectoryGen gen = new TrajectoryGen();
     // ArrayList<TrajectoryPoint> traj = gen.generateTrajectory(Arrays.asList(new Pose2D(5, 5, 0).pose, new Pose2D(10, 10, 0).pose), 
     // 20, 0. , 0., 4., 7., false);
     // ArrayList<TrajectoryPoint> farRightRocket = gen.generateTrajectory(Arrays.asList(new Pose2D(5, 10, 0).pose, new Pose2D(21.5, 2, -150).pose), 

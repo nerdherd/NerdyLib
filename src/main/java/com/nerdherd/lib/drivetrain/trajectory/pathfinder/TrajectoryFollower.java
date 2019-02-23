@@ -18,7 +18,7 @@ public class TrajectoryFollower {
     private double m_robotX, m_robotY, m_targetAngle, m_velocity,
             m_error, m_leftDesiredVel, m_rightDesiredVel, m_kP, m_kD, m_turn, m_lastError;
     private int m_lookaheadIndex, m_robotIndex, m_lookahead;
-    private List m_trajectoryList;
+    private List<Segment> m_trajectoryList;
 
 
 

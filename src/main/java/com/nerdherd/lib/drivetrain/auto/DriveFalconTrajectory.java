@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveFalconTrajectory extends Command {
   
   private FalconTrajectoryFollower m_controller;
-  private double m_leftVelocity, m_rightVelocity, m_startTime, m_time, m_lastTime;
+  private double m_startTime, m_time, m_lastTime;
   private AbstractDrivetrain m_drive;
   private ArrayList<TrajectoryPoint> m_traj;
 

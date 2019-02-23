@@ -40,7 +40,7 @@ public class Drivetrain extends AbstractDrivetrain {
 	protected IMotorController[] m_leftSlaves, m_rightSlaves;
 	private AHRS m_nav;
 	private AutoChooser m_chooser;
-	private double m_previousDistance, m_currentX, m_currentY, m_angleOffset, m_xOffset, m_yOffset;
+	private double m_previousDistance, m_currentX, m_currentY;
 	private String m_date;
 	private String m_filePath1 = "/media/sda1/logs/";
 	private String m_filePath2 = "/home/lvuser/logs/";

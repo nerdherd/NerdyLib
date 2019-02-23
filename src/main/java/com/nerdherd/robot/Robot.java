@@ -7,12 +7,10 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.logging.SubscribedLoggable;
 import com.nerdherd.lib.misc.AutoChooser;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 

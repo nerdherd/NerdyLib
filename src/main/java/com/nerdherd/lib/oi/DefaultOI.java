@@ -74,7 +74,7 @@ public class DefaultOI extends AbstractOI{
         return -operatorJoy.getY();
     }
 
-    // TODO: do something about the whole OI logging slowing things down and other issues thing
+    // TODO: implement OI logging again
     @Override
     public void initLoggingData() {
         // for (int i = 1; i < 12; i++) {

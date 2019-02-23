@@ -3,7 +3,6 @@ package com.nerdherd.lib.drivetrain.auto;
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -11,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveDistanceMotionMagic extends Command {
 
 	private double m_distance;
-    private double m_error;
     private int m_accel, m_velocity;
     private AbstractDrivetrain m_drive;
 
@@ -31,7 +29,6 @@ public class DriveDistanceMotionMagic extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        m_error = m_distance - m_drive.getAverageEncoderPosition();
     	m_drive.setPositionMotionMagic(m_distance, m_distance, m_accel, m_velocity);
     }
 
