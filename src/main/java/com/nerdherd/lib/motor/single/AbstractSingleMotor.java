@@ -7,7 +7,7 @@
 
 package com.nerdherd.lib.motor.single;
 
-import com.nerdherd.lib.misc.Loggable;
+import com.nerdherd.lib.logging.Loggable;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 

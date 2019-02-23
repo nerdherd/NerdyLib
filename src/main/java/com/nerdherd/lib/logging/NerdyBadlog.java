@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.misc;
+package com.nerdherd.lib.logging;
 
 import java.io.File;
 import java.util.function.Supplier;
@@ -25,9 +25,25 @@ public class NerdyBadlog {
   public static BadLog log;
   private static Notifier logger;
 
-  // TODO: adjust path so that there's path, filename, and adds a number depending on how many pre-existing logs there are
-  // TODO: also add a thing to check whether a directory exists because Badlog dies if the flash drive isn't there
   public static void init(String directory, String filename, Loggable... toLog) {
+    
+    log = BadLog.init(getDesiredFile(directory, filename));
+    createTopic("Time", () -> Timer.getFPGATimestamp());
+    for (Loggable loggableItem : toLog) {
+      loggableItem.initLoggingData();
+    }
+    log.finishInitialization();
+  }
+
+  public static void initAndLog(String directory, String filename, double period, Loggable... toLog) {
+    init(directory, filename, toLog);
+    logger = new Notifier(() -> {
+      NerdyBadlog.log();
+    });
+    logger.startPeriodic(period);
+  }
+
+  private static String getDesiredFile(String directory, String filename) {
     // Check that the directory exists
     String pathToUse;
     File dir = new File(directory);
@@ -45,20 +61,7 @@ public class NerdyBadlog {
         break;
       }
     }
-    log = BadLog.init(pathToUse + filename + String.valueOf(fileNumber) + ".csv");
-    createTopic("Time", () -> Timer.getFPGATimestamp());
-    for (Loggable loggableItem : toLog) {
-      loggableItem.initLoggingData();
-    }
-    log.finishInitialization();
-  }
-
-  public static void initAndLog(String directory, String filename, double period, Loggable... toLog) {
-    init(directory, filename, toLog);
-    logger = new Notifier(() -> {
-      NerdyBadlog.log();
-    });
-    logger.startPeriodic(period);
+    return pathToUse + filename + String.valueOf(fileNumber) + ".csv";
   }
 
   public static void log() {

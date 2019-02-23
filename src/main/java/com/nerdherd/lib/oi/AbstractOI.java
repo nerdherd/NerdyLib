@@ -7,7 +7,7 @@
 
 package com.nerdherd.lib.oi;
 
-import com.nerdherd.lib.misc.Loggable;
+import com.nerdherd.lib.logging.Loggable;
 
 /**
  * Add your docs here.

@@ -7,13 +7,12 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.drivetrain.teleop.ArcadeDrive;
+import com.nerdherd.lib.logging.NerdyBadlog;
+import com.nerdherd.lib.logging.SubscribedLoggable;
 import com.nerdherd.lib.misc.AutoChooser;
-import com.nerdherd.lib.motor.NerdyTalon;
-import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 
@@ -28,13 +27,13 @@ public class Robot extends TimedRobot {
   
   // public static Drivetrain drive;
   public static AutoChooser chooser;
+  public static SubscribedLoggable tester;
   // public static SingleMotorElevator elevator;
 
   public static OI oi;
   
   @Override
   public void robotInit() {
-    System.out.println("hello world");
     chooser = new AutoChooser();
     // drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
     // new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
@@ -60,7 +59,6 @@ public class Robot extends TimedRobot {
   
     oi = new OI();
     // drive.configDefaultCommand(new ArcadeDrive(drive, oi));
-    // NerdyBadlog.init("/media/sda1/logs/test.csv", elevator);
   }
 
   /**

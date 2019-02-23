@@ -5,13 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.misc;
+package com.nerdherd.lib.logging;
+
+import java.util.function.Supplier;
+
+import com.nerdherd.lib.logging.Loggable;
 
 /**
  * Add your docs here.
  */
-public interface Loggable {
+public class LoggableLambda implements Loggable {
 
-  public void initLoggingData();
+  private Supplier<Double> m_lambda;
+  private String m_name;
 
+  public LoggableLambda(String name, Supplier<Double> lambda) {
+    m_name = name;
+    m_lambda = lambda;
+  }
+
+  @Override
+  public void initLoggingData() {
+    NerdyBadlog.createTopic(m_name, m_lambda);
+  }
 }

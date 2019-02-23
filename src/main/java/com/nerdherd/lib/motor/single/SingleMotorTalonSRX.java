@@ -10,7 +10,7 @@ package com.nerdherd.lib.motor.single;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.nerdherd.lib.misc.NerdyBadlog;
+import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.motor.NerdyTalon;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

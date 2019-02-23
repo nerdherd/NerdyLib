@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.misc;
+package com.nerdherd.lib.logging;
 
 import badlog.lib.BadLog;
 import badlog.lib.DataInferMode;
@@ -19,7 +19,7 @@ public class SubscribedLoggable implements Loggable {
     private DataInferMode m_dataInferMode;
 
     public SubscribedLoggable(String name, DataInferMode dataInferMode) {
-        name = m_name;
+        m_name = name;
         m_dataInferMode = dataInferMode;
     }
 
@@ -33,6 +33,10 @@ public class SubscribedLoggable implements Loggable {
     }
 
     public void publish(String data) {
+        BadLog.publish(m_name, data);
+    }
+
+    public void publish(double data) {
         BadLog.publish(m_name, data);
     }
 

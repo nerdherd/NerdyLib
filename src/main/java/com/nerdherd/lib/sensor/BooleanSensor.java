@@ -7,8 +7,8 @@
 
 package com.nerdherd.lib.sensor;
 
-import com.nerdherd.lib.misc.Loggable;
-import com.nerdherd.lib.misc.NerdyBadlog;
+import com.nerdherd.lib.logging.Loggable;
+import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.misc.NerdyMath;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
