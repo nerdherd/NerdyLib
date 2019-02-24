@@ -12,6 +12,7 @@ import java.util.function.Supplier;
 
 import badlog.lib.BadLog;
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -21,6 +22,7 @@ public class NerdyBadlog {
 
   private static final int kMaxNumFiles = 971;
   private static final String kDefaultPath = "/home/lvuser/logs/";
+  private static final String kDefaultSimPath = "\\logs\\";
 
   public static BadLog log;
   private static Notifier logger;
@@ -48,7 +50,11 @@ public class NerdyBadlog {
     String pathToUse;
     File dir = new File(directory);
     if (!(dir.isDirectory())) {
-      pathToUse = kDefaultPath;
+      if (RobotBase.isReal()) {
+        pathToUse = kDefaultPath;
+      } else {
+        pathToUse = System.getProperty("user.dir") + kDefaultSimPath;
+      }
     } else {
       pathToUse = directory;
     }
