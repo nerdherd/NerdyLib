@@ -7,9 +7,13 @@
 
 package com.nerdherd.robot;
 
+import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.logging.SubscribedLoggable;
 import com.nerdherd.lib.misc.AutoChooser;
+import com.nerdherd.lib.motor.statespace.SSTalonSRX;
+import com.nerdherd.robot.testconstants.TestSSGains;
 
+import Jama.Matrix;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -27,6 +31,7 @@ public class Robot extends TimedRobot {
   public static AutoChooser chooser;
   public static SubscribedLoggable tester;
   // public static SingleMotorElevator elevator;
+  public static SSTalonSRX testMotor;
 
   public static OI oi;
   
@@ -53,10 +58,16 @@ public class Robot extends TimedRobot {
     // drive.configRightPIDF(0.05, 0, 0, 0.026487175);
     // drive.configStaticFeedforward(0.760, 1.386);
 
-    // elevator = new SingleMotorElevator(0, "Elevator", false, false); 
+    // elevator = new SingleMotorElevator(0, "Elevator", false, false);
+    testMotor = new SSTalonSRX(1, "testMotor", true, true, 
+      TestSSGains.testGains, new Matrix(new double[][] {
+        {0},
+        {0}
+      }), 0);
   
     oi = new OI();
     // drive.configDefaultCommand(new ArcadeDrive(drive, oi));
+    NerdyBadlog.initAndLog("/media/sda1/logs/", "wooo_testing", 0.02, testMotor);
   }
 
   /**
@@ -74,6 +85,7 @@ public class Robot extends TimedRobot {
     // drive.calcXY();
     // // arm.reportToSmartDashboard();
     // climberWheelRight.reportToSmartDashboard();
+    testMotor.reportToSmartDashboard();
   }
 
   /**

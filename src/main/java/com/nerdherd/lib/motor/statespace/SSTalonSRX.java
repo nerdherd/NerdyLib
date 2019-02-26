@@ -7,9 +7,11 @@
 
 package com.nerdherd.lib.motor.statespace;
 
+import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 
 import Jama.Matrix;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
@@ -29,6 +31,7 @@ public class SSTalonSRX extends SingleMotorTalonSRX {
         this.gains = this.m_gainsGroup.getGains(0);
 
         this.xHat = x0;
+        this.r = xHat;
         this.y = new Matrix(this.gains.q, 1);
         this.u = u0;
     }
@@ -40,13 +43,13 @@ public class SSTalonSRX extends SingleMotorTalonSRX {
     }
 
     public SSTalonSRX(int kTalonID, String name, boolean inversion, boolean sensorPhase,
-        DiscreteSSGains gains, Matrix uMin, Matrix uMax, Matrix x0, Matrix u0) {
+        DiscreteSSGains gains, Matrix x0, Matrix u0) {
 
         this(kTalonID, name, inversion, sensorPhase, new DiscreteSSGainsGroup(gains), x0, u0);
     }
 
     public SSTalonSRX(int kTalonID, String name, boolean inversion, boolean sensorPhase,
-        DiscreteSSGains gains, double uMin, double uMax, Matrix x0, double u0) {
+        DiscreteSSGains gains, Matrix x0, double u0) {
 
         this(kTalonID, name, inversion, sensorPhase, new DiscreteSSGainsGroup(gains), x0, JamaUtils.matrixFromDouble(u0));
     }
@@ -56,9 +59,22 @@ public class SSTalonSRX extends SingleMotorTalonSRX {
     }
 
     @Override
+    public void resetEncoder() {
+        super.resetEncoder();
+        this.r = new Matrix(this.gains.n, 1);
+        this.xHat = new Matrix(this.gains.n, 1);
+    }
+
+    @Override
     public void periodic() {
         this.updateObserver();
         this.setVoltage(this.u.get(0, 0));
+        // System.out.println("\nr:\n");
+        // JamaUtils.printMatrix(this.r);
+        // System.out.println("\nx_hat:\n");
+        // JamaUtils.printMatrix(this.xHat);
+        // System.out.println("\nu:\n");
+        // JamaUtils.printMatrix(this.u);
     }
 
     public void updateObserver() {
@@ -86,8 +102,11 @@ public class SSTalonSRX extends SingleMotorTalonSRX {
 
     public void update(Matrix r) {
         // u = -K*(r-x) + Kff * (nextR - A*currentR)
+        // or u = K * (x-r) + Kff * (nextR - A*currentR) for if 
+        // you care about not doing 8 million matrix operations
         this.u = JamaUtils.boundMatrix(
-            this.gains.K.times(this.r.minus(this.xHat)).times(-1).plus(
+            this.gains.K.times(this.xHat.minus(this.r))
+            .plus(
             this.gains.Kff.times(r.minus(this.gains.A.times(this.r)))), 
             this.gains.u_min, this.gains.u_max);
         this.r = r;
@@ -95,6 +114,28 @@ public class SSTalonSRX extends SingleMotorTalonSRX {
 
     public void update() {
         this.update(this.r);
+    }
+
+    @Override
+    public void reportToSmartDashboard() {
+        super.reportToSmartDashboard();
+        for (int i = 0; i < this.xHat.getRowDimension(); i++) {
+            SmartDashboard.putNumber(m_name + " x_hat item " + i, this.xHat.get(i, 0));
+        }
+        for (int i = 0; i < this.r.getRowDimension(); i++) {
+            SmartDashboard.putNumber(m_name + " r item " + i, this.r.get(i, 0));
+        }
+        for (int i = 0; i < this.u.getRowDimension(); i++) {
+            SmartDashboard.putNumber(m_name + " u item " + i, this.u.get(i, 0));
+        }
+    }
+
+    @Override
+    public void initLoggingData() {
+        super.initLoggingData();
+        // for (int i = 0; i < this.xHat.getRowDimension(); i++) {
+        //     NerdyBadlog.createTopic(m_name + "/x_hat_item_" + i, () -> this.xHat.get(0, i));
+        // }
     }
 
 }
