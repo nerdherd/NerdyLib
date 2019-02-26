@@ -7,9 +7,13 @@
 
 package com.nerdherd.robot;
 
+import com.nerdherd.lib.motor.commands.ResetSingleMotorEncoder;
+import com.nerdherd.lib.motor.statespace.TrackReference;
 import com.nerdherd.lib.oi.DefaultOI;
 
+import Jama.Matrix;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -37,6 +41,11 @@ public class OI extends DefaultOI{
     // SmartDashboard.putData("Drive Motion Magic", new DriveDistanceMotionMagic(Robot.drive, 50000, 20000, 15000));
     // SmartDashboard.putData("Velocity Test", new VelocityTest(Robot.drive, 15000, 5));
     // SmartDashboard.putData("Velocity Test FPS", new VelocityTestFPS(Robot.drive, 10, 5));
+    SmartDashboard.putData("Reset encoder", new ResetSingleMotorEncoder(Robot.testMotor));
+    SmartDashboard.putData("Track pi", new TrackReference(Robot.testMotor, new Matrix(new double[][] {
+      {3.14},
+      {0}}
+      )));
     // SmartDashboard.putData("Turn To Angle Motion Magic", new TurnToAngleMotionMagic(Robot.drive, 90., 50000*0.2, 20000 *0.2, 17688.26817));
 
     // ArrayList<TrajectoryPoint> traj = gen.generateTrajectory(Arrays.asList(new Pose2D(5, 5, 0).pose, new Pose2D(10, 10, 0).pose), 

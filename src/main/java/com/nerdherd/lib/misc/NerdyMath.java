@@ -243,4 +243,17 @@ public class NerdyMath {
 		public static boolean isApproximately(double val1, double val2, double epsilon) {
 			return Math.abs(val1 - val2) < epsilon;
 		}
+
+		public static double factorial(int n) {
+			if (n >= 0) {
+				double product = 1;
+				for (int i = 1; i < n + 1; i++) {
+					product *= i;
+				}
+				return product;
+			} else {
+				throw new IllegalArgumentException("Factorials must be non-negative until the Gamma function is implemented.");
+			}
+		}
+
 }
