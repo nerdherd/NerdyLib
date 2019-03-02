@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class FollowSSMotionProfile extends Command {
 
-    private SSTalonSRX m_motor;
+    private SSTalonSRXPos m_motor;
     private SSMotionProfile m_motProf;
     private double m_startTime;
 
-    public FollowSSMotionProfile(SSTalonSRX motor, SSMotionProfile motProf) {
+    public FollowSSMotionProfile(SSTalonSRXPos motor, SSMotionProfile motProf) {
         m_motor = motor;
         m_motProf = motProf;
         requires(m_motor);

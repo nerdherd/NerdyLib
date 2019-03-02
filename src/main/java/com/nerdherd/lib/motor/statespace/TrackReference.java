@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class TrackReference extends Command {
 
-    private SSTalonSRX m_motor;
+    private SSTalonSRXPos m_motor;
     private Matrix m_reference;
 
-    public TrackReference(SSTalonSRX motor, Matrix reference) {
+    public TrackReference(SSTalonSRXPos motor, Matrix reference) {
         m_motor = motor;
         requires(m_motor);
         m_reference = reference;

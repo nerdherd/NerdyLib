@@ -16,13 +16,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Add your docs here.
  */
-public class SSTalonSRX extends SingleMotorTalonSRX {
+public class SSTalonSRXPos extends SingleMotorTalonSRX {
 
     public DiscreteSSGains gains;
     private DiscreteSSGainsGroup m_gainsGroup;
     public Matrix u, y, xHat, r;
+    private boolean m_observerEnabled;
 
-    public SSTalonSRX(int kTalonID, String name, boolean inversion, boolean sensorPhase,
+    public SSTalonSRXPos(int kTalonID, String name, boolean inversion, boolean sensorPhase,
         DiscreteSSGainsGroup gains, Matrix x0, Matrix u0) {
         
         super(kTalonID, name, inversion, sensorPhase);
@@ -34,21 +35,27 @@ public class SSTalonSRX extends SingleMotorTalonSRX {
         this.r = xHat;
         this.y = new Matrix(this.gains.q, 1);
         this.u = u0;
+
+        this.m_observerEnabled = false;
     }
 
-    public SSTalonSRX(int kTalonID, String name, boolean inversion, boolean sensorPhase,
+    public void configObserver(boolean enabled) {
+        this.m_observerEnabled = enabled;
+    }
+
+    public SSTalonSRXPos(int kTalonID, String name, boolean inversion, boolean sensorPhase,
         DiscreteSSGainsGroup gains, Matrix x0, double u0) {
 
         this(kTalonID, name, inversion, sensorPhase, gains, x0, JamaUtils.matrixFromDouble(u0));
     }
 
-    public SSTalonSRX(int kTalonID, String name, boolean inversion, boolean sensorPhase,
+    public SSTalonSRXPos(int kTalonID, String name, boolean inversion, boolean sensorPhase,
         DiscreteSSGains gains, Matrix x0, Matrix u0) {
 
         this(kTalonID, name, inversion, sensorPhase, new DiscreteSSGainsGroup(gains), x0, u0);
     }
 
-    public SSTalonSRX(int kTalonID, String name, boolean inversion, boolean sensorPhase,
+    public SSTalonSRXPos(int kTalonID, String name, boolean inversion, boolean sensorPhase,
         DiscreteSSGains gains, Matrix x0, double u0) {
 
         this(kTalonID, name, inversion, sensorPhase, new DiscreteSSGainsGroup(gains), x0, JamaUtils.matrixFromDouble(u0));
@@ -60,14 +67,19 @@ public class SSTalonSRX extends SingleMotorTalonSRX {
 
     @Override
     public void resetEncoder() {
-        super.resetEncoder();
+        this.resetEncoder();
         this.r = new Matrix(this.gains.n, 1);
         this.xHat = new Matrix(this.gains.n, 1);
     }
 
     @Override
     public void periodic() {
-        this.updateObserver();
+        if (m_observerEnabled) {
+            this.updateObserver();
+        } else {
+            this.xHat.set(0, 0, this.getPosition() / this.gains.C.get(0, 0));
+            this.xHat.set(1, 0, this.getVelocity() / this.gains.C.get(1, 1));
+        }
         this.setVoltage(this.u.get(0, 0));
         // System.out.println("\nr:\n");
         // JamaUtils.printMatrix(this.r);
