@@ -16,7 +16,7 @@ import Jama.Matrix;
  */
 public class TestSSGains {
 
-  public static final Matrix A = new Matrix( new double[][]
+    public static final Matrix A = new Matrix( new double[][]
         {{1.0, 0.018754053524133254},
          {0.0, 0.8780479988407994}}
     );

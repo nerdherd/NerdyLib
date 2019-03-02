@@ -64,6 +64,9 @@ public class Robot extends TimedRobot {
         {0},
         {0}
       }), 0);
+    testMotor.configPIDF(0.9264515394429866 / 6175.881918041717 * 1023. / 12., 
+    0, 0.0930904218144866 / 617.5881918041716 * 1023. / 12., 0);
+    testMotor.configTalonDeadband(0.004);
   
     oi = new OI();
     // drive.configDefaultCommand(new ArcadeDrive(drive, oi));

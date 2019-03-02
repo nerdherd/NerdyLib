@@ -8,6 +8,9 @@
 package com.nerdherd.robot;
 
 import com.nerdherd.lib.motor.commands.ResetSingleMotorEncoder;
+import com.nerdherd.lib.motor.commands.SetMotorPositionPID;
+import com.nerdherd.lib.motor.statespace.FollowSSMotionProfile;
+import com.nerdherd.lib.motor.statespace.SSMotionProfile;
 import com.nerdherd.lib.motor.statespace.TrackReference;
 import com.nerdherd.lib.oi.DefaultOI;
 
@@ -44,8 +47,16 @@ public class OI extends DefaultOI{
     SmartDashboard.putData("Reset encoder", new ResetSingleMotorEncoder(Robot.testMotor));
     SmartDashboard.putData("Track pi", new TrackReference(Robot.testMotor, new Matrix(new double[][] {
       {3.14},
-      {0}}
-      )));
+      {0}
+    })));
+    SmartDashboard.putData("Track 10pi", new TrackReference(Robot.testMotor, new Matrix(new double[][] {
+      {31.4},
+      {0}
+    })));
+    SmartDashboard.putData("Set position 40000", new SetMotorPositionPID(Robot.testMotor, 40000));
+    SmartDashboard.putData("Set position 19000", new SetMotorPositionPID(Robot.testMotor, 19000));
+    SSMotionProfile motProf1 = new SSMotionProfile(145, 145*2, 0, 31.4, 0, 0);
+    SmartDashboard.putData("Follow dumbe motprof thing", new FollowSSMotionProfile(Robot.testMotor, motProf1));
     // SmartDashboard.putData("Turn To Angle Motion Magic", new TurnToAngleMotionMagic(Robot.drive, 90., 50000*0.2, 20000 *0.2, 17688.26817));
 
     // ArrayList<TrajectoryPoint> traj = gen.generateTrajectory(Arrays.asList(new Pose2D(5, 5, 0).pose, new Pose2D(10, 10, 0).pose), 
