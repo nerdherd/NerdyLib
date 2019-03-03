@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
     // drive.configStaticFeedforward(0.760, 1.386);
 
     // elevator = new SingleMotorElevator(0, "Elevator", false, false);
-    testMotor = new SSTalonSRXPos(1, "testMotor", true, false, 
+    testMotor = new SSTalonSRXPos(1, "testMotor", true, true, 
       TestSSGains.testGains, new Matrix(new double[][] {
         {0},
         {0}
@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
     0, 0.0930904218144866 / 617.5881918041716 * 1023. / 12., 0);
     testMotor.configTalonDeadband(0.004);
     testMotor.configObserver(false);
-    testMotor.configStaticFF(0.6);
+    testMotor.configStaticFF(0);
 
     motProfPos = new SubscribedLoggable("motProfPos");
     motProfVel = new SubscribedLoggable("motProfVel");
