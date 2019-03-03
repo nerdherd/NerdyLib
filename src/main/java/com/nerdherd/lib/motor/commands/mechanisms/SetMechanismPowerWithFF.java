@@ -7,16 +7,16 @@
 
 package com.nerdherd.lib.motor.commands.mechanisms;
 
-import com.nerdherd.lib.motor.single.mechanisms.GravityAffectedMechanism;
+import com.nerdherd.lib.motor.single.mechanisms.StaticFrictionMechanism;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SetMechanismPowerWithFF extends Command {
 
-  private GravityAffectedMechanism m_motor;
+  private StaticFrictionMechanism m_motor;
   private double m_voltage;
 
-  public SetMechanismPowerWithFF(GravityAffectedMechanism motor, double voltage) {
+  public SetMechanismPowerWithFF(StaticFrictionMechanism motor, double voltage) {
     m_motor = motor;
     m_voltage = voltage;
     requires(m_motor);

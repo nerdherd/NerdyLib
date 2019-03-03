@@ -8,16 +8,17 @@
 package com.nerdherd.lib.motor.commands.mechanisms;
 
 import com.nerdherd.lib.motor.single.mechanisms.GravityAffectedMechanism;
+import com.nerdherd.lib.motor.single.mechanisms.StaticFrictionMechanism;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MechanismVoltageRampingWithFF extends Command {
 
-  private GravityAffectedMechanism m_motor;
+  private StaticFrictionMechanism m_motor;
   private double m_rate, m_startTime;
 
-  public MechanismVoltageRampingWithFF(GravityAffectedMechanism motor, double rate) {
+  public MechanismVoltageRampingWithFF(StaticFrictionMechanism motor, double rate) {
     m_motor = motor;
     m_rate = rate;
     requires(m_motor);

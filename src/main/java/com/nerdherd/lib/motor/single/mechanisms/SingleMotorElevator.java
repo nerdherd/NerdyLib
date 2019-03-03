@@ -50,50 +50,12 @@ public class SingleMotorElevator extends GravityAffectedMechanism {
     return m_gravityFF + sign * m_staticFF;
   }
 
-  public void setPowerWithFF(double power) {
-    if (isNotMoving()) {
-      motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
-        getFFIfNotMoving(power));
-    } else {
-      motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, getFFIfMoving());
-    }
-  }
-
-  public void setVoltageWithFF(double voltage) {
-    if (isNotMoving()) {
-      motor.set(ControlMode.PercentOutput, voltage/12.0, DemandType.ArbitraryFeedForward, 
-        getFFIfNotMoving(voltage));
-    } else {
-      motor.set(ControlMode.PercentOutput, voltage/12.0, DemandType.ArbitraryFeedForward, getFFIfMoving());
-    }
-  }
-
-  @Override
-  public void setPosition(double pos) {
-    if (isNotMoving()) {
-      motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
-        getFFIfNotMoving(pos - getPosition()));
-    } else {
-      motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, getFFIfMoving());
-    }
-  }
-
   public void setHeight(double height) {
     if (isNotMoving()) {
       motor.set(ControlMode.Position, heightToTicks(height), DemandType.ArbitraryFeedForward, 
         getFFIfNotMoving(height - getHeight()));
     } else {
       motor.set(ControlMode.Position, heightToTicks(height), DemandType.ArbitraryFeedForward, getFFIfMoving());
-    }
-  }
-  
-  @Override
-  public void setPositionMotionMagic(double pos) {
-    if (isNotMoving()) {
-      motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, 
-        getFFIfNotMoving(pos - getPosition()));
-    } else {
-      motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, getFFIfMoving());
     }
   }
 
@@ -103,16 +65,6 @@ public class SingleMotorElevator extends GravityAffectedMechanism {
         getFFIfNotMoving(height - getHeight()));
     } else {
       motor.set(ControlMode.MotionMagic, heightToTicks(height), DemandType.ArbitraryFeedForward, getFFIfMoving());
-    }
-  }
-
-  @Override
-  public void setVelocity(double vel) {
-    if (isNotMoving()) {
-      motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, 
-        getFFIfNotMoving(vel - getVelocity()));
-    } else {
-      motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, getFFIfMoving());
     }
   }
 
