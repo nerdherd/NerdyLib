@@ -17,12 +17,12 @@ import Jama.Matrix;
 public class TestSSGains {
 
     public static final Matrix A = new Matrix( new double[][]
-        {{1.0, 0.018754053524133254},
-         {0.0, 0.8780479988407994}}
+        {{1.0, 0.00968179937797901},
+         {0.0, 0.9370421542496363}}
     );
     public static final Matrix B = new Matrix( new double[][]
-        {{0.015126667615452397},
-         {1.4805831729578884}}
+        {{0.003863179628959037},
+         {0.7643525824720272}}
     );
     public static final Matrix C = new Matrix( new double[][]
         {{6175.881918041717, 0.0},
@@ -33,22 +33,22 @@ public class TestSSGains {
          {0.0}}
     );
     public static final Matrix Q_noise = new Matrix( new double[][]
-        {{1.713524423939017e-05, 0.0010991078862064218},
-         {0.0010991078862064216, 0.11006566465984906}}
+        {{2.9847416675898895e-06, 0.00029292887248573353},
+         {0.00029292887248573353, 0.0586064172629164}}
     );
     public static final Matrix R_noise = new Matrix( new double[][]
-        {{0.045, 0.0},
-         {0.0, 60.50000000000001}}
+        {{0.09, 0.0},
+         {0.0, 121.00000000000001}}
     );
     public static final Matrix K = new Matrix( new double[][]
-        {{0.9264515394429866, 0.0930904218144866}}
+        {{0.5845936817636895, 0.06503986584022446}}
     );
     public static final Matrix L = new Matrix( new double[][]
-        {{0.00016266581683326202, 3.0248504728341782e-05},
-         {3.6353482326551185e-05, 0.0014160637342987457}}
+        {{0.00016328462381645637, 1.5524607563424378e-05},
+         {0.00015604930805537993, 0.0015013329830863655}}
     );
     public static final Matrix Kff = new Matrix( new double[][]
-        {{0.015123074606134731, 5.920925971125776e-06}}
+        {{0.001390736024399, 1.1006608792588736e-06}}
     );
     public static final Matrix U_min = new Matrix( new double[][]
         {{-12.0}}
@@ -56,7 +56,7 @@ public class TestSSGains {
     public static final Matrix U_max = new Matrix( new double[][]
         {{12.0}}
     );
-    public static final double dt = 0.02;
+    public static final double dt = 0.01;
 
     public static DiscreteSSGains testGains = new DiscreteSSGains(A, B, C, D, Q_noise, R_noise, K, L, Kff, U_min, U_max, dt, false);
 }

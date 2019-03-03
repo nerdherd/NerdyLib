@@ -39,10 +39,15 @@ public class SSMotionProfile {
 
         m_ta = (m_vMax - m_vi) / m_aMax;
         m_xa = m_vi * m_ta + 0.5 * m_aMax * m_ta * m_ta;
-        m_td = (m_vMax - m_vi) / m_aMax;
-        m_xd = m_vMax * m_td + 0.5 * m_aMax * m_td * m_td;
+        m_td = (m_vMax - m_vf) / m_aMax;
+        m_xd = m_vMax * m_td - 0.5 * m_aMax * m_td * m_td;
         m_xc = (m_xf - m_xi) - m_xa - m_xd;
         m_tc = m_xc / m_vMax;
+
+        System.out.println((0.5 * m_ta * (m_vMax - m_vi)) + (m_tc * m_vMax) + (0.5 * m_td * (m_vMax - m_vf)));
+        System.out.println(m_xi);
+        System.out.println(m_xf);
+        System.out.println(m_isTriangle);
     }
 
     public double getPosAtTime(double t) {

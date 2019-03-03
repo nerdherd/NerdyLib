@@ -7,6 +7,8 @@
 
 package com.nerdherd.lib.motor.statespace;
 
+import com.nerdherd.robot.Robot;
+
 import Jama.Matrix;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -36,6 +38,8 @@ public class FollowSSMotionProfile extends Command {
             {m_motProf.getPosAtTime(Timer.getFPGATimestamp() - m_startTime)},
             {m_motProf.getVelAtTime(Timer.getFPGATimestamp() - m_startTime)}
         }));
+        Robot.motProfPos.publish(m_motProf.getPosAtTime(Timer.getFPGATimestamp() - m_startTime));
+        Robot.motProfVel.publish(m_motProf.getVelAtTime(Timer.getFPGATimestamp() - m_startTime));
     }
 
     // Make this return true when this Command no longer needs to run execute()
