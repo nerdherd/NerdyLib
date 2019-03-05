@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoChooser {
 
-    SendableChooser<StartingPosition> startingPositionChooser;
-    SendableChooser<Double> directionChooser;
+    protected SendableChooser<StartingPosition> startingPositionChooser;
+    protected SendableChooser<Double> directionChooser;
     public AutoChooser() {
         startingPositionChooser = new SendableChooser<>();
         startingPositionChooser.setDefaultOption("Center", StartingPosition.CENTER);
@@ -33,8 +33,9 @@ public class AutoChooser {
         return new CommandGroup();
         // replace with auto selection logic
     }
+    
+    enum StartingPosition {
+        CENTER, LEFT, RIGHT;
+    }
 }
 
-enum StartingPosition {
-    CENTER, LEFT, RIGHT;
-}
