@@ -8,25 +8,21 @@
 package com.nerdherd.lib.motor.commands.mechanisms;
 
 import com.nerdherd.lib.motor.single.mechanisms.StaticFrictionMechanism;
-import com.nerdherd.lib.sensor.BooleanSensor;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ZeroMechanismWithHallEffect extends Command {
-
+public class ZeroMechanismManually extends Command {
+  
   private StaticFrictionMechanism m_mechanism;
-  private BooleanSensor m_hallSensor;
   private double m_rate;
   private boolean m_useFF;
 
-  public ZeroMechanismWithHallEffect(StaticFrictionMechanism mechanism, BooleanSensor hallEffectSensor, double descentRate) {
-    this(mechanism, hallEffectSensor, descentRate, false);
+  public ZeroMechanismManually(StaticFrictionMechanism mechanism, double descentRate) {
+    this(mechanism, descentRate, false);
   }
 
-  public ZeroMechanismWithHallEffect(StaticFrictionMechanism mechanism, 
-    BooleanSensor hallEffectSensor, double descentRate, boolean useFF) {
+  public ZeroMechanismManually(StaticFrictionMechanism mechanism, double descentRate, boolean useFF) {
       m_mechanism = mechanism;
-      m_hallSensor = hallEffectSensor;
       m_rate = descentRate;
       m_useFF = useFF;
       requires(m_mechanism);
@@ -46,13 +42,12 @@ public class ZeroMechanismWithHallEffect extends Command {
     } else {
       m_mechanism.setVoltage(m_rate);
     }
-
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return m_hallSensor.getValue();
+    return false;
   }
 
   // Called once after isFinished returns true
