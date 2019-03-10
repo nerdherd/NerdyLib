@@ -66,8 +66,10 @@ public class ZeroMechanismsManually extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        m_mechanism.setVoltage(0);
         Scheduler.getInstance().add(new ResetSingleMotorEncoder(m_mechanism));
         for (StaticFrictionMechanism additionalMechanism : m_mechanisms) {
+            additionalMechanism.setVoltage(0);
             Scheduler.getInstance().add(new ResetSingleMotorEncoder(additionalMechanism));
         }
     }
