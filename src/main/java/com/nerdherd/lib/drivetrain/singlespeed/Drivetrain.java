@@ -565,6 +565,8 @@ public class Drivetrain extends AbstractDrivetrain {
 
 	@Override
 	public void initLoggingData() {
+		NerdyBadlog.createTopicStr("Drive/RightPosition", () -> String.valueOf(getRightMasterPosition()));
+		NerdyBadlog.createTopicStr("Drive/LeftPosition", () -> String.valueOf(getLeftMasterPosition()));
 		NerdyBadlog.createTopicStr("Drive/RightVelocity", () -> String.valueOf(m_rightMaster.getSelectedSensorVelocity(0)));
 		NerdyBadlog.createTopicStr("Drive/LeftVelocity", () -> String.valueOf(m_leftMaster.getSelectedSensorVelocity(0)));
 		NerdyBadlog.createTopic("Drive/RightDesiredVel", () -> m_rightDesiredVel);
@@ -576,8 +578,8 @@ public class Drivetrain extends AbstractDrivetrain {
 		NerdyBadlog.createTopic("Drive/Yaw", () -> getRawYaw());
 		NerdyBadlog.createTopic("Drive/Pitch", () -> getPitch());
 		NerdyBadlog.createTopic("Drive/Roll", () -> getRoll());
-		NerdyBadlog.createTopic("Drive/RightVelFt", () -> getRightVelocityFeet());
-		NerdyBadlog.createTopic("Drive/LeftVelFt", () -> getLeftVelocityFeet());
+		NerdyBadlog.createTopic("Drive/RightVelFeet", () -> getRightVelocityFeet());
+		NerdyBadlog.createTopic("Drive/LeftVelFeet", () -> getLeftVelocityFeet());
 		NerdyBadlog.createTopic("Drive/XPos", () -> m_currentX);
 		NerdyBadlog.createTopic("Drive/YPos", () -> m_currentY);
 		NerdyBadlog.createTopic("Drive/LookaheadX", () -> m_lookaheadX);
