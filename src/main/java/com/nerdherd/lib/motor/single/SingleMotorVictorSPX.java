@@ -21,7 +21,6 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
   // here. Call these from Commands.
 
   private VictorSPX m_motor;
-  private String m_name;
 
    /**
    * 
@@ -30,7 +29,7 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
    * @param inversion boolean inversion of the VictorSPX
    */
   public SingleMotorVictorSPX(int victorID, String subsystemName, boolean inversion) {
-    m_name = subsystemName;
+    name = subsystemName;
     m_motor = new VictorSPX(victorID); 
     m_motor.configFactoryDefault();
     setInversion(inversion);
@@ -53,7 +52,7 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
 
   @Override
   public void reportToSmartDashboard() {
-    SmartDashboard.putNumber(m_name + " Voltage", getVoltage());
+    SmartDashboard.putNumber(name + " Voltage", getVoltage());
   }
 
 
@@ -65,6 +64,6 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
 
   @Override
   public void initLoggingData() {
-    NerdyBadlog.createTopic(m_name + "/Voltage", () -> getVoltage());
+    NerdyBadlog.createTopic(name + "/Voltage", () -> getVoltage());
   }
 }
