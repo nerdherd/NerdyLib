@@ -43,7 +43,7 @@ public class DualMotorIntake extends AbstractDualMotorIntake {
   }
 
   public void initLoggingData() {
-    NerdyBadlog.createTopic(m_leftMotor.name + "/Voltage", () -> m_leftMotor.getVoltage());
-    NerdyBadlog.createTopic(m_rightMotor.name + "/Voltage", () -> m_rightMotor.getVoltage());
+    m_rightMotor.initLoggingData();
+    m_leftMotor.initLoggingData();
   }  
 }
