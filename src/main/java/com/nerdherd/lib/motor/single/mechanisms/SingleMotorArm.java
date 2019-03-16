@@ -87,13 +87,13 @@ public class SingleMotorArm extends GravityAffectedMechanism {
   @Override
   public void reportToSmartDashboard() {
     super.reportToSmartDashboard();
-    SmartDashboard.putNumber(m_name + " Angle", getAngle());
+    SmartDashboard.putNumber(name + " Angle", getAngle());
   }
 
   @Override
   public void initLoggingData() {
     super.initLoggingData();
-    NerdyBadlog.createTopic(m_name + "/Angle", () -> getAngle());
+    NerdyBadlog.createTopic(name + "/Angle", () -> getAngle());
   }
 
 }

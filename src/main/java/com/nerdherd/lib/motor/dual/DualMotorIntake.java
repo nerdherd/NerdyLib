@@ -7,6 +7,7 @@
 
 package com.nerdherd.lib.motor.dual;
 
+import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.motor.single.AbstractSingleMotor;
 
 /**
@@ -40,4 +41,9 @@ public class DualMotorIntake extends AbstractDualMotorIntake {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
+
+  public void initLoggingData() {
+    NerdyBadlog.createTopic(m_leftMotor.name + "/Voltage", () -> m_leftMotor.getVoltage());
+    NerdyBadlog.createTopic(m_rightMotor.name + "/Voltage", () -> m_rightMotor.getVoltage());
+  }  
 }

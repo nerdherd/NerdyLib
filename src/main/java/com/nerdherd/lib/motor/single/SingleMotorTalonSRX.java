@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
  
   public NerdyTalon motor;
-  protected String m_name;
 
   /**
    * 
@@ -29,7 +28,7 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
    * @param subsystemName String name of subsystem to display on smart dashboard
    */
   public SingleMotorTalonSRX(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
-    m_name = subsystemName;
+    name = subsystemName;
     motor = new NerdyTalon(talonID); 
     motor.configDefaultSettings();
     setInversion(inversion);
@@ -124,10 +123,10 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
 
   @Override
   public void reportToSmartDashboard() {
-    SmartDashboard.putNumber(m_name + " Current", getCurrent());
-    SmartDashboard.putNumber(m_name + " Voltage", getVoltage());
-    SmartDashboard.putNumber(m_name + " Velocity", getVelocity());
-    SmartDashboard.putNumber(m_name + " Position", getPosition());
+    SmartDashboard.putNumber(name + " Current", getCurrent());
+    SmartDashboard.putNumber(name + " Voltage", getVoltage());
+    SmartDashboard.putNumber(name + " Velocity", getVelocity());
+    SmartDashboard.putNumber(name + " Position", getPosition());
   }
  
   @Override
@@ -138,9 +137,9 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
 
   @Override
   public void initLoggingData() {
-    NerdyBadlog.createTopic(m_name + "/Position", () -> getPosition());
-    NerdyBadlog.createTopic(m_name + "/Velocity", () -> getVelocity());
-    NerdyBadlog.createTopic(m_name + "/Voltage", () -> getVoltage());
-    NerdyBadlog.createTopic(m_name + "/Current", () -> getCurrent());
+    NerdyBadlog.createTopic(name + "/Position", () -> getPosition());
+    NerdyBadlog.createTopic(name + "/Velocity", () -> getVelocity());
+    NerdyBadlog.createTopic(name + "/Voltage", () -> getVoltage());
+    NerdyBadlog.createTopic(name + "/Current", () -> getCurrent());
   }
 }

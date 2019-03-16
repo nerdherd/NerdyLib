@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * Add your docs here.
  */
 public abstract class AbstractSingleMotor extends Subsystem implements Loggable {
+
+  public String name;
   
   /**
    * Set power in a percentage (-1 to 1) to the motor controller

@@ -134,13 +134,13 @@ public class SSTalonSRXPos extends StaticFrictionMechanism {
     public void reportToSmartDashboard() {
         super.reportToSmartDashboard();
         for (int i = 0; i < this.xHat.getRowDimension(); i++) {
-            SmartDashboard.putNumber(m_name + " x_hat item " + i, this.xHat.get(i, 0));
+            SmartDashboard.putNumber(name + " x_hat item " + i, this.xHat.get(i, 0));
         }
         for (int i = 0; i < this.r.getRowDimension(); i++) {
-            SmartDashboard.putNumber(m_name + " r item " + i, this.r.get(i, 0));
+            SmartDashboard.putNumber(name + " r item " + i, this.r.get(i, 0));
         }
         for (int i = 0; i < this.u.getRowDimension(); i++) {
-            SmartDashboard.putNumber(m_name + " u item " + i, this.u.get(i, 0));
+            SmartDashboard.putNumber(name + " u item " + i, this.u.get(i, 0));
         }
     }
 

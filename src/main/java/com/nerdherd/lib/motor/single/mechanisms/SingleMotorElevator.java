@@ -83,13 +83,13 @@ public class SingleMotorElevator extends GravityAffectedMechanism {
   @Override
   public void reportToSmartDashboard() {
     super.reportToSmartDashboard();
-    SmartDashboard.putNumber(m_name + " Height", getHeight());
+    SmartDashboard.putNumber(name + " Height", getHeight());
   }
 
   @Override
   public void initLoggingData() {
     super.initLoggingData();
-    NerdyBadlog.createTopic(m_name + "/Height", () -> getHeight());
+    NerdyBadlog.createTopic(name + "/Height", () -> getHeight());
   }
 
 }
