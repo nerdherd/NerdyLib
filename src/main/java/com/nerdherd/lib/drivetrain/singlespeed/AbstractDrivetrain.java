@@ -7,12 +7,14 @@
 
 package com.nerdherd.lib.drivetrain.singlespeed;
 
+import com.nerdherd.lib.logging.Loggable;
+
 /**
  * Add your docs here.
  */
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public abstract class AbstractDrivetrain extends Subsystem {
+public abstract class AbstractDrivetrain extends Subsystem implements Loggable {
 
     public abstract void setPower(double leftPower, double rightPower);
 

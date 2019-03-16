@@ -20,6 +20,7 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
+import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.NerdyTalon;
 
@@ -560,6 +561,33 @@ public class Drivetrain extends AbstractDrivetrain {
 				writeException = true;
 			}
 		}
+	}
+
+	@Override
+	public void initLoggingData() {
+		NerdyBadlog.createTopicStr("Drive/RightVelocity", () -> String.valueOf(m_rightMaster.getSelectedSensorVelocity(0)));
+		NerdyBadlog.createTopicStr("Drive/LeftVelocity", () -> String.valueOf(m_leftMaster.getSelectedSensorVelocity(0)));
+		NerdyBadlog.createTopic("Drive/RightDesiredVel", () -> m_rightDesiredVel);
+		NerdyBadlog.createTopic("Drive/LeftDesiredVel", () -> m_leftDesiredVel);
+		NerdyBadlog.createTopic("Drive/RightVoltage", () -> m_rightMaster.getMotorOutputVoltage());
+		NerdyBadlog.createTopic("Drive/LeftVoltage", () -> m_leftMaster.getMotorOutputVoltage());
+		NerdyBadlog.createTopic("Drive/RightCurrent", () -> m_rightMaster.getOutputCurrent());
+		NerdyBadlog.createTopic("Drive/LeftCurrent", () -> m_leftMaster.getOutputCurrent());
+		NerdyBadlog.createTopic("Drive/Yaw", () -> getRawYaw());
+		NerdyBadlog.createTopic("Drive/Pitch", () -> getPitch());
+		NerdyBadlog.createTopic("Drive/Roll", () -> getRoll());
+		NerdyBadlog.createTopic("Drive/RightVelFt", () -> getRightVelocityFeet());
+		NerdyBadlog.createTopic("Drive/LeftVelFt", () -> getLeftVelocityFeet());
+		NerdyBadlog.createTopic("Drive/XPos", () -> m_currentX);
+		NerdyBadlog.createTopic("Drive/YPos", () -> m_currentY);
+		NerdyBadlog.createTopic("Drive/LookaheadX", () -> m_lookaheadX);
+		NerdyBadlog.createTopic("Drive/LookaheadY", () -> m_lookaheadY);
+		NerdyBadlog.createTopic("Drive/AngularVelocityX", () -> getLeftVelocityFeet());
+		NerdyBadlog.createTopic("Drive/AngularVelocityY", () -> getLeftVelocityFeet());
+		NerdyBadlog.createTopic("Drive/AngularVelocityZ", () -> getLeftVelocityFeet());
+		NerdyBadlog.createTopic("Drive/AccelX", () -> getLeftVelocityFeet());
+		NerdyBadlog.createTopic("Drive/AccelY", () -> getLeftVelocityFeet());
+		NerdyBadlog.createTopic("Drive/AccelZ", () -> getLeftVelocityFeet());
 	}
 
 }
