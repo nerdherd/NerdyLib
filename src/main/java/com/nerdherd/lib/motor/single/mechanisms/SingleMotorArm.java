@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SingleMotorArm extends GravityAffectedMechanism {
 
-  private double m_angleRatio, m_angleOffset;
+  protected double m_angleRatio, m_angleOffset;
 
   public SingleMotorArm(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     super(talonID, subsystemName, inversion, sensorPhase);

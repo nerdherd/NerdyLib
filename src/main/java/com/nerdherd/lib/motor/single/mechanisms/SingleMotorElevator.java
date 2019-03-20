@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SingleMotorElevator extends GravityAffectedMechanism {
 
-  private double m_distanceRatio, m_distanceOffset;
+  protected double m_distanceRatio, m_distanceOffset;
 
   public SingleMotorElevator(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     super(talonID, subsystemName, inversion, sensorPhase);
