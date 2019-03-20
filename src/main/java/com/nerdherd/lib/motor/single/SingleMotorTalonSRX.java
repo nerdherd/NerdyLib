@@ -47,6 +47,10 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
     motor.configPIDF(kP, kI, kD, kF, 0);
   }
 
+  public void configPIDF(double kP, double kI, double kD, double kF, int pidIndex) {
+    motor.configPIDF(kP, kI, kD, kF, pidIndex);
+  }
+
   public void configCurrentLimit(int peak, int continuous) {
     motor.configCurrentLimitContinuous(continuous);
     motor.configCurrentLimitPeak(peak);
