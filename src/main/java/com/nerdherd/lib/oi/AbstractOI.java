@@ -22,4 +22,5 @@ public abstract class AbstractOI implements Loggable {
 
     public abstract double getOperatorJoyX();
     public abstract double getOperatorJoyY();
+    
 }

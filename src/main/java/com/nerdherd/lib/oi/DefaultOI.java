@@ -8,6 +8,8 @@
 package com.nerdherd.lib.oi;
 
 
+import com.nerdherd.lib.misc.NerdyMath;
+
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -19,12 +21,17 @@ public class DefaultOI extends AbstractOI{
     public Joystick driveJoyLeft;
     public Joystick driveJoyRight;
     public Joystick operatorJoy;
+    private double m_joystickDeadband;
 
     public DefaultOI() {
+        this(0);
+    }
+
+    public DefaultOI(double deadband) {
         driveJoyLeft = new Joystick(0);
         driveJoyRight = new Joystick(1);
         operatorJoy = new Joystick(2);
-
+        this.configJoystickDeadband(deadband);
     }
 
     
@@ -34,7 +41,7 @@ public class DefaultOI extends AbstractOI{
     @Override
     public double getDriveJoyLeftY() {
         // return -gamepadJoy.getRawAxis(1);
-        return -driveJoyLeft.getY();
+        return NerdyMath.handleDeadband(-driveJoyLeft.getY(), m_joystickDeadband);
     }
 
     /**
@@ -43,7 +50,7 @@ public class DefaultOI extends AbstractOI{
     @Override
     public double getDriveJoyRightY() {
         // return -gamepadJoy.getRawAxis(3);
-        return -driveJoyRight.getY();
+        return NerdyMath.handleDeadband(-driveJoyRight.getY(), m_joystickDeadband);
     }
 
     /**
@@ -52,7 +59,7 @@ public class DefaultOI extends AbstractOI{
     @Override
     public double getDriveJoyLeftX() {
         // return gamepadJoy.getRawAxis(0);
-        return driveJoyLeft.getX();
+        return NerdyMath.handleDeadband(driveJoyLeft.getX(), m_joystickDeadband);
     }
 
     /**
@@ -61,17 +68,17 @@ public class DefaultOI extends AbstractOI{
     @Override
     public double getDriveJoyRightX() {
         // return gamepadJoy.getRawAxis(2);
-        return driveJoyRight.getX();
+        return NerdyMath.handleDeadband(driveJoyRight.getX(), m_joystickDeadband);
     }
 
     @Override
     public double getOperatorJoyX() {
-        return operatorJoy.getX();
+        return NerdyMath.handleDeadband(operatorJoy.getY(), m_joystickDeadband);
     }
 
     @Override
     public double getOperatorJoyY() {
-        return -operatorJoy.getY();
+        return NerdyMath.handleDeadband(-operatorJoy.getY(), m_joystickDeadband);
     }
 
     // TODO: implement OI logging again
@@ -81,5 +88,13 @@ public class DefaultOI extends AbstractOI{
         //     int current_number = i;
 
         // }
+    }
+
+    public void configJoystickDeadband(double deadband) {
+        m_joystickDeadband = deadband;
+    }
+
+    public double getJoystickDeadband() {
+        return m_joystickDeadband;
     }
 }
