@@ -22,6 +22,7 @@ public class DefaultOI extends AbstractOI{
     public Joystick driveJoyRight;
     public Joystick operatorJoy;
     private double m_joystickDeadband;
+    private boolean m_isLerping;
 
     public DefaultOI() {
         this(0);
@@ -32,6 +33,7 @@ public class DefaultOI extends AbstractOI{
         driveJoyRight = new Joystick(1);
         operatorJoy = new Joystick(2);
         this.configJoystickDeadband(deadband);
+        this.configLerping(false);
     }
 
     
@@ -41,7 +43,11 @@ public class DefaultOI extends AbstractOI{
     @Override
     public double getDriveJoyLeftY() {
         // return -gamepadJoy.getRawAxis(1);
-        return NerdyMath.handleDeadband(-driveJoyLeft.getY(), m_joystickDeadband);
+        if (m_isLerping) {
+            return NerdyMath.lerpJoystickDeadband(-driveJoyLeft.getY(), m_joystickDeadband);
+        } else {
+            return NerdyMath.handleDeadband(-driveJoyLeft.getY(), m_joystickDeadband);
+        }
     }
 
     /**
@@ -50,7 +56,11 @@ public class DefaultOI extends AbstractOI{
     @Override
     public double getDriveJoyRightY() {
         // return -gamepadJoy.getRawAxis(3);
-        return NerdyMath.handleDeadband(-driveJoyRight.getY(), m_joystickDeadband);
+        if (m_isLerping) {
+            return NerdyMath.lerpJoystickDeadband(-driveJoyRight.getY(), m_joystickDeadband);
+        } else {
+            return NerdyMath.handleDeadband(-driveJoyRight.getY(), m_joystickDeadband);
+        }
     }
 
     /**
@@ -59,7 +69,11 @@ public class DefaultOI extends AbstractOI{
     @Override
     public double getDriveJoyLeftX() {
         // return gamepadJoy.getRawAxis(0);
-        return NerdyMath.handleDeadband(driveJoyLeft.getX(), m_joystickDeadband);
+        if (m_isLerping) {
+            return NerdyMath.lerpJoystickDeadband(driveJoyLeft.getX(), m_joystickDeadband);
+        } else {
+            return NerdyMath.handleDeadband(driveJoyLeft.getX(), m_joystickDeadband);
+        }
     }
 
     /**
@@ -68,17 +82,29 @@ public class DefaultOI extends AbstractOI{
     @Override
     public double getDriveJoyRightX() {
         // return gamepadJoy.getRawAxis(2);
-        return NerdyMath.handleDeadband(driveJoyRight.getX(), m_joystickDeadband);
+        if (m_isLerping) {
+            return NerdyMath.lerpJoystickDeadband(driveJoyRight.getX(), m_joystickDeadband);
+        } else {
+            return NerdyMath.handleDeadband(driveJoyRight.getX(), m_joystickDeadband);
+        }
     }
 
     @Override
     public double getOperatorJoyX() {
-        return NerdyMath.handleDeadband(operatorJoy.getY(), m_joystickDeadband);
+        if (m_isLerping) {
+            return NerdyMath.lerpJoystickDeadband(operatorJoy.getX(), m_joystickDeadband);
+        } else {
+            return NerdyMath.handleDeadband(operatorJoy.getX(), m_joystickDeadband);
+        }
     }
 
     @Override
     public double getOperatorJoyY() {
-        return NerdyMath.handleDeadband(-operatorJoy.getY(), m_joystickDeadband);
+        if (m_isLerping) {
+            return NerdyMath.lerpJoystickDeadband(-operatorJoy.getY(), m_joystickDeadband);
+        } else {
+            return NerdyMath.handleDeadband(-operatorJoy.getY(), m_joystickDeadband);
+        }
     }
 
     // TODO: implement OI logging again
@@ -96,5 +122,9 @@ public class DefaultOI extends AbstractOI{
 
     public double getJoystickDeadband() {
         return m_joystickDeadband;
+    }
+
+    public void configLerping(boolean isLerping) {
+        m_isLerping = isLerping;
     }
 }

@@ -256,4 +256,38 @@ public class NerdyMath {
 			}
 		}
 
+		/**
+		 * 
+		 * @param x1
+		 * @param y1
+		 * @param x2
+		 * @param y2
+		 * @param x
+		 * 			The x to use when lerping
+		 * @return
+		 * 			The y value after lerping
+		 */
+		public static double lerp(double x1, double y1, double x2, double y2, double x) {
+			return (y2 - y1) / (x2 - x1) * (x + x1) + x1;
+		}
+
+		/**
+		 * 
+		 * @param joystickVal
+		 * 			The value the joystick is returning
+		 * @param deadband
+		 * 			The deadband to use
+		 * @return
+		 * 			The joystick value, deadbanded and lerped between 
+		 * 			the deadband and the max throttle
+		 */
+		public static double lerpJoystickDeadband(double joystickVal, double deadband) {
+			double deadbanded = handleDeadband(joystickVal, deadband);
+			if (deadbanded > 0) {
+				return lerp(0, 1, deadband, 1, joystickVal);
+			} else {
+				return lerp(0, -1, -deadband, -1, joystickVal);
+			}
+		}
+
 }
