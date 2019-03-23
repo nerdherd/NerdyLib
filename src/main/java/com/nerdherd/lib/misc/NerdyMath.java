@@ -282,11 +282,12 @@ public class NerdyMath {
 		 * 			the deadband and the max throttle
 		 */
 		public static double lerpJoystickDeadband(double joystickVal, double deadband) {
-			double deadbanded = handleDeadband(joystickVal, deadband);
-			if (deadbanded > 0) {
-				return lerp(0, 1, deadband, 1, joystickVal);
+			if (joystickVal >= deadband) {
+				return lerp(0, deadband, 1, 1, joystickVal);
+			} else if (joystickVal <= -deadband) {
+				return lerp(0, -deadband, -1, -1, joystickVal);
 			} else {
-				return lerp(0, -1, -deadband, -1, joystickVal);
+				return 0;
 			}
 		}
 
