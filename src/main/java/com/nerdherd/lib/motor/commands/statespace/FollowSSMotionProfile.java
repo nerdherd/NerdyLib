@@ -5,32 +5,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.motor.statespace;
+package com.nerdherd.lib.motor.commands.statespace;
+
+import com.nerdherd.lib.motor.statespace.SSMotionProfile;
+import com.nerdherd.lib.motor.statespace.SSTalonSRXPos;
+import com.nerdherd.robot.Robot;
 
 import Jama.Matrix;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class TrackReference extends Command {
+public class FollowSSMotionProfile extends Command {
 
     private SSTalonSRXPos m_motor;
-    private Matrix m_reference;
+    private SSMotionProfile m_motProf;
+    private double m_startTime;
 
-    public TrackReference(SSTalonSRXPos motor, Matrix reference) {
+    public FollowSSMotionProfile(SSTalonSRXPos motor, SSMotionProfile motProf) {
         m_motor = motor;
+        m_motProf = motProf;
         requires(m_motor);
-        m_reference = reference;
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        m_motor.update(m_reference);
+        m_startTime = Timer.getFPGATimestamp();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        m_motor.update();
+        m_motor.update(new Matrix( new double[][] {
+            {m_motProf.getPosAtTime(Timer.getFPGATimestamp() - m_startTime)},
+            {m_motProf.getVelAtTime(Timer.getFPGATimestamp() - m_startTime)}
+        }));
+        Robot.motProfPos.publish(m_motProf.getPosAtTime(Timer.getFPGATimestamp() - m_startTime));
+        Robot.motProfVel.publish(m_motProf.getVelAtTime(Timer.getFPGATimestamp() - m_startTime));
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,7 +53,6 @@ public class TrackReference extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        // m_motor.u = new Matrix(0, 0);
     }
 
     // Called when another command which requires one or more of the same

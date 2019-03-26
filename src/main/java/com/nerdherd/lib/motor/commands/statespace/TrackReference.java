@@ -5,41 +5,34 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.motor.statespace;
+package com.nerdherd.lib.motor.commands.statespace;
 
-import com.nerdherd.robot.Robot;
+import com.nerdherd.lib.motor.statespace.SSTalonSRXPos;
 
 import Jama.Matrix;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class FollowSSMotionProfile extends Command {
+public class TrackReference extends Command {
 
     private SSTalonSRXPos m_motor;
-    private SSMotionProfile m_motProf;
-    private double m_startTime;
+    private Matrix m_reference;
 
-    public FollowSSMotionProfile(SSTalonSRXPos motor, SSMotionProfile motProf) {
+    public TrackReference(SSTalonSRXPos motor, Matrix reference) {
         m_motor = motor;
-        m_motProf = motProf;
         requires(m_motor);
+        m_reference = reference;
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        m_startTime = Timer.getFPGATimestamp();
+        m_motor.update(m_reference);
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        m_motor.update(new Matrix( new double[][] {
-            {m_motProf.getPosAtTime(Timer.getFPGATimestamp() - m_startTime)},
-            {m_motProf.getVelAtTime(Timer.getFPGATimestamp() - m_startTime)}
-        }));
-        Robot.motProfPos.publish(m_motProf.getPosAtTime(Timer.getFPGATimestamp() - m_startTime));
-        Robot.motProfVel.publish(m_motProf.getVelAtTime(Timer.getFPGATimestamp() - m_startTime));
+        m_motor.update();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -51,6 +44,7 @@ public class FollowSSMotionProfile extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        // m_motor.u = new Matrix(0, 0);
     }
 
     // Called when another command which requires one or more of the same

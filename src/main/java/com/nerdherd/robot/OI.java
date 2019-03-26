@@ -11,9 +11,9 @@ import com.nerdherd.lib.motor.commands.ResetSingleMotorEncoder;
 import com.nerdherd.lib.motor.commands.SetMotorPositionPID;
 import com.nerdherd.lib.motor.commands.SetMotorPower;
 import com.nerdherd.lib.motor.commands.mechanisms.MechanismVoltageRampingWithFF;
-import com.nerdherd.lib.motor.statespace.FollowSSMotionProfile;
+import com.nerdherd.lib.motor.commands.statespace.FollowSSMotionProfile;
+import com.nerdherd.lib.motor.commands.statespace.TrackReference;
 import com.nerdherd.lib.motor.statespace.SSMotionProfile;
-import com.nerdherd.lib.motor.statespace.TrackReference;
 import com.nerdherd.lib.oi.DefaultOI;
 
 import Jama.Matrix;
