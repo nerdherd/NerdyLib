@@ -23,7 +23,7 @@ public class VexUltrasonic {
   }
 
   public double getInches(){
-    // 
+    //accurate from 2 to 40 (could not accuratly test > 40)
     return m_ultra.getRangeInches();
   } 
 
