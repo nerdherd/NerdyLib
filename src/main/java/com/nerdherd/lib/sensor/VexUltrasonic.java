@@ -1,5 +1,8 @@
 package com.nerdherd.lib.sensor;
 
+import com.nerdherd.lib.logging.Loggable;
+import com.nerdherd.lib.logging.NerdyBadlog;
+
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -14,21 +17,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Add your docs here.
  */
-public class VexUltrasonic {
-  private final Ultrasonic m_ultra;
+public class VexUltrasonic extends Ultrasonic implements Loggable {
 
-  public VexUltrasonic(int ping, int echo){
-    m_ultra = new Ultrasonic(ping, echo);
-    m_ultra.setAutomaticMode(true);
+  public String name;
+
+  public VexUltrasonic(String name, int ping, int echo){
+    super(ping, echo);
+    super.setAutomaticMode(true);
+
+    this.name = name;
   }
 
   public double getInches(){
     //accurate from 2 to 40 (could not accuratly test > 40)
-    return m_ultra.getRangeInches();
+    return super.getRangeInches();
   } 
 
   public void reportToSmartDashboard(){
     SmartDashboard.putNumber("Inches", getInches());
+  }
+
+  @Override
+  public void initLoggingData() {
+    NerdyBadlog.createTopic(name + "/Inches", () -> this.getInches());
   }
 
 }
