@@ -5,51 +5,41 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.sensor;
+package com.nerdherd.lib.sensor.analog;
 
 import com.nerdherd.lib.logging.Loggable;
 import com.nerdherd.lib.logging.NerdyBadlog;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
  */
-public class PressureSensor implements Loggable {
-  
-    private final AnalogInput m_analogSensor;
-    private final String m_name;
-    private double m_pressureOffset;
+public class PressureSensor extends LinearAnalogSensor {
   
     public PressureSensor(String name, int port, double pressureOffset) {
       this(name, port);
-      m_pressureOffset = pressureOffset;
+      super.configOffset(5.083 - pressureOffset);
     }
 
     public PressureSensor(String name, int port) {
-        m_name = name;
-  
-        m_analogSensor = new AnalogInput(port);
-        m_pressureOffset = 0;
-    }
-    
-    public double getVoltage() {
-      return m_analogSensor.getVoltage();
+        super(name, port, 41.83, 5.083);
     }
     
     public double getPressure() {
-      return 41.83 * this.getVoltage() - 5.083 + m_pressureOffset;
+      return getScaled();
       // return 3.51336 * (this.getVoltage() * this.getVoltage())+ 30.3481 * (this.getVoltage()) + 2.62798;
     }
 
+    @Override
     public void reportToSmartDashboard() {
-      SmartDashboard.putNumber(m_name + " pressure", getPressure());
-      SmartDashboard.putNumber(m_name + " voltage", getVoltage());
+      SmartDashboard.putNumber(super.name + " pressure", this.getPressure());
+      SmartDashboard.putNumber(super.name + " voltage", this.getRaw());
     }
   
+    @Override
     public void initLoggingData() {
-      NerdyBadlog.createTopic(m_name + "/Pressure", () -> getPressure());
-      NerdyBadlog.createTopic(m_name + "/Voltage", () -> getVoltage());
+      NerdyBadlog.createTopic(super.name + "/Pressure", () -> this.getPressure());
+      NerdyBadlog.createTopic(super.name + "/Raw", () -> this.getRaw());
     }
 }

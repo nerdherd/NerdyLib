@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-package com.nerdherd.lib.sensor;
+package com.nerdherd.lib.sensor.digital;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 

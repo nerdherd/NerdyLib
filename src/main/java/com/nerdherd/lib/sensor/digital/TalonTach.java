@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.sensor;
+package com.nerdherd.lib.sensor.digital;
 
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;

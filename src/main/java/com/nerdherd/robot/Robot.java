@@ -11,6 +11,7 @@ import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.logging.SubscribedLoggable;
 import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.statespace.SSTalonSRXPos;
+import com.nerdherd.lib.sensor.analog.LinearAnalogSensor;
 import com.nerdherd.robot.testconstants.TestSSGains;
 
 import Jama.Matrix;
@@ -34,6 +35,7 @@ public class Robot extends TimedRobot {
   // public static SingleMotorElevator elevator;
   public static SSTalonSRXPos testMotor;
   public static SubscribedLoggable motProfPos, motProfVel;
+  public static LinearAnalogSensor manifoldAbsolutePressure;
 
   public static OI oi;
 
@@ -78,6 +80,8 @@ public class Robot extends TimedRobot {
 
     motProfPos = new SubscribedLoggable("motProfPos");
     motProfVel = new SubscribedLoggable("motProfVel");
+
+    manifoldAbsolutePressure = new LinearAnalogSensor("temp", 0);
   
     oi = new OI();
     // drive.configDefaultCommand(new ArcadeDrive(drive, oi));
