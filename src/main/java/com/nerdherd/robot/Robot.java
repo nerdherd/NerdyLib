@@ -10,6 +10,7 @@ package com.nerdherd.robot;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.logging.SubscribedLoggable;
 import com.nerdherd.lib.misc.AutoChooser;
+import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 import com.nerdherd.lib.motor.statespace.SSTalonSRXPos;
 import com.nerdherd.lib.sensor.analog.LinearAnalogSensor;
 import com.nerdherd.robot.testconstants.TestSSGains;
@@ -33,8 +34,9 @@ public class Robot extends TimedRobot {
   public static AutoChooser chooser;
   public static SubscribedLoggable tester;
   // public static SingleMotorElevator elevator;
-  public static SSTalonSRXPos testMotor;
-  public static SubscribedLoggable motProfPos, motProfVel;
+  // public static SSTalonSRXPos testMotor;
+  // public static SubscribedLoggable motProfPos, motProfVel;
+  public static SingleMotorTalonSRX talon;
   public static LinearAnalogSensor manifoldAbsolutePressure;
 
   public static OI oi;
@@ -67,25 +69,27 @@ public class Robot extends TimedRobot {
     // drive.configStaticFeedforward(0.760, 1.386);
 
     // elevator = new SingleMotorElevator(0, "Elevator", false, false);
-    testMotor = new SSTalonSRXPos(1, "testMotor", true, true, 
-      TestSSGains.testGains, new Matrix(new double[][] {
-        {0},
-        {0}
-      }), 0);
-    testMotor.configPIDF(0.9264515394429866 / 6175.881918041717 * 1023. / 12., 
-    0, 0.0930904218144866 / 617.5881918041716 * 1023. / 12., 0);
-    testMotor.configTalonDeadband(0.004);
-    testMotor.configObserver(false);
-    testMotor.configStaticFF(0);
+    // testMotor = new SSTalonSRXPos(1, "testMotor", true, true, 
+    //   TestSSGains.testGains, new Matrix(new double[][] {
+    //     {0},
+    //     {0}
+    //   }), 0);
+    // testMotor.configPIDF(0.9264515394429866 / 6175.881918041717 * 1023. / 12., 
+    // 0, 0.0930904218144866 / 617.5881918041716 * 1023. / 12., 0);
+    // testMotor.configTalonDeadband(0.004);
+    // testMotor.configObserver(false);
+    // testMotor.configStaticFF(0);
+    talon = new SingleMotorTalonSRX(1, "yay", true, true);
 
-    motProfPos = new SubscribedLoggable("motProfPos");
-    motProfVel = new SubscribedLoggable("motProfVel");
+
+    // motProfPos = new SubscribedLoggable("motProfPos");
+    // motProfVel = new SubscribedLoggable("motProfVel");
 
     manifoldAbsolutePressure = new LinearAnalogSensor("temp", 0);
   
     oi = new OI();
     // drive.configDefaultCommand(new ArcadeDrive(drive, oi));
-    NerdyBadlog.initAndLog("/media/sda1/logs/", "wooo_testing", 0.02, testMotor, motProfPos, motProfVel);
+    // NerdyBadlog.initAndLog("/media/sda1/logs/", "wooo_testing", 0.02, testMotor, motProfPos, motProfVel);
   }
 
   /**
@@ -103,9 +107,10 @@ public class Robot extends TimedRobot {
     // drive.calcXY();
     // // arm.reportToSmartDashboard();
     // climberWheelRight.reportToSmartDashboard();
-    testMotor.reportToSmartDashboard();
-    SmartDashboard.putBoolean("Is not moving", testMotor.isNotMoving());
-    SmartDashboard.putNumber("FF if not moving", testMotor.getFFIfNotMoving(testMotor.u.get(0,0)));
+    // testMotor.reportToSmartDashboard();
+    manifoldAbsolutePressure.reportToSmartDashboard();
+    // SmartDashboard.putBoolean("Is not moving", testMotor.isNotMoving());
+    // SmartDashboard.putNumber("FF if not moving", testMotor.getFFIfNotMoving(testMotor.u.get(0,0)));
   }
 
   /**

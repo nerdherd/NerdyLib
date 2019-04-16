@@ -46,27 +46,27 @@ public class OI extends DefaultOI{
     // SmartDashboard.putData("Drive Motion Magic", new DriveDistanceMotionMagic(Robot.drive, 50000, 20000, 15000));
     // SmartDashboard.putData("Velocity Test", new VelocityTest(Robot.drive, 15000, 5));
     // SmartDashboard.putData("Velocity Test FPS", new VelocityTestFPS(Robot.drive, 10, 5));
-    SmartDashboard.putData("Reset encoder", new ResetSingleMotorEncoder(Robot.testMotor));
-    SmartDashboard.putData("Track pi", new TrackReference(Robot.testMotor, new Matrix(new double[][] {
-      {3.14},
-      {0}
-    })));
-    SmartDashboard.putData("Track 10pi", new TrackReference(Robot.testMotor, new Matrix(new double[][] {
-      {31.4},
-      {0}
-    })));
-    SmartDashboard.putData("Track 0", new TrackReference(Robot.testMotor, new Matrix(new double[][] {
-      {0},
-      {0}
-    })));
-    SmartDashboard.putData("Set position 40000", new SetMotorPositionPID(Robot.testMotor, 40000));
-    SmartDashboard.putData("Set position 19000", new SetMotorPositionPID(Robot.testMotor, 19000));
-    SSMotionProfile motProf1 = new SSMotionProfile(145, 145*2, 0, 314, 0, 0);
-    SmartDashboard.putData("Follow dumbe motprof thing to 314", new FollowSSMotionProfile(Robot.testMotor, motProf1));
-    SSMotionProfile motProf2 = new SSMotionProfile(145, 145*2, 314, 0, 0, 0);
-    SmartDashboard.putData("Follow dumbe motprof thing to 0", new FollowSSMotionProfile(Robot.testMotor, motProf2));
-    SmartDashboard.putData("Set 12 V", new SetMotorPower(Robot.testMotor, 1));
-    SmartDashboard.putData("Voltage ramp", new MechanismVoltageRampingWithFF(Robot.testMotor, 0.25 / 12.));
+    // SmartDashboard.putData("Reset encoder", new ResetSingleMotorEncoder(Robot.testMotor));
+    // SmartDashboard.putData("Track pi", new TrackReference(Robot.testMotor, new Matrix(new double[][] {
+    //   {3.14},
+    //   {0}
+    // })));
+    // SmartDashboard.putData("Track 10pi", new TrackReference(Robot.testMotor, new Matrix(new double[][] {
+    //   {31.4},
+    //   {0}
+    // })));
+    // SmartDashboard.putData("Track 0", new TrackReference(Robot.testMotor, new Matrix(new double[][] {
+    //   {0},
+    //   {0}
+    // })));
+    // SmartDashboard.putData("Set position 40000", new SetMotorPositionPID(Robot.testMotor, 40000));
+    // SmartDashboard.putData("Set position 19000", new SetMotorPositionPID(Robot.testMotor, 19000));
+    // SSMotionProfile motProf1 = new SSMotionProfile(145, 145*2, 0, 314, 0, 0);
+    // SmartDashboard.putData("Follow dumbe motprof thing to 314", new FollowSSMotionProfile(Robot.testMotor, motProf1));
+    // SSMotionProfile motProf2 = new SSMotionProfile(145, 145*2, 314, 0, 0, 0);
+    // SmartDashboard.putData("Follow dumbe motprof thing to 0", new FollowSSMotionProfile(Robot.testMotor, motProf2));
+    // SmartDashboard.putData("Set 12 V", new SetMotorPower(Robot.testMotor, 1));
+    // SmartDashboard.putData("Voltage ramp", new MechanismVoltageRampingWithFF(Robot.testMotor, 0.25 / 12.));
     // SmartDashboard.putData("Turn To Angle Motion Magic", new TurnToAngleMotionMagic(Robot.drive, 90., 50000*0.2, 20000 *0.2, 17688.26817));
 
     // ArrayList<TrajectoryPoint> traj = gen.generateTrajectory(Arrays.asList(new Pose2D(5, 5, 0).pose, new Pose2D(10, 10, 0).pose), 

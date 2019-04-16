@@ -8,7 +8,7 @@
 package com.nerdherd.lib.motor.commands.mechanisms;
 
 import com.nerdherd.lib.motor.single.mechanisms.StaticFrictionMechanism;
-import com.nerdherd.lib.sensor.BooleanSensor;
+import com.nerdherd.lib.sensor.digital.BooleanSensor;
 
 import edu.wpi.first.wpilibj.command.Command;
 
