@@ -7,6 +7,7 @@
 
 package com.nerdherd.lib.motor.commands.statespace;
 
+import com.nerdherd.lib.logging.SubscribedLoggable;
 import com.nerdherd.lib.motor.statespace.SSMotionProfile;
 import com.nerdherd.lib.motor.statespace.SSTalonSRXPos;
 import com.nerdherd.robot.Robot;
@@ -20,11 +21,21 @@ public class FollowSSMotionProfile extends Command {
     private SSTalonSRXPos m_motor;
     private SSMotionProfile m_motProf;
     private double m_startTime;
+    private SubscribedLoggable m_motProfVel, m_motProfPos;
 
     public FollowSSMotionProfile(SSTalonSRXPos motor, SSMotionProfile motProf) {
         m_motor = motor;
         m_motProf = motProf;
         requires(m_motor);
+        m_motProfPos = null;
+        m_motProfVel = null;
+    }
+
+    public FollowSSMotionProfile(SSTalonSRXPos motor, SSMotionProfile motProf, 
+                                    SubscribedLoggable motProfPos, SubscribedLoggable motProfVel) {
+        this(motor, motProf);
+        m_motProfPos = motProfPos;
+        m_motProfVel = motProfVel;
     }
 
     // Called just before this Command runs the first time
@@ -40,6 +51,12 @@ public class FollowSSMotionProfile extends Command {
             {m_motProf.getPosAtTime(Timer.getFPGATimestamp() - m_startTime)},
             {m_motProf.getVelAtTime(Timer.getFPGATimestamp() - m_startTime)}
         }));
+        if (m_motProfPos != null) {
+            m_motProfPos.publish(m_motProf.getPosAtTime(Timer.getFPGATimestamp() - m_startTime));
+        }
+        if (m_motProfVel != null) {
+            m_motProfVel.publish(m_motProf.getVelAtTime(Timer.getFPGATimestamp() - m_startTime));
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
