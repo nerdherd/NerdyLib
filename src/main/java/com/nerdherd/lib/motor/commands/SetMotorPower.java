@@ -15,6 +15,7 @@ public class SetMotorPower extends Command {
 
   private AbstractSingleMotor m_motor;
   private double m_power;
+  
   public SetMotorPower(AbstractSingleMotor motor, double power) {
     m_motor = motor;
     m_power = power;

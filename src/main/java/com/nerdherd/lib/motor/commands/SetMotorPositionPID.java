@@ -7,18 +7,18 @@
 
 package com.nerdherd.lib.motor.commands;
 
-import com.nerdherd.lib.motor.single.AbstractSingleMotorTalonSRX;
+import com.nerdherd.lib.motor.single.SmartMotorControllerSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SetMotorPositionPID extends Command {
 
-  private AbstractSingleMotorTalonSRX m_motor;
+  private SmartMotorControllerSubsystem m_motor;
   private double m_pos;
   private boolean m_holdPosition;
   private double m_threshold;
 
-  public SetMotorPositionPID(AbstractSingleMotorTalonSRX motor, double pos) {
+  public SetMotorPositionPID(SmartMotorControllerSubsystem motor, double pos) {
     m_motor = motor;
     m_pos = pos;
     m_holdPosition = true;
@@ -26,7 +26,7 @@ public class SetMotorPositionPID extends Command {
     requires(m_motor);
   }
 
-  public SetMotorPositionPID(AbstractSingleMotorTalonSRX motor, double pos, double threshold, boolean holdPosition) {
+  public SetMotorPositionPID(SmartMotorControllerSubsystem motor, double pos, double threshold, boolean holdPosition) {
     m_motor = motor;
     m_pos = pos;
     m_threshold = threshold;

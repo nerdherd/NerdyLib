@@ -7,6 +7,7 @@
 
 package com.nerdherd.lib.motor.single;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.nerdherd.lib.logging.Loggable;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -23,6 +24,13 @@ public abstract class AbstractSingleMotor extends Subsystem implements Loggable 
    * @param power percentage -1 to 1, which is equivalent to -12 to 12 Volts
    */
   public abstract void setPower(double power);
+
+  /**
+   * Set power in a percentage (-1 to 1) to the motor controller, with an arbitrary feedforward power added
+   * @param power percentage -1 to 1, which is equivalent to -12 to 12 Volts
+   * @param arbFF percentage -1 to 1, added to power
+   */
+  public abstract void setPower(double power, double arbFF);
 
   /**
    * Report sensor data to smart dashboard

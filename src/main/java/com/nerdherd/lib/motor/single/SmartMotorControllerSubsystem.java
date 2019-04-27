@@ -12,31 +12,35 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 /**
  * Add your docs here.
  */
-public abstract class AbstractSingleMotorTalonSRX extends AbstractSingleMotor {
+public abstract class SmartMotorControllerSubsystem extends AbstractSingleMotor {
 
     /**
      * set a position to the mechanism using onboard TalonSRX position PID control
      * @param pos position in ticks
      */
     public abstract void setPosition(double pos);
+    public abstract void setPosition(double pos, double arbFF);
 
     /**
      * set a voltage to the motor
      * @param voltage voltage to apply, -12 to 12 Volts
      */
     public abstract void setVoltage(double voltage);
+    public abstract void setVoltage(double voltage, double arbFF);
 
     /**
      * Set a velocity to the mechanims using onboard TalonSRX velocity PID control
      * @param vel velocity in talon velocity sensor units (ticks/decisecnond)
      */
     public abstract void setVelocity(double vel);
-  
+    public abstract void setVelocity(double vel, double arbFF);
+ 
     /**
      * Set a position using the TalonSRX's onboard MotionMagic control mode
      * @param pos position in ticks
      */
     public abstract void setPositionMotionMagic(double pos);
+    public abstract void setPositionMotionMagic(double pos, double arbFF);
   
     /**
      * Configure TalonSRX onboard PIDF

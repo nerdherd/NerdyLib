@@ -8,6 +8,7 @@
 package com.nerdherd.lib.motor.single;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.nerdherd.lib.logging.NerdyBadlog;
 
@@ -41,8 +42,18 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
   }
 
   @Override
+  public void controlMotor(ControlMode controlMode, double setpoint, double arbFF) {
+    m_motor.set(controlMode, setpoint, DemandType.ArbitraryFeedForward, arbFF);
+  }
+
+  @Override
   public void setPower(double power) {
     m_motor.set(ControlMode.PercentOutput, power);
+  }
+
+  @Override
+  public void setPower(double power, double arbFF) {
+    m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, arbFF);
   }
 
   @Override

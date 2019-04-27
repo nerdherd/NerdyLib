@@ -8,6 +8,7 @@
 package com.nerdherd.lib.motor.single;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.nerdherd.lib.logging.NerdyBadlog;
@@ -18,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Add your docs here.
  */
-public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
+public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
  
   public NerdyTalon motor;
 
@@ -81,18 +82,40 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
   public void setSensorPhase(boolean phase) {
     motor.setSensorPhase(phase);
   }
+
+  @Override
+  public void controlMotor(ControlMode controlMode, double setpoint, double arbFF) {
+    motor.set(controlMode, setpoint, DemandType.ArbitraryFeedForward, arbFF);
+  }
   
+  @Override
   public void setPower(double power) {
     motor.set(ControlMode.PercentOutput, power);
   }
 
+  @Override
+  public void setPower(double power, double arbFF) {
+    motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, arbFF);
+  }
+
+  @Override
   public void setVoltage(double voltage) {
-    motor.set(ControlMode.PercentOutput, voltage/12);
+    motor.set(ControlMode.PercentOutput, voltage/12.0);
+  }
+
+  @Override
+  public void setVoltage(double voltage, double arbFF) {
+    motor.set(ControlMode.PercentOutput, voltage/12.0, DemandType.ArbitraryFeedForward, arbFF);
   }
 
   @Override
   public void setPosition(double pos) {
     motor.set(ControlMode.Position, pos);
+  }
+
+  @Override
+  public void setPosition(double pos, double arbFF) {
+    motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, arbFF);
   }
   
   @Override
@@ -101,8 +124,18 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
   }
 
   @Override
+  public void setPositionMotionMagic(double pos, double arbFF) {
+    motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, arbFF);
+  }
+
+  @Override
   public void setVelocity(double vel) {
     motor.set(ControlMode.Velocity, vel);
+  }
+
+  @Override
+  public void setVelocity(double vel, double arbFF) {
+    motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, arbFF);
   }
 
   @Override
@@ -146,4 +179,5 @@ public class SingleMotorTalonSRX extends AbstractSingleMotorTalonSRX {
     NerdyBadlog.createTopic(name + "/Voltage", () -> getVoltage());
     NerdyBadlog.createTopic(name + "/Current", () -> getCurrent());
   }
+  
 }
