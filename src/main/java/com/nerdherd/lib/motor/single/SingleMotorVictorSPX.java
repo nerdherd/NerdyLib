@@ -41,7 +41,6 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
     m_motor.setInverted(inversion);
   }
 
-  @Override
   public void controlMotor(ControlMode controlMode, double setpoint, double arbFF) {
     m_motor.set(controlMode, setpoint, DemandType.ArbitraryFeedForward, arbFF);
   }

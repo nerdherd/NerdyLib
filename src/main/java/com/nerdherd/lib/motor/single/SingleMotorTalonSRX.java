@@ -83,7 +83,6 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
     motor.setSensorPhase(phase);
   }
 
-  @Override
   public void controlMotor(ControlMode controlMode, double setpoint, double arbFF) {
     motor.set(controlMode, setpoint, DemandType.ArbitraryFeedForward, arbFF);
   }
