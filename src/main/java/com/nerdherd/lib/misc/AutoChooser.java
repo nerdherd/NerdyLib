@@ -37,5 +37,7 @@ public class AutoChooser {
     protected enum StartingPosition {
         CENTER, LEFT, RIGHT;
     }
+
+    
 }
 

@@ -83,6 +83,7 @@ public abstract class SmartMotorControllerSubsystem extends AbstractSingleMotor 
 	 * @param accel acceleration in ticks/decisecond/second
 	 * @param cruise_vel cruise velocity in ticks/decisecond
 	 */
+    
     public abstract void configMotionMagic(int accel, int cruise_vel);
 
     /**

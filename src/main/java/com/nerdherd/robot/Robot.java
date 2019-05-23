@@ -7,19 +7,13 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.logging.SubscribedLoggable;
 import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
-import com.nerdherd.lib.motor.statespace.SSTalonSRXPos;
-import com.nerdherd.lib.sensor.analog.LinearAnalogSensor;
-import com.nerdherd.robot.testconstants.TestSSGains;
+// import com.nerdherd.lib.sensor.analog.LinearAnalogSensor;
 
-import Jama.Matrix;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,7 +31,7 @@ public class Robot extends TimedRobot {
   // public static SSTalonSRXPos testMotor;
   // public static SubscribedLoggable motProfPos, motProfVel;
   public static SingleMotorTalonSRX talon;
-  public static LinearAnalogSensor manifoldAbsolutePressure;
+  // public static LinearAnalogSensor manifoldAbsolutePressure;
 
   public static OI oi;
 
@@ -85,7 +79,7 @@ public class Robot extends TimedRobot {
     // motProfPos = new SubscribedLoggable("motProfPos");
     // motProfVel = new SubscribedLoggable("motProfVel");
 
-    manifoldAbsolutePressure = new LinearAnalogSensor("temp", 0);
+    // manifoldAbsolutePressure = new LinearAnalogSensor("temp", 0);
   
     oi = new OI();
     // drive.configDefaultCommand(new ArcadeDrive(drive, oi));
@@ -108,7 +102,7 @@ public class Robot extends TimedRobot {
     // // arm.reportToSmartDashboard();
     // climberWheelRight.reportToSmartDashboard();
     // testMotor.reportToSmartDashboard();
-    manifoldAbsolutePressure.reportToSmartDashboard();
+    // manifoldAbsolutePressure.reportToSmartDashboard();
     // SmartDashboard.putBoolean("Is not moving", testMotor.isNotMoving());
     // SmartDashboard.putNumber("FF if not moving", testMotor.getFFIfNotMoving(testMotor.u.get(0,0)));
   }

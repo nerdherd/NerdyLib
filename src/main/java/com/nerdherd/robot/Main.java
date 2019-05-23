@@ -7,7 +7,7 @@
 
 package com.nerdherd.robot;
 
-import edu.wpi.first.wpilibj.RobotBase;
+import com.nerdherd.lib.trajectory.geometry.SimpleArc2D;
 
 /**
  * Do NOT add any static variables to this class, or any initialization at all.
@@ -25,6 +25,19 @@ public final class Main {
    * <p>If you change your main robot class, change the parameter type.
    */
   public static void main(String... args) {
-    RobotBase.startRobot(Robot::new);
-  }
+    // RobotBase.startRobot(Robot::new);
+    // QuinticHermiteSpline spline = new QuinticHermiteSpline(new Pose2D(0, 0, 0), new Pose2D(10, 5, 0));
+    // spline.arcParameterize(0, 0.01, 0.005);
+    // double len = 0;
+    // System.out.println(spline.arcParameterizedSpline.size());
+    // for (Arc2D arc : spline.arcParameterizedSpline) {
+    //   //len += arc.length;
+    //   System.out.println(arc.length);
+    // }
+    // System.out.println(len);
+
+    SimpleArc2D arc = new SimpleArc2D(1, Math.PI, Math.PI);
+    SimpleArc2D arc2 = arc.split(Math.PI/2);
+    System.out.println(arc2.)
+   }
 }
