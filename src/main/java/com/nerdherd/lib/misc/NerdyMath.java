@@ -1,5 +1,7 @@
 package com.nerdherd.lib.misc;
 
+import com.nerdherd.lib.trajectory.geometry.Pose2D;
+
 public class NerdyMath {
 	public static double radiansToDegrees(double rads) {
 		return rads * 180 / Math.PI;
@@ -200,7 +202,10 @@ public class NerdyMath {
 	    	return Math.sqrt(Math.pow((x1-x2), 2) + Math.pow((y1-y2), 2));
 	    	
 		}
-		
+
+		public static double distanceFormula(Pose2D p0, Pose2D p1) {
+			return distanceFormula(p0.x, p0.y, p1.x, p1.y);
+		}		
 		/**
 		 * @param bool
 		 * @return 1 if true, 0 if false

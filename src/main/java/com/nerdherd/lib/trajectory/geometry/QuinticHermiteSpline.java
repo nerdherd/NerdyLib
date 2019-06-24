@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import com.nerdherd.lib.misc.NerdyMath;
 
 /**
- * Add your docs here.
- * High key stolen from 254
+ * Derivations provided by FRC 254
  */
 public class QuinticHermiteSpline {
 

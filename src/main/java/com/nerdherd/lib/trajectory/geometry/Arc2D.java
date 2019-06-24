@@ -16,6 +16,7 @@ import com.nerdherd.lib.misc.NerdyMath;
 public class Arc2D {
 
     public Pose2DWithCurvature start, mid, end;
+    public Point2D center;
     public double deltaTheta, length, deltaCurvature1, deltaCurvature2, deltaCurvature3, averageCurvature;
     public Arc2D(Pose2DWithCurvature start, Pose2DWithCurvature mid, Pose2DWithCurvature end) {
         this.start = start;
@@ -32,6 +33,7 @@ public class Arc2D {
         } else {
         length = Math.abs(deltaTheta/averageCurvature);
         }
+        calculateCenter();
     }
 
     public boolean fitsConstraints(double maxDeltaCurvature, double  maxLength) {
@@ -42,4 +44,31 @@ public class Arc2D {
         return new SimpleArc2D(averageCurvature, length, deltaTheta);
     }
 
+    public void calculateCenter() {
+        double centerX1 = 0;
+        double centerY1 = 0;
+        double centerX2 = 1;
+        double centerY2 = 1;
+        double i = -180;
+        while (!(NerdyMath.errorTolerance(centerX1 - centerX2, 0.000001) && NerdyMath.errorTolerance(centerY1 - centerY2, 0.000001))) {
+            centerX1 = start.x + (1 / averageCurvature) * Math.cos(Math.toRadians(start.thetaDegrees + i));
+            centerY1 = start.y + (1 / averageCurvature) * Math.sin(Math.toRadians(start.thetaDegrees + i));
+            centerX2 = end.x + (1 / averageCurvature) * Math.cos(Math.toRadians(end.thetaDegrees + i));
+            centerY2 = end.y + (1 / averageCurvature) * Math.sin(Math.toRadians(end.thetaDegrees + i));
+            i += 90;
+        }
+        center = new Point2D(centerX1, centerY1);
+    }
+
+    public Pose2DWithCurvature advanceAlongArc(Pose2D startPos, double angle) {
+        double translatedStartX = startPos.x - center.x;
+        double translatedStartY = startPos.y - center.y;
+        double x = translatedStartX * Math.cos(angle) - translatedStartY * Math.sin(angle) + center.x;
+        double y = translatedStartX * Math.sin(angle) + translatedStartY * Math.cos(angle) + center.y;
+        return new Pose2DWithCurvature(x, y, startPos.theta + angle, averageCurvature);
+    }
+
+    public Pose2DWithCurvature advanceByDistance(Pose2D startPos, double dist) {
+        return advanceAlongArc(startPos, dist * averageCurvature);
+    }
 }

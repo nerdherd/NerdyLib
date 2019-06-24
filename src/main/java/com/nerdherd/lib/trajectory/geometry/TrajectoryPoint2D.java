@@ -10,14 +10,18 @@ package com.nerdherd.lib.trajectory.geometry;
 /**
  * Add your docs here.
  */
-public class Pose2D extends Point2D{
+public class TrajectoryPoint2D extends Pose2DWithCurvature {
 
-    public double theta, thetaDegrees;
-
-    public Pose2D(double x, double y, double theta) {
-        super(x, y);
-        this.theta = theta;
-        this.thetaDegrees = Math.toDegrees(theta);
+    public double acceleration, velocity;
+    public TrajectoryPoint2D(double x, double y, double theta, double curvature, double acceleration, double velocity) {
+        super(x, y, theta, curvature);
+        this.acceleration = acceleration;
+        this.velocity = velocity;
     }
 
+    public TrajectoryPoint2D(Pose2DWithCurvature pose, double acceleration, double velocity) {
+        super(pose.x, pose.y, pose.theta, pose.curvature);
+        this.acceleration = acceleration;
+        this.velocity = velocity;
+    }
 }

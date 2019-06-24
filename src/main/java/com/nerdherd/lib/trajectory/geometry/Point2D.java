@@ -7,17 +7,18 @@
 
 package com.nerdherd.lib.trajectory.geometry;
 
+
 /**
  * Add your docs here.
  */
-public class Pose2D extends Point2D{
+public class Point2D {
 
-    public double theta, thetaDegrees;
+    public double x, y;
 
-    public Pose2D(double x, double y, double theta) {
-        super(x, y);
-        this.theta = theta;
-        this.thetaDegrees = Math.toDegrees(theta);
+    public Point2D(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
+
 
 }
