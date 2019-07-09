@@ -10,9 +10,30 @@ package com.nerdherd.lib.motor.motorcontrollers;
 /**
  * Add your docs here.
  */
-public interface SmartCANMotorController {
+public interface SmartCANMotorController extends CANMotorController{
 
-    public abstract void setPower();
 
-    // public 
+    public abstract void setPositionMotionMagic(double pos);
+
+    public abstract void setPositionMotionMagic(double pos, double arbitraryFF);
+
+    public abstract void setPositionPID(double pos);
+
+    public abstract void setPositionPID(double pos, double arbitraryFF);
+
+    public abstract void setVelocity(double velocity);
+
+    public abstract void setVelocity(double velocity, double arbitraryFF);
+
+    public abstract double getCurrent();
+
+    public abstract void configPIDF(double p, double i, double d, double f, int slot);
+
+    public abstract void configMotionMagic(int accel, int vel);
+
+    public abstract void configCurrentLimitPeak(double current);
+
+    public abstract void configCurrentLimitContinuous(double current);
+
+
 }

@@ -7,16 +7,16 @@
 
 package com.nerdherd.lib.motor.commands;
 
-import com.nerdherd.lib.motor.single.SmartMotorControllerSubsystem;
+import com.nerdherd.lib.motor.single.AbstractSmartMotorControllerSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SetMotorMotionMagic extends Command {
 
-  private SmartMotorControllerSubsystem m_motor;
+  private AbstractSmartMotorControllerSubsystem m_motor;
   private double m_pos;
 
-  public SetMotorMotionMagic(SmartMotorControllerSubsystem motor, double pos) {
+  public SetMotorMotionMagic(AbstractSmartMotorControllerSubsystem motor, double pos) {
     m_motor = motor;
     m_pos = pos;
     requires(m_motor);

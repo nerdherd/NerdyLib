@@ -10,7 +10,7 @@ package com.nerdherd.robot;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.logging.SubscribedLoggable;
 import com.nerdherd.lib.misc.AutoChooser;
-import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
+import com.nerdherd.lib.motor.single.SmartMotorControllerSubsystem;
 import com.nerdherd.lib.motor.statespace.SSTalonSRXPos;
 import com.nerdherd.lib.sensor.analog.LinearAnalogSensor;
 import com.nerdherd.robot.testconstants.TestSSGains;
@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
   // public static SingleMotorElevator elevator;
   // public static SSTalonSRXPos testMotor;
   // public static SubscribedLoggable motProfPos, motProfVel;
-  public static SingleMotorTalonSRX talon;
+  public static SmartMotorControllerSubsystem talon;
   public static LinearAnalogSensor manifoldAbsolutePressure;
 
   public static OI oi;
@@ -79,7 +79,7 @@ public class Robot extends TimedRobot {
     // testMotor.configTalonDeadband(0.004);
     // testMotor.configObserver(false);
     // testMotor.configStaticFF(0);
-    talon = new SingleMotorTalonSRX(1, "yay", true, true);
+    talon = new SmartMotorControllerSubsystem(1, "yay", true, true);
 
 
     // motProfPos = new SubscribedLoggable("motProfPos");

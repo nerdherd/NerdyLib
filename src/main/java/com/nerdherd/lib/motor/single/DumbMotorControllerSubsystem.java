@@ -11,17 +11,18 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.nerdherd.lib.logging.NerdyBadlog;
+import com.nerdherd.lib.motor.motorcontrollers.CANMotorController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Generic Single motor controlled by a VictorSPX
  */
-public class SingleMotorVictorSPX extends AbstractSingleMotor {
+public class DumbMotorControllerSubsystem extends AbstractSingleMotor {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private VictorSPX m_motor;
+  protected CANMotorController m_motor;
 
    /**
    * 
@@ -29,30 +30,26 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
    * @param subsystemName String name of subsystem to display on smart dashboard
    * @param inversion boolean inversion of the VictorSPX
    */
-  public SingleMotorVictorSPX(int victorID, String subsystemName, boolean inversion) {
+  public DumbMotorControllerSubsystem(CANMotorController motor, String subsystemName, boolean inversion) {
     name = subsystemName;
-    m_motor = new VictorSPX(victorID); 
-    m_motor.configFactoryDefault();
+    m_motor = motor;
+    m_motor.configDefaultSettings();
     setInversion(inversion);
   }
 
   @Override
   public void setInversion(boolean inversion) {
-    m_motor.setInverted(inversion);
-  }
-
-  public void controlMotor(ControlMode controlMode, double setpoint, double arbFF) {
-    m_motor.set(controlMode, setpoint, DemandType.ArbitraryFeedForward, arbFF);
+    m_motor.setInversion(inversion);
   }
 
   @Override
   public void setPower(double power) {
-    m_motor.set(ControlMode.PercentOutput, power);
+    m_motor.setPower(power);
   }
 
   @Override
   public void setPower(double power, double arbFF) {
-    m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, arbFF);
+    m_motor.setPower(power, arbFF)
   }
 
   @Override

@@ -7,15 +7,15 @@
 
 package com.nerdherd.lib.motor.commands;
 
-import com.nerdherd.lib.motor.single.SmartMotorControllerSubsystem;
+import com.nerdherd.lib.motor.single.AbstractSmartMotorControllerSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DumbSetPosition extends Command {
 
-  private SmartMotorControllerSubsystem m_motor;
+  private AbstractSmartMotorControllerSubsystem m_motor;
   private double m_position, m_tolerance, m_power;
-  public DumbSetPosition(SmartMotorControllerSubsystem motor, double position, double power, double tolerance) {
+  public DumbSetPosition(AbstractSmartMotorControllerSubsystem motor, double position, double power, double tolerance) {
     m_motor = motor;
     m_position = position;
     m_power = power;

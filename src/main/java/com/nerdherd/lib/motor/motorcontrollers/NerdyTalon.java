@@ -1,5 +1,7 @@
 package com.nerdherd.lib.motor.motorcontrollers;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -11,7 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
  *Basic wrapper for TalonSRXs 
  */
 
-public class NerdyTalon extends TalonSRX {
+public class NerdyTalon extends TalonSRX implements SmartCANMotorController{
 	
 	/**
 	 * @param talonID
@@ -66,8 +68,8 @@ public class NerdyTalon extends TalonSRX {
 	 * Configure a peak current limit
 	 * @param current peak current limit in amps
 	 */
-	public void configCurrentLimitPeak(int current) {
-		super.configPeakCurrentLimit(current, 0);
+	public void configCurrentLimitPeak(double current) {
+		super.configPeakCurrentLimit( (int) current, 0);
 		super.enableCurrentLimit(true);
 	}
 	
@@ -75,8 +77,8 @@ public class NerdyTalon extends TalonSRX {
 	 * Configure a continuous current limit
 	 * @param current continuous current limits in amps
 	 */
-	public void configCurrentLimitContinuous(int current) {
-		super.configContinuousCurrentLimit(current, 0);
+	public void configCurrentLimitContinuous(double current) {
+		super.configContinuousCurrentLimit( (int) current, 0);
 		super.enableCurrentLimit(true);
 	}
 
@@ -115,5 +117,83 @@ public class NerdyTalon extends TalonSRX {
 		  controller.configDefaultSettings();
 		}
 	  }
+
+	  @Override
+	  public double getCurrent() {
+		  return super.getOutputCurrent();
+	  }
+
+	  @Override
+	  public void setPositionMotionMagic(double pos) {
+		  super.set(ControlMode.MotionMagic, pos);
+	  }
+
+	  @Override
+	  public void setPositionMotionMagic(double pos, double arbitraryFF) {
+		super.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, arbitraryFF);
+	  }
+
+	  @Override
+	  public void setPositionPID(double pos) {
+		super.set(ControlMode.Position, pos);
+	  }
+
+	  @Override
+	  public void setPositionPID(double pos, double arbitraryFF) {
+		super.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, arbitraryFF);
+	  }
+
+	  @Override
+	  public void setVelocity(double vel) {
+		super.set(ControlMode.Velocity, vel);
+	  }
+
+	  @Override
+	  public void setVelocity(double vel, double arbitraryFF) {
+		super.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, arbitraryFF);
+	  }
+
+	  @Override
+	  public void setPower(double pow) {
+			super.set(ControlMode.PercentOutput, pow);
+	  }
+
+	  @Override
+	  public void setPower(double pow, double arbitraryFF) {
+		super.set(ControlMode.PercentOutput, pow, DemandType.ArbitraryFeedForward, arbitraryFF);
+	  }
+
+	  @Override
+	  public void setVoltage(double voltage) {
+			super.set(ControlMode.PercentOutput, voltage/12);
+	  }
+
+	  @Override
+	  public void setVoltage(double voltage, double arbitraryFF) {
+		super.set(ControlMode.PercentOutput, voltage/12, DemandType.ArbitraryFeedForward, arbitraryFF);
+	  }
+
+	  @Override
+	  public double getVoltage() {
+		  return super.getMotorOutputVoltage();
+		}
+
+	@Override
+	public void setInversion(boolean inversion) {
+		super.setInverted(inversion);
+	}
+
+	@Override
+	public void setBrakeMode() {
+		super.setNeutralMode(NeutralMode.Brake);
+	}
+
+	@Override
+	public void setCoastMode() {
+		super.setNeutralMode(NeutralMode.Coast);
+
+	}
+		
+		
 	
 }

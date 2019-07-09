@@ -7,15 +7,15 @@
 
 package com.nerdherd.lib.motor.commands;
 
-import com.nerdherd.lib.motor.single.SmartMotorControllerSubsystem;
+import com.nerdherd.lib.motor.single.AbstractSmartMotorControllerSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 
 public class ResetSingleMotorEncoder extends Command {
 
-  private SmartMotorControllerSubsystem m_motor;
-  public ResetSingleMotorEncoder(SmartMotorControllerSubsystem motor) {
+  private AbstractSmartMotorControllerSubsystem m_motor;
+  public ResetSingleMotorEncoder(AbstractSmartMotorControllerSubsystem motor) {
     m_motor = motor;
     requires(m_motor);
   }
