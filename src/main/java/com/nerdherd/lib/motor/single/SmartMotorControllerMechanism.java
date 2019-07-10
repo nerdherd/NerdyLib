@@ -19,16 +19,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Add your docs here.
  */
-public class SmartMotorControllerSubsystem extends AbstractSmartMotorControllerSubsystem {
+public class SmartMotorControllerMechanism extends AbstractSmartMotorControllerSubsystem {
  
-  protected NerdyTalon motor;
+  public NerdyTalon motor;
 
   /**
    * 
    * @param talonID CAN ID of talon
    * @param subsystemName String name of subsystem to display on smart dashboard
    */
-  public SmartMotorControllerSubsystem(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
+  public SmartMotorControllerMechanism(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     name = subsystemName;
     motor = new NerdyTalon(talonID); 
     motor.configDefaultSettings();

@@ -49,12 +49,12 @@ public class DumbMotorControllerSubsystem extends AbstractSingleMotor {
 
   @Override
   public void setPower(double power, double arbFF) {
-    m_motor.setPower(power, arbFF)
+    m_motor.setPower(power, arbFF);
   }
 
   @Override
   public double getVoltage() {
-    return m_motor.getMotorOutputVoltage();
+    return m_motor.getVoltage();
   }
 
   @Override

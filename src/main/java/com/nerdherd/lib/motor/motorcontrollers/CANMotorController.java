@@ -32,5 +32,9 @@ public interface CANMotorController {
 
     public abstract void configVoltageCompensation(double voltage);
 
+    
+
+    
+
 
 }

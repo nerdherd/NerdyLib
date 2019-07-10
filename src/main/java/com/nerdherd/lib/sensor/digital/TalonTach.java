@@ -9,7 +9,7 @@ package com.nerdherd.lib.sensor.digital;
 
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.nerdherd.lib.motor.single.SmartMotorControllerSubsystem;
+import com.nerdherd.lib.motor.single.SmartMotorControllerMechanism;
 
 
 /**
@@ -26,7 +26,7 @@ public class TalonTach extends BooleanSensor {
     m_isForward = isForward;
   }
 
-  public TalonTach(SmartMotorControllerSubsystem talonSubsystem, String sensorName, 
+  public TalonTach(SmartMotorControllerMechanism talonSubsystem, String sensorName, 
                     boolean isInverted, boolean isForward) {
     super(sensorName, isInverted);
     m_limit = talonSubsystem.motor;
