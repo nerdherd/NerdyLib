@@ -7,8 +7,6 @@
 
 package com.nerdherd.lib.motor.statespace;
 
-import com.nerdherd.lib.logging.NerdyBadlog;
-import com.nerdherd.lib.motor.single.SmartMotorControllerMechanism;
 import com.nerdherd.lib.motor.single.mechanisms.StaticFrictionMechanism;
 
 import Jama.Matrix;

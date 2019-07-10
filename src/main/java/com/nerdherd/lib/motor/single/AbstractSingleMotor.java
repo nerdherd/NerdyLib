@@ -7,7 +7,6 @@
 
 package com.nerdherd.lib.motor.single;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.nerdherd.lib.logging.Loggable;
 
 import edu.wpi.first.wpilibj.command.Subsystem;

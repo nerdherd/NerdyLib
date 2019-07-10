@@ -7,25 +7,15 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.motor.commands.ResetSingleMotorEncoder;
-import com.nerdherd.lib.motor.commands.SetMotorPositionPID;
-import com.nerdherd.lib.motor.commands.SetMotorPower;
-import com.nerdherd.lib.motor.commands.mechanisms.MechanismVoltageRampingWithFF;
-import com.nerdherd.lib.motor.commands.statespace.FollowSSMotionProfile;
-import com.nerdherd.lib.motor.commands.statespace.TrackReference;
-import com.nerdherd.lib.motor.statespace.SSMotionProfile;
 import com.nerdherd.lib.oi.DefaultOI;
 
-import Jama.Matrix;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI extends DefaultOI{
-  
   
   JoystickButton trigger_1, button_2;
   

@@ -7,9 +7,6 @@
 
 package com.nerdherd.lib.motor.single;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.motor.motorcontrollers.CANMotorController;
 

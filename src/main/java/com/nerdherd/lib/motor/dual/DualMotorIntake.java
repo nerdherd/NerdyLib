@@ -7,7 +7,6 @@
 
 package com.nerdherd.lib.motor.dual;
 
-import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.motor.single.AbstractSingleMotor;
 
 /**

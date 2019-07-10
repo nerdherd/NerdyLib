@@ -7,19 +7,13 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.logging.SubscribedLoggable;
 import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.single.SmartMotorControllerMechanism;
-import com.nerdherd.lib.motor.statespace.SSTalonSRXPos;
 import com.nerdherd.lib.sensor.analog.LinearAnalogSensor;
-import com.nerdherd.robot.testconstants.TestSSGains;
 
-import Jama.Matrix;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
