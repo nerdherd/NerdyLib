@@ -4,14 +4,14 @@ import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 import com.nerdherd.lib.misc.NerdyMath;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.experimental.command.SendableCommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Arc turning
  */
 
-public class ArcTurn extends Command {
+public class ArcTurn extends SendableCommandBase {
 
     private double m_desiredAngle;
     private boolean m_isRightPowered;
@@ -41,18 +41,18 @@ public class ArcTurn extends Command {
     m_rotMinPower = minPower;
 	m_sign = Math.signum(sign);
 
-	requires(m_drive);
+	addRequirements(m_drive);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
 	SmartDashboard.putString("Current Drive Command", "ArcTurn");
 	
 	m_startTime = Timer.getFPGATimestamp();
     }
 
     @Override
-    protected void execute() {
+    public void execute() {
 	double robotAngle = (360 - m_drive.getRawYaw()) % 360;
 	m_error = -m_desiredAngle - robotAngle;
 	m_error = (m_error > 180) ? m_error - 360 : m_error;
@@ -73,19 +73,14 @@ public class ArcTurn extends Command {
     }
 
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
 	return Math.abs(m_error) < 3
 		|| Timer.getFPGATimestamp() - m_startTime > m_timeout;
     }
 
     @Override
-    protected void end() {
+    public void end(boolean interrupted) {
 	m_drive.setPowerZero();
-    }
-
-    @Override
-    protected void interrupted() {
-	end();
     }
 
 }

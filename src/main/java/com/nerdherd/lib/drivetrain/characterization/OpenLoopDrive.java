@@ -10,10 +10,10 @@ package com.nerdherd.lib.drivetrain.characterization;
 
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.experimental.command.SendableCommandBase;
 
 
-public class OpenLoopDrive extends Command {
+public class OpenLoopDrive extends SendableCommandBase {
 
   private double m_power;
   private AbstractDrivetrain m_drive;
@@ -21,34 +21,32 @@ public class OpenLoopDrive extends Command {
   public OpenLoopDrive(AbstractDrivetrain drive, double power) {
     m_power = power;
     m_drive = drive;
-    requires(m_drive);
+    addRequirements(m_drive);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     m_drive.setPower(m_power, m_power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+  
 }

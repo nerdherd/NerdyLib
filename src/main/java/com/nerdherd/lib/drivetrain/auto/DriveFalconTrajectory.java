@@ -14,9 +14,9 @@ import com.nerdherd.lib.drivetrain.trajectory.falconlib.FalconTrajectoryFollower
 import com.nerdherd.lib.drivetrain.trajectory.falconlib.TrajectoryPoint;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.experimental.command.SendableCommandBase;
 
-public class DriveFalconTrajectory extends Command {
+public class DriveFalconTrajectory extends SendableCommandBase {
   
   private FalconTrajectoryFollower m_controller;
   private double m_startTime, m_time, m_lastTime;
@@ -27,12 +27,12 @@ public class DriveFalconTrajectory extends Command {
     m_drive = drive;
     m_traj = traj;
     m_controller = new FalconTrajectoryFollower(traj, lookahead, goingForwards, kP, kD);
-    requires(m_drive);
+    addRequirements(m_drive);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
     m_startTime = Timer.getFPGATimestamp();
     m_lastTime = Timer.getFPGATimestamp();
     m_time = Timer.getFPGATimestamp() - m_startTime;
@@ -41,7 +41,7 @@ public class DriveFalconTrajectory extends Command {
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     m_time = Timer.getFPGATimestamp() - m_startTime;
     m_controller.calculate(m_drive.getXpos(), m_drive.getYpos(), m_drive.getRawYaw(), m_time - m_lastTime);
     m_drive.setVelocityFPS(m_controller.getLeftVelocity(), m_controller.getRightVelocity());
@@ -50,7 +50,7 @@ public class DriveFalconTrajectory extends Command {
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return m_controller.isFinished();
   }
 
@@ -58,13 +58,11 @@ public class DriveFalconTrajectory extends Command {
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
     m_drive.setPowerZero();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+  
 }

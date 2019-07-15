@@ -10,9 +10,9 @@ package com.nerdherd.lib.drivetrain.characterization;
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.experimental.command.SendableCommandBase;
 
-public class DriveCharacterizationTest extends Command {
+public class DriveCharacterizationTest extends SendableCommandBase {
 
   private double m_voltage, m_startTime, m_time;
   private double m_rampRate;
@@ -21,18 +21,18 @@ public class DriveCharacterizationTest extends Command {
   public DriveCharacterizationTest(AbstractDrivetrain drive, double rampRate) {
     m_rampRate = rampRate;
     m_drive = drive;
-    requires(m_drive);
+    addRequirements(m_drive);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
       m_startTime = Timer.getFPGATimestamp();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     m_time = Timer.getFPGATimestamp() - m_startTime;
     m_voltage = (m_rampRate * m_time)/12;
     m_drive.setPower(m_voltage, m_voltage);
@@ -40,20 +40,17 @@ public class DriveCharacterizationTest extends Command {
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return m_time > 12 / m_rampRate;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
     m_drive.setPowerZero();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    end();
-  }
+  
 }
