@@ -35,5 +35,12 @@ public interface SmartCANMotorController extends CANMotorController{
 
     public abstract void configCurrentLimitContinuous(double current);
 
+    public abstract void resetEncoder();
+
+    public abstract double getPosition();
+
+    public abstract double getVelocity();
+
+    public abstract void setSensorPhase(boolean phase);
 
 }

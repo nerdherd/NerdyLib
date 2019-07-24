@@ -7,10 +7,13 @@
 
 package com.nerdherd.lib.motor.motorcontrollers;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANPIDController.AccelStrategy;
+
+import org.ghrobotics.lib.mathematics.units.derivedunits.Velocity;
 
 /**
  * Add your docs here.
@@ -18,9 +21,12 @@ import com.revrobotics.CANPIDController.AccelStrategy;
 public class NerdySparkMax extends CANSparkMax implements SmartCANMotorController {
 
     public CANPIDController PIDController;
+    public CANEncoder encoder;
+
     public NerdySparkMax(int deviceID, MotorType type) {
         super(deviceID, type);
         PIDController = super.getPIDController();
+        encoder = new CANEncoder(this);
         super.restoreFactoryDefaults();
     }
 
@@ -138,6 +144,33 @@ public class NerdySparkMax extends CANSparkMax implements SmartCANMotorControlle
     public void setCoastMode() {
         super.setIdleMode(IdleMode.kCoast);
     }
+
+    @Override
+    public void resetEncoder() {
+        encoder.setPosition(0);
+    }
+
+    @Override
+    public double getPosition() {
+        return encoder.getPosition();
+    }
+
+    @Override
+    public double getVelocity() {
+        return encoder.getVelocity();
+    }
+
+    @Override
+    public void setSensorPhase(boolean phase) {
+        if (phase) {
+            encoder.setPositionConversionFactor(1);
+            encoder.setVelocityConversionFactor(1);
+        } else {
+            encoder.setPositionConversionFactor(-1);
+            encoder.setVelocityConversionFactor(-1);
+        }
+    }
+    
 
     
 

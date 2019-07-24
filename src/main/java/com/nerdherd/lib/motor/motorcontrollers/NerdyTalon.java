@@ -193,6 +193,21 @@ public class NerdyTalon extends TalonSRX implements SmartCANMotorController{
 		super.setNeutralMode(NeutralMode.Coast);
 
 	}
+
+	@Override
+	public void resetEncoder() {
+		super.setSelectedSensorPosition(0);
+	}
+
+	@Override
+	public double getPosition() {
+		return super.getSelectedSensorPosition();
+	}
+
+	@Override
+	public double getVelocity() {
+		return super.getSelectedSensorVelocity();
+	}
 		
 		
 	
