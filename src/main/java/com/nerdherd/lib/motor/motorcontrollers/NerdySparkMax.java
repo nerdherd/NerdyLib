@@ -9,11 +9,10 @@ package com.nerdherd.lib.motor.motorcontrollers;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
+import com.revrobotics.CANPIDController.AccelStrategy;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
-import com.revrobotics.CANPIDController.AccelStrategy;
 
-import org.ghrobotics.lib.mathematics.units.derivedunits.Velocity;
 
 /**
  * Add your docs here.
