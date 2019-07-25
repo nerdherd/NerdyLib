@@ -22,7 +22,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.misc.AutoChooser;
-import com.nerdherd.lib.motor.NerdyTalon;
+import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
 
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;

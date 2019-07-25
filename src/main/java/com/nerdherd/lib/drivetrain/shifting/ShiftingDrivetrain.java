@@ -9,7 +9,7 @@ package com.nerdherd.lib.drivetrain.shifting;
 
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.nerdherd.lib.drivetrain.singlespeed.Drivetrain;
-import com.nerdherd.lib.motor.NerdyTalon;
+import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
 import com.nerdherd.lib.pneumatics.Piston;
 
 /**
