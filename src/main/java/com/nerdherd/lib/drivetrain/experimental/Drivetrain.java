@@ -50,7 +50,6 @@ public class Drivetrain extends AbstractDrivetrain {
     public Drivetrain(SmartCANMotorController leftMaster, SmartCANMotorController rightMaster, CANMotorController[] leftSlaves, CANMotorController[] rightSlaves, boolean leftInversion, boolean rightInversion) {
         m_leftMaster = leftMaster;
         m_rightMaster = rightMaster;
-        
     }
 
 
