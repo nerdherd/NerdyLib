@@ -12,9 +12,17 @@ package com.nerdherd.lib.motor.motorcontrollers;
  */
 public interface SmartCANMotorController extends CANMotorController{
 
-
+    /**
+     * Set a position using Motion Magic or Smart Motion
+     * @param pos
+     */
     public abstract void setPositionMotionMagic(double pos);
 
+    /**
+     * Set a position using Motion Magic or Smart Motion and an arbitrary feedforward.
+     * @param pos
+     * @param arbitraryFF
+     */
     public abstract void setPositionMotionMagic(double pos, double arbitraryFF);
 
     public abstract void setPositionPID(double pos);
@@ -41,6 +49,10 @@ public interface SmartCANMotorController extends CANMotorController{
 
     public abstract double getVelocity();
 
+    /**
+     * Set the sensor phase of a mechanism, For example, if the sensor value is negative while moving upwards, invert the sensor phase
+     * @param phase
+     */
     public abstract void setSensorPhase(boolean phase);
 
 }

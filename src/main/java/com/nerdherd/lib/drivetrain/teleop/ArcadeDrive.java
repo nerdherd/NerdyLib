@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Teleop Arcade Drive, open loop
  */
 public class ArcadeDrive extends Command {
 

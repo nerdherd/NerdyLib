@@ -16,6 +16,9 @@ import com.nerdherd.lib.drivetrain.trajectory.falconlib.TrajectoryPoint;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Proportional Heading Follower for a FalconLib Trajectory
+ */
 public class DriveFalconTrajectory extends Command {
   
   private FalconTrajectoryFollower m_controller;

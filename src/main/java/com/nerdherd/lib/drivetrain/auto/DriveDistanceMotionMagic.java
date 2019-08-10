@@ -5,7 +5,7 @@ import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ *Drive forward for a distance using motoion magic on the drivetrain
  */
 public class DriveDistanceMotionMagic extends Command {
 

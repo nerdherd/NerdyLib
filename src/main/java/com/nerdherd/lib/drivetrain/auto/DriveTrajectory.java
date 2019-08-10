@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Trajectory;
 
+/**
+ * Drive a Pathfinder trajectory using a proportional heading follower
+ */
 public class DriveTrajectory extends Command {
   
   private TrajectoryFollower m_controller;

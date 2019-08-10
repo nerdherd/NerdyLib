@@ -5,7 +5,7 @@ import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Drive forward for a distance using a PID on position
  */
 public class DriveDistancePID extends Command {
 

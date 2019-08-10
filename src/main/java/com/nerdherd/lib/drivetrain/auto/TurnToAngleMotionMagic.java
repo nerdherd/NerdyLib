@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Pathfinder;
 
+/**
+ * Turn to an absolute angle using motion magic, still untested
+ */
 public class TurnToAngleMotionMagic extends Command {
   private double m_angle;
   private int m_velocity, m_accel;

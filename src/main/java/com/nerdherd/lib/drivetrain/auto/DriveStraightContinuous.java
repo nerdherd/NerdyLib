@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Drive straight without setting power to 0 when it reaches goal. No heading
- * adjustment, all open loop.
+ * adjustment, all open loop. Use with extreme caution and a finger on the disable key
  */
 
 public class DriveStraightContinuous extends Command {

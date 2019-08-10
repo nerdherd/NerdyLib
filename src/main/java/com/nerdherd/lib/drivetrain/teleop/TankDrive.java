@@ -12,6 +12,9 @@ import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Teleop Tank Drive, open loop
+ */
 public class TankDrive extends Command {
 
   private AbstractDrivetrain m_drive;
