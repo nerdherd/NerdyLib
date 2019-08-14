@@ -7,51 +7,38 @@
 
 package com.nerdherd.lib.oi;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
+import com.nerdherd.lib.oi.controllers.NerdyXboxController;
+
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 /**
- * Add your docs here.
+ * OI for using an Xbox Controller for Operator and Driver
+ * 
  */
-public class XboxOI extends AbstractOI {
+public class XboxOI extends XboxDriverOI{
 
-    public XboxController xbox;
-    public Joystick operatorStick;
+    public NerdyXboxController driverController, operatorController;
 
-    @Override
-    public void initLoggingData() {
-        xbox = new XboxController(0);
-        operatorStick = new Joystick(1);
-    }
-
-    @Override
-    public double getDriveJoyLeftX() {
-        return xbox.getX(Hand.kLeft);
-    }
-
-    @Override
-    public double getDriveJoyLeftY() {
-        return xbox.getY(Hand.kLeft);
-    }
-
-    @Override
-    public double getDriveJoyRightX() {
-        return xbox.getX(Hand.kRight);
-    }
-
-    @Override
-    public double getDriveJoyRightY() {
-        return xbox.getY(Hand.kRight);
+    public XboxOI() {
+        driverController = new NerdyXboxController(0);
+        operatorController = new NerdyXboxController(1);
     }
 
     @Override
     public double getOperatorJoyX() {
-        return operatorStick.getX();
+        return operatorController.getX(Hand.kRight);
     }
 
     @Override
     public double getOperatorJoyY() {
-        return -operatorStick.getY();
-    } 
+        return operatorController.getY(Hand.kRight);
+    }
+
+    public double getLeftOperatorY() {
+        return operatorController.getY(Hand.kLeft);
+    }
+
+    public double getLeftOperatorX() {
+        return operatorController.getX(Hand.kLeft);
+    }
 }
