@@ -20,8 +20,6 @@ public class ShiftingDrivetrain extends Drivetrain implements TwoSpeedDrivetrain
     
     public ShiftingDrivetrain(SmartCANMotorController leftMaster, SmartCANMotorController rightMaster, CANMotorController[] leftSlaves, CANMotorController[] rightSlaves, boolean leftInversion, boolean rightInversion, Piston shifter) {
         super(leftMaster, rightMaster, leftSlaves, rightSlaves, leftInversion, rightInversion);
-        m_leftMaster = leftMaster;
-        m_rightMaster = rightMaster;
         m_shifter = shifter;
     }
 
