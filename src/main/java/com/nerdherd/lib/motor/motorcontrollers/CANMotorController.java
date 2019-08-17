@@ -38,6 +38,16 @@ public interface CANMotorController {
 
     public abstract int getID();
 
+    public abstract boolean getInversion();
+
+    public default void configFollowers(CANMotorController[] followers) {
+        for (CANMotorController follower : followers) {
+            follower.configDefaultSettings();
+            follower.followCANMotorController(this);
+            follower.setInversion(this.getInversion());
+            follower.setBrakeMode();
+        }
+    }
     
 
 

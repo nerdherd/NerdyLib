@@ -20,6 +20,7 @@ import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.motorcontrollers.CANMotorController;
 import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
 
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -49,7 +50,16 @@ public class Drivetrain extends AbstractDrivetrain {
 
     public Drivetrain(SmartCANMotorController leftMaster, SmartCANMotorController rightMaster, CANMotorController[] leftSlaves, CANMotorController[] rightSlaves, boolean leftInversion, boolean rightInversion) {
         m_leftMaster = leftMaster;
-        m_rightMaster = rightMaster;
+		m_rightMaster = rightMaster;
+		m_leftMaster.configDefaultSettings();
+		m_rightMaster.configDefaultSettings();
+		m_leftMaster.setInversion(leftInversion);
+		m_rightMaster.setInversion(rightInversion);
+		m_leftMaster.setBrakeMode();
+		m_rightMaster.setBrakeMode();
+		m_leftMaster.configFollowers(leftSlaves);
+		m_rightMaster.configFollowers(rightSlaves);
+		m_nav = new AHRS(SPI.Port.kMXP);
     }
 
 
