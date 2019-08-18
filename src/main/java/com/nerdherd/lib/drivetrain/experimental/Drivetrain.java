@@ -59,8 +59,8 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_rightMaster.setInversion(rightInversion);
 		m_leftMaster.setBrakeMode();
 		m_rightMaster.setBrakeMode();
-		m_leftMaster.configFollowers(leftSlaves);
-		m_rightMaster.configFollowers(rightSlaves);
+		m_leftMaster.configFollowers(m_leftSlaves);
+		m_rightMaster.configFollowers(m_rightSlaves);
 		m_nav = new AHRS(SPI.Port.kMXP);
     }
 
