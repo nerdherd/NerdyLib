@@ -15,15 +15,12 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CurvatureDrive extends Command {
   private double m_leftPower, m_rightPower;
   private double m_xSpeed, m_zRot, m_turningDeadband;
-  private boolean m_isQuickTurn;
+
   private AbstractDrivetrain m_drive;
   private AbstractOI m_oi;
 
-  public CurvatureDrive(AbstractDrivetrain drive, AbstractOI oi, double xSpeed, double zRot, boolean isQuickTurn, double turningDeadband) {
+  public CurvatureDrive(AbstractDrivetrain drive, AbstractOI oi,double turningDeadband) {
     m_turningDeadband = turningDeadband;
-    m_xSpeed = xSpeed;
-    m_zRot = zRot;
-    // m_isQuickTurn = isQuickTurn;
 
     m_drive = drive;
     m_oi = oi;
@@ -40,13 +37,16 @@ public class CurvatureDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    m_xSpeed = m_oi.getDriveJoyLeftY();
+    m_zRot = m_oi.getDriveJoyRightX();
     if(Math.abs(m_xSpeed) > m_turningDeadband){
       m_leftPower = m_xSpeed + m_xSpeed * m_zRot;
       m_rightPower = m_xSpeed - m_xSpeed * m_zRot; 
+      m_drive.setPower(m_leftPower, m_rightPower);
     } 
     else{
-      m_leftPower = m_xSpeed + m_zRot;
-      m_rightPower = -m_xSpeed + m_zRot;
+      m_leftPower = m_zRot;
+      m_rightPower = -m_zRot;
       m_drive.setPower(m_leftPower, m_rightPower);
   
     }
