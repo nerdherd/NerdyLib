@@ -16,6 +16,9 @@ import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.DistanceFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
+/**
+ * Drive a Pathfinder trajectory using pathfinder's distance follower
+ */
 public class DriveTrajectoryPathfinder extends Command {
   private Trajectory m_leftTrajectory, m_rightTrajectory, m_sourceTrajectory;
   private DistanceFollower m_leftFollower, m_rightFollower;

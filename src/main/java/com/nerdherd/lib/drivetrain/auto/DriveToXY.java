@@ -6,7 +6,7 @@ import com.nerdherd.lib.misc.NerdyMath;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Drive to an XY point using a rotational PID and an optional straight PID
  */
 public class DriveToXY extends Command {
 

@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Arc turning
+ * @author ted, dylan
+ * Execute an arc turn with one side of the drivetrain powered
  */
 
 public class ArcTurn extends Command {
@@ -23,13 +24,15 @@ public class ArcTurn extends Command {
     private AbstractDrivetrain m_drive;
 
     /**
-     * Arc Turn
      * 
+     * @param drive
      * @param desiredAngle
      * @param isRightPowered
      * @param timeout
      * @param sign
-     *            (+1.0 or -1.0)
+     * @param rotP
+     * @param maxPower
+     * @param minPower
      */
     public ArcTurn(AbstractDrivetrain drive,double desiredAngle, boolean isRightPowered, double timeout, double sign, double rotP, double maxPower, double minPower) {
     m_drive = drive;

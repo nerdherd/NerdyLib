@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Teleop Arcade Drive, open loop
  */
 public class ArcadeDrive extends Command {
 
@@ -28,8 +28,8 @@ public class ArcadeDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	m_leftPower = m_oi.getDriveJoyLeftX() + m_oi.getDriveJoyRightY();
-    	m_rightPower = -m_oi.getDriveJoyLeftX() + m_oi.getDriveJoyRightY();
+    	m_leftPower = m_oi.getDriveJoyRightX() + m_oi.getDriveJoyLeftY();
+    	m_rightPower = -m_oi.getDriveJoyRightX() + m_oi.getDriveJoyLeftY();
     	m_drive.setPower(m_leftPower, m_rightPower);
     }
 

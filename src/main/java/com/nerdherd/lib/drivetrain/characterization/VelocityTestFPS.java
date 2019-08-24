@@ -12,7 +12,9 @@ import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-
+/**
+ * Drive forwards at a specified velocity (velocity in feet per second) without and ending condition. Use with extreme caution and a finger on the disable key. 
+ */
 public class VelocityTestFPS extends Command {
 
   private double m_desiredVel, m_time, m_startTime;

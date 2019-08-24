@@ -12,6 +12,9 @@ import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * Voltage ramp to characterize a drivetrain, analyze the data in logger pro
+ */
 public class DriveCharacterizationTest extends Command {
 
   private double m_voltage, m_startTime, m_time;
