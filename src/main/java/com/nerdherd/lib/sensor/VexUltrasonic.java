@@ -33,6 +33,10 @@ public class VexUltrasonic extends Ultrasonic implements Loggable {
     return super.getRangeInches();
   } 
 
+  // public double getInchesWithTolerance(){
+    // return super.getRangeInches() - 8.25;  
+  // }
+
   public void reportToSmartDashboard(){
     SmartDashboard.putNumber("Inches", getInches());
   }

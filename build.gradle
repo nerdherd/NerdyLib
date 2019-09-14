@@ -1,8 +1,8 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO"
+    // id "edu.wpi.first.GradleRIO"
     // uncomment to check if nerdylib builds
-    // id "edu.wpi.first.GradleRIO" version "2019.4.1"
+    id "edu.wpi.first.GradleRIO" version "2019.4.1"
     id "maven"
 }
 

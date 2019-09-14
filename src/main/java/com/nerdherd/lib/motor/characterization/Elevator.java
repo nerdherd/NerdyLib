@@ -7,6 +7,14 @@
 
 package com.nerdherd.lib.motor.characterization;
 
+import java.util.function.Supplier;
+
+import com.nerdherd.lib.motor.single.mechanisms.SingleMotorElevator;
+
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Elevator extends Command {
@@ -39,8 +47,8 @@ public class Elevator extends Command {
 
     double now = Timer.getFPGATimestamp();
 
-    double position = encoderPosition.get();
-    double rate = encoderRate.get();
+    // double position = encoderPosition.get();
+    // double rate = encoderRate.get();
 
     double bettery = RobotController.getBatteryVoltage();
 
@@ -51,16 +59,16 @@ public class Elevator extends Command {
     priorAutospeed = autospeed;
 
     // command motors to do things
-    arm.set(autospeed);
+    // arm.set(autospeed);
 
     // send telementry data array back to NT
     numberArray[0] = now;
-    numberArray[1] = battery;
+    // numberArray[1] = battery;
     numberArray[2] = autospeed;
     numberArray[3] = motorVolts;
-    numberArray[4] = position;
-    numberArray[5] = rate;
-    numberArray[6] = velocity;
+    // numberArray[4] = position;
+    // numberArray[5] = rate;
+    // numberArray[6] = velocity;
     telementryEntry.setNumberArray(numberArray);
 
   }

@@ -10,10 +10,12 @@ package com.nerdherd.robot;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.logging.SubscribedLoggable;
 import com.nerdherd.lib.misc.AutoChooser;
+import com.nerdherd.lib.motor.motorcontrollers.NerdySparkMax;
 import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 import com.nerdherd.lib.motor.statespace.SSTalonSRXPos;
 import com.nerdherd.lib.sensor.analog.LinearAnalogSensor;
 import com.nerdherd.robot.testconstants.TestSSGains;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import Jama.Matrix;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -38,6 +40,7 @@ public class Robot extends TimedRobot {
   // public static SubscribedLoggable motProfPos, motProfVel;
   public static SingleMotorTalonSRX talon;
   public static LinearAnalogSensor manifoldAbsolutePressure;
+  public static NerdySparkMax Neo1, Neo2;
 
   public static OI oi;
 
@@ -48,6 +51,14 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     chooser = new AutoChooser();
+    Neo1 = new NerdySparkMax(1, MotorType.kBrushless);
+    Neo2 = new NerdySparkMax(2, MotorType.kBrushless);
+
+    Neo1.setInverted(false);
+    Neo2.setInverted(false);
+    Neo1.configDefaultSettings();
+    Neo2.configDefaultSettings();
+
     // drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
     // new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
     // new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 	
@@ -109,6 +120,9 @@ public class Robot extends TimedRobot {
     // climberWheelRight.reportToSmartDashboard();
     // testMotor.reportToSmartDashboard();
     manifoldAbsolutePressure.reportToSmartDashboard();
+
+    SmartDashboard.putNumber("Conversion factor 1", Neo1.encoder.getVelocityConversionFactor());
+    SmartDashboard.putNumber("Conversion factor 2", Neo2.encoder.getVelocityConversionFactor());
     // SmartDashboard.putBoolean("Is not moving", testMotor.isNotMoving());
     // SmartDashboard.putNumber("FF if not moving", testMotor.getFFIfNotMoving(testMotor.u.get(0,0)));
   }
@@ -173,6 +187,15 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    Neo1.setVoltage(12);
+   // Neo2.setVoltage(12);
+    SmartDashboard.putNumber("Current1", Neo1.getCurrent());
+    SmartDashboard.putNumber("Current2", Neo2.getCurrent());
+    SmartDashboard.putNumber("Voltage1", Neo1.getVoltage());
+    SmartDashboard.putNumber("Voltage2", Neo2.getVoltage());
+    SmartDashboard.putNumber("Velocity1", Neo1.getVelocity());
+    SmartDashboard.putNumber("Velocity2", Neo2.getVelocity());
+
     // drive.logToCSV();
   }
 

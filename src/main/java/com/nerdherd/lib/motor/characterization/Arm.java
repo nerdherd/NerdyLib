@@ -7,6 +7,14 @@
 
 package com.nerdherd.lib.motor.characterization;
 
+import java.util.function.Supplier;
+
+import com.nerdherd.lib.motor.single.mechanisms.SingleMotorArm;
+import com.nerdherd.lib.motor.single.mechanisms.SingleMotorElevator;
+
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Arm extends Command {
@@ -20,7 +28,7 @@ public class Arm extends Command {
   Number[] numberArray = new Number[9];
 
   public Arm(SingleMotorElevator arm, Supplier<Double> batteryVoltage) {
-    m_arm = arm;
+    // m_arm = arm;
     m_batteryVoltage = batteryVoltage;
     requires(m_arm);
   }
@@ -34,10 +42,10 @@ public class Arm extends Command {
   @Override
   protected void execute() {
 
-    double now = Timer.getFPGATimestamp();
+    // double now = Timer.getFPGATimestamp();
 
-    double position = encoderPosition.get();
-    double rate = encoderRate.get();
+    // double position = encoderPosition.get();
+    // double rate = encoderRate.get();
 
     double bettery = RobotController.getBatteryVoltage();
 
@@ -48,16 +56,16 @@ public class Arm extends Command {
     priorAutospeed = autospeed;
 
     // command motors to do things
-    arm.set(autospeed);
+    // arm.set(autospeed);
 
     // send telementry data array back to NT
-    numberArray[0] = now;
-    numberArray[1] = battery;
+    // numberArray[0] = now;
+    // numberArray[1] = battery;
     numberArray[2] = autospeed;
     numberArray[3] = motorVolts;
-    numberArray[4] = position;
-    numberArray[5] = rate;
-    numberArray[6] = velocity;
+    // numberArray[4] = position;
+    // numberArray[5] = rate;
+    // numberArray[6] = velocity;
     telementryEntry.setNumberArray(numberArray);
 
   }
