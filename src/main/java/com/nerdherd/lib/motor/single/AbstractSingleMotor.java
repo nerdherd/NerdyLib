@@ -10,12 +10,11 @@ package com.nerdherd.lib.motor.single;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.nerdherd.lib.logging.Loggable;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-
+import edu.wpi.first.wpilibj2.command.Subsystem;
 /**
  * Add your docs here.
  */
-public abstract class AbstractSingleMotor extends Subsystem implements Loggable {
+public abstract class AbstractSingleMotor implements Loggable, Subsystem {
 
   public String name;
   

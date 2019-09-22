@@ -11,7 +11,7 @@ import com.nerdherd.lib.motor.commands.ResetSingleMotorEncoder;
 import com.nerdherd.lib.motor.single.mechanisms.StaticFrictionMechanism;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.CommandScheduler;
 
 public class ZeroMechanismsManually extends Command {
 
@@ -67,10 +67,10 @@ public class ZeroMechanismsManually extends Command {
     @Override
     protected void end() {
         m_mechanism.setVoltage(0);
-        Scheduler.getInstance().add(new ResetSingleMotorEncoder(m_mechanism));
+        CommandScheduler.getInstance().add(new ResetSingleMotorEncoder(m_mechanism));
         for (StaticFrictionMechanism additionalMechanism : m_mechanisms) {
             additionalMechanism.setVoltage(0);
-            Scheduler.getInstance().add(new ResetSingleMotorEncoder(additionalMechanism));
+            CommandScheduler.getInstance().add(new ResetSingleMotorEncoder(additionalMechanism));
         }
     }
 
