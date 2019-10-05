@@ -26,7 +26,7 @@ import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
 
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -53,7 +53,7 @@ public class Drivetrain extends AbstractDrivetrain {
 	private double m_leftDesiredVel, m_rightDesiredVel;
 	public double m_lookaheadX, m_lookaheadY;
 	public double kLeftStatic, kRightStatic, kMaxVelocity, kLeftTicksPerFoot, kRightTicksPerFoot;
-	public Command defaultCommand;
+	public CommandBase defaultCommand;
 
 	/**
 	 * Standard Tank Drive
@@ -174,7 +174,7 @@ public class Drivetrain extends AbstractDrivetrain {
 	 * 
 	 * @param defaultCom teleop drive command
 	 */
-	public void configDefaultCommand(Command defaultCom) {
+	public void configDefaultCommand(CommandBase defaultCom) {
 		defaultCommand = defaultCom;
 	}
 

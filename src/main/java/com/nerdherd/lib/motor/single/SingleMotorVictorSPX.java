@@ -65,13 +65,6 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
     SmartDashboard.putNumber(name + " Voltage", getVoltage());
   }
 
-
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
-
   @Override
   public void initLoggingData() {
     NerdyBadlog.createTopic(name + "/Voltage", () -> getVoltage());

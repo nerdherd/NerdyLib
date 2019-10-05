@@ -9,43 +9,39 @@ package com.nerdherd.lib.motor.commands.mechanisms;
 
 import com.nerdherd.lib.motor.single.mechanisms.SingleMotorArm;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SetArmAngleMotionMagic extends Command {
+public class SetArmAngleMotionMagic extends CommandBase {
   private SingleMotorArm m_motor;
   private double m_angle;
 
   public SetArmAngleMotionMagic(SingleMotorArm motor, double angle) {
     m_motor = motor;
     m_angle = angle;
-    requires(m_motor);
+    addRequirements(m_motor);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     m_motor.setAngleMotionMagic(m_angle);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+   
 }

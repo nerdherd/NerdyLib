@@ -9,12 +9,12 @@ package com.nerdherd.lib.motor.dual;
 
 import com.nerdherd.lib.logging.Loggable;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public abstract class AbstractDualMotorIntake extends Subsystem implements Loggable {
+public abstract class AbstractDualMotorIntake implements Loggable, Subsystem {
 
     public abstract void setPower(double leftPower, double rightPower);
 }

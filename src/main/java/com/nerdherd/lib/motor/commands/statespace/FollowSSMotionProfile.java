@@ -14,9 +14,9 @@ import com.nerdherd.robot.Robot;
 
 import Jama.Matrix;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class FollowSSMotionProfile extends Command {
+public class FollowSSMotionProfile extends CommandBase {
 
     private SSTalonSRXPos m_motor;
     private SSMotionProfile m_motProf;
@@ -26,7 +26,7 @@ public class FollowSSMotionProfile extends Command {
     public FollowSSMotionProfile(SSTalonSRXPos motor, SSMotionProfile motProf) {
         m_motor = motor;
         m_motProf = motProf;
-        requires(m_motor);
+        addRequirements(m_motor);
         m_motProfPos = null;
         m_motProfVel = null;
     }
@@ -40,13 +40,13 @@ public class FollowSSMotionProfile extends Command {
 
     // Called just before this Command runs the first time
     @Override
-    protected void initialize() {
+    public void initialize() {
         m_startTime = Timer.getFPGATimestamp();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
-    protected void execute() {
+    public void execute() {
         m_motor.update(new Matrix( new double[][] {
             {m_motProf.getPosAtTime(Timer.getFPGATimestamp() - m_startTime)},
             {m_motProf.getVelAtTime(Timer.getFPGATimestamp() - m_startTime)}
@@ -61,18 +61,16 @@ public class FollowSSMotionProfile extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
     return false;
     }
 
     // Called once after isFinished returns true
     @Override
-    protected void end() {
+    public void end(boolean interrupted) {
     }
 
-    // Called when another command which requires one or more of the same
+    // Called when another command which addRequirements one or more of the same
     // subsystems is scheduled to run
-    @Override
-    protected void interrupted() {
-    }
+        
 }

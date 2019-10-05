@@ -164,12 +164,6 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
     SmartDashboard.putNumber(name + " Velocity", getVelocity());
     SmartDashboard.putNumber(name + " Position", getPosition());
   }
- 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
 
   @Override
   public void initLoggingData() {

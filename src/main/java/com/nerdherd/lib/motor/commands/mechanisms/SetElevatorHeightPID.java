@@ -8,10 +8,10 @@
 package com.nerdherd.lib.motor.commands.mechanisms;
 
 import com.nerdherd.lib.motor.single.mechanisms.SingleMotorElevator;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
-import edu.wpi.first.wpilibj.command.Command;
-
-public class SetElevatorHeightPID extends Command {
+public class SetElevatorHeightPID extends CommandBase {
   
   private SingleMotorElevator m_elevator;
   private double m_height;
@@ -19,34 +19,30 @@ public class SetElevatorHeightPID extends Command {
   public SetElevatorHeightPID(SingleMotorElevator elevator, double height) {
     m_elevator = elevator;
     m_height = height;
-    requires(m_elevator);
+    addRequirements(m_elevator);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     m_elevator.setHeight(m_height);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+   
 }

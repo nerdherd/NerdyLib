@@ -4,14 +4,14 @@ package com.nerdherd.lib.drivetrain.auto;
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Turn in place for a specified time
  */
 
-public class TurnTime extends Command {
+public class TurnTime extends CommandBase {
 
     private double m_rotPower;
     private double m_timeout;
@@ -26,32 +26,29 @@ public class TurnTime extends Command {
 	m_rotPower = rotPower;
 	m_timeout = timeout;
 
-	requires(m_drive);
+	addRequirements(m_drive);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
 	SmartDashboard.putString("Current Drive Command", "DriveTime");
 	m_startTime = Timer.getFPGATimestamp();
     }
 
     @Override
-    protected void execute() {
+    public void execute() {
 	m_drive.setPower(-m_rotPower, m_rotPower);
     }
 
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
 	return Timer.getFPGATimestamp() - m_startTime > m_timeout;
     }
 
     @Override
-    protected void end() {
+    public void end(boolean interrupted) {
 	m_drive.setPowerZero();
     }
 
-    @Override
-    protected void interrupted() {
-	end();
-    }
+     
 }

@@ -2,44 +2,42 @@ package com.nerdherd.lib.drivetrain.auto;
 
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Reset gyro with a command so we do not have to enable/disable every time
  */
 
-public class ResetGyro extends Command {
+public class ResetGyro extends CommandBase {
 
     private AbstractDrivetrain m_drive;
 
     public ResetGyro(AbstractDrivetrain drive) {
         m_drive = drive;
-	    requires(m_drive);
+	    addRequirements(m_drive);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
 	SmartDashboard.putString("Current Drive Command", "ResetGyro");
     m_drive.resetYaw();
     m_drive.setXY(0, 0);
     }
 
     @Override
-    protected void execute() {
+    public void execute() {
     }
 
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
 	return false;
     }
 
     @Override
-    protected void end() {
+    public void end(boolean interrupted) {
     }
 
-    @Override
-    protected void interrupted() {
-    }
+        
 
 }

@@ -3,13 +3,13 @@ package com.nerdherd.lib.drivetrain.teleop;
 import com.nerdherd.lib.oi.AbstractOI;
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Teleop Arcade Drive, open loop
  */
-public class ArcadeDrive extends Command {
+public class ArcadeDrive extends CommandBase {
 
 	private double m_leftPower, m_rightPower;
     private AbstractDrivetrain m_drive;
@@ -18,31 +18,31 @@ public class ArcadeDrive extends Command {
     public ArcadeDrive(AbstractDrivetrain drive, AbstractOI oi) {
         m_drive = drive;
         m_oi = oi;
-    	requires(m_drive);
+    	addRequirements(m_drive);
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
+    public void initialize() {
     	SmartDashboard.putString("Current Command", "Arcade Drive");
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
+    public void execute() {
     	m_leftPower = m_oi.getDriveJoyRightX() + m_oi.getDriveJoyLeftY();
     	m_rightPower = -m_oi.getDriveJoyRightX() + m_oi.getDriveJoyLeftY();
     	m_drive.setPower(m_leftPower, m_rightPower);
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return false;
     }
 
     // Called once after isFinished returns true
-    protected void end() {
+    public void end(boolean interrupted) {
     }
 
-    // Called when another command which requires one or more of the same
+    // Called when another command which addRequirements one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     }

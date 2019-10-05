@@ -10,10 +10,11 @@ package com.nerdherd.lib.motor.commands.mechanisms;
 import com.nerdherd.lib.motor.commands.ResetSingleMotorEncoder;
 import com.nerdherd.lib.motor.single.mechanisms.StaticFrictionMechanism;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ZeroMechanismsManually extends Command {
+public class ZeroMechanismsManually extends CommandBase {
 
     private StaticFrictionMechanism m_mechanism;
     private StaticFrictionMechanism[] m_mechanisms;
@@ -31,18 +32,18 @@ public class ZeroMechanismsManually extends Command {
         m_mechanisms = additionalMechanisms;
         m_rate = descentRate;
         m_useFF = useFF;
-        requires(m_mechanism);
+        addRequirements(m_mechanism);
 
     }
 
     // Called just before this Command runs the first time
     @Override
-    protected void initialize() {
+    public void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
-    protected void execute() {
+    public void execute() {
         if (m_useFF) {
         m_mechanism.setVoltageWithFF(m_rate);
         } else {
@@ -59,24 +60,22 @@ public class ZeroMechanismsManually extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return false;
     }
 
     // Called once after isFinished returns true
     @Override
-    protected void end() {
+    public void end(boolean interrupted) {
         m_mechanism.setVoltage(0);
-        CommandScheduler.getInstance().add(new ResetSingleMotorEncoder(m_mechanism));
+        CommandScheduler.getInstance().schedule(new ResetSingleMotorEncoder(m_mechanism));
         for (StaticFrictionMechanism additionalMechanism : m_mechanisms) {
             additionalMechanism.setVoltage(0);
-            CommandScheduler.getInstance().add(new ResetSingleMotorEncoder(additionalMechanism));
+            CommandScheduler.getInstance().schedule(new ResetSingleMotorEncoder(additionalMechanism));
         }
     }
 
-    // Called when another command which requires one or more of the same
+    // Called when another command which addRequirements one or more of the same
     // subsystems is scheduled to run
-    @Override
-    protected void interrupted() {
-    }
+        
 }

@@ -8,10 +8,10 @@
 package com.nerdherd.lib.motor.commands.mechanisms;
 
 import com.nerdherd.lib.motor.single.mechanisms.StaticFrictionMechanism;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
-import edu.wpi.first.wpilibj.command.Command;
-
-public class SetMechanismVoltageWithFF extends Command {
+public class SetMechanismVoltageWithFF extends CommandBase {
 
   private StaticFrictionMechanism m_motor;
   private double m_voltage;
@@ -19,34 +19,30 @@ public class SetMechanismVoltageWithFF extends Command {
   public SetMechanismVoltageWithFF(StaticFrictionMechanism motor, double voltage) {
     m_motor = motor;
     m_voltage = voltage;
-    requires(m_motor);
+    addRequirements(m_motor);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     m_motor.setPowerWithFF(m_voltage / 12.);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+   
 }

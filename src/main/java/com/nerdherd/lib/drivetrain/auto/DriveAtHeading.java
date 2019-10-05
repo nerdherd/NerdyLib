@@ -2,7 +2,7 @@ package com.nerdherd.lib.drivetrain.auto;
 
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * specified distance). Loop is closed on heading but not on straight power.
  */
 
-public class DriveAtHeading extends Command {
+public class DriveAtHeading extends CommandBase {
 
     private double m_straightPower;
     private double m_heading, m_distance;
@@ -31,16 +31,16 @@ public class DriveAtHeading extends Command {
 	m_distance = distance;
 	m_kRotP = kRotP;
 
-	requires(m_drive);
+	addRequirements(m_drive);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
 	SmartDashboard.putString("Current Drive Command", "DriveAtHeading");
     }
 
     @Override
-    protected void execute() {
+    public void execute() {
 	double yaw = m_drive.getRawYaw();
 	if (m_straightPower < 0) {
 	    yaw += 180;
@@ -55,18 +55,15 @@ public class DriveAtHeading extends Command {
     }
 
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
 	return Math.abs(m_drive.getAverageEncoderPosition()) >= m_distance;
     }
 
     @Override
-    protected void end() {
+    public void end(boolean interrupted) {
 	m_drive.setPowerZero();
     }
 
-    @Override
-    protected void interrupted() {
-	end();
-    }
+     
 
 }
