@@ -59,6 +59,8 @@ dependencies {
     compile 'com.github.5190GreenHopeRobotics:FalconLibrary:2019.1.15'
     compile 'com.github.nerdherd:badlog:bb49ca38f2ea0a201327ba36960695590a97b708'
     compile 'gov.nist.math:jama:1.0.3'
+    compile group: 'org.ejml', name: 'ejml-all', version: '0.38'
+
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
