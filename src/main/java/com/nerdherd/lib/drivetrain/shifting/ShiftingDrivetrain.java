@@ -8,6 +8,7 @@
 package com.nerdherd.lib.drivetrain.shifting;
 
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.nerdherd.lib.drivetrain.experimental.TwoSpeedDrivetrain;
 import com.nerdherd.lib.drivetrain.singlespeed.Drivetrain;
 import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
 import com.nerdherd.lib.pneumatics.Piston;
@@ -16,7 +17,7 @@ import com.nerdherd.lib.pneumatics.Piston;
  * Drivetrain with gear shift, assumes that the gear shifter uses one double solenoid
  * Is compatible with all other drivetrain commands
  */
-public class ShiftingDrivetrain extends Drivetrain {
+public class ShiftingDrivetrain extends Drivetrain implements TwoSpeedDrivetrain{
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 

@@ -89,4 +89,9 @@ public class NerdyVictorSPX extends VictorSPX implements CANMotorController {
     public int getID() {
         return super.getDeviceID();
     }
+
+    @Override
+    public boolean getInversion() {
+        return super.getInverted();
+    }
 }

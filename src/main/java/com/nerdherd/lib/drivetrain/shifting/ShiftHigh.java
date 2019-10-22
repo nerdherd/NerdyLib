@@ -7,14 +7,16 @@
 
 package com.nerdherd.lib.drivetrain.shifting;
 
+import com.nerdherd.lib.drivetrain.experimental.TwoSpeedDrivetrain;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ShiftHigh extends Command {
 
-  ShiftingDrivetrain m_drive;
-  public ShiftHigh(ShiftingDrivetrain drive) {
+  TwoSpeedDrivetrain m_drive;
+  public ShiftHigh(TwoSpeedDrivetrain drive) {
     m_drive = drive;
-    requires(m_drive);
+    // requires(m_drive);
   }
 
   // Called just before this Command runs the first time

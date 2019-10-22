@@ -46,4 +46,9 @@ public class DualMotorIntake extends AbstractDualMotorIntake {
     m_rightMotor.initLoggingData();
     m_leftMotor.initLoggingData();
   }  
+
+  public void reportToSmartDashboard() {
+    m_leftMotor.reportToSmartDashboard();
+    m_rightMotor.reportToSmartDashboard();
+  }
 }
