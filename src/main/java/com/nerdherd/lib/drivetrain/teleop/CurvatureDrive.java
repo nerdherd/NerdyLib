@@ -5,36 +5,57 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.nerdherd.lib.drivetrain.shifting;
+package com.nerdherd.lib.drivetrain.teleop;
 
-import com.nerdherd.lib.drivetrain.experimental.TwoSpeedDrivetrain;
+import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
+import com.nerdherd.lib.oi.AbstractOI;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ShiftHigh extends Command {
+public class CurvatureDrive extends Command {
+  private double m_leftPower, m_rightPower;
+  private double m_xSpeed, m_zRot, m_turningDeadband;
 
-  TwoSpeedDrivetrain m_drive;
-  public ShiftHigh(TwoSpeedDrivetrain drive) {
+  private AbstractDrivetrain m_drive;
+  private AbstractOI m_oi;
+
+  public CurvatureDrive(AbstractDrivetrain drive, AbstractOI oi,double turningDeadband) {
+    m_turningDeadband = turningDeadband;
+
     m_drive = drive;
-    // requires(m_drive);
+    m_oi = oi;
+    requires(m_drive); 
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    m_drive.shiftHigh();
+  
+  
   }
-
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    m_xSpeed = m_oi.getDriveJoyLeftY();
+    m_zRot = m_oi.getDriveJoyRightX();
+    if(Math.abs(m_xSpeed) > m_turningDeadband){
+      m_leftPower = m_xSpeed + m_xSpeed * m_zRot;
+      m_rightPower = m_xSpeed - m_xSpeed * m_zRot; 
+      m_drive.setPower(m_leftPower, m_rightPower);
+    } 
+    else{
+      m_leftPower = m_zRot;
+      m_rightPower = -m_zRot;
+      m_drive.setPower(m_leftPower, m_rightPower);
+  
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

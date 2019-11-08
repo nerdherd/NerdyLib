@@ -294,14 +294,8 @@ public class NerdySparkMax extends CANSparkMax implements SmartCANMotorControlle
         return super.getDeviceId();
     }
 
-    
-
-
-
-    
-
-
-    
-
-    
+    @Override
+    public boolean getInversion() {
+        return super.getInverted();
+    }
 }
