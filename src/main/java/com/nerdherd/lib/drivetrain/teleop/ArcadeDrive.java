@@ -28,8 +28,8 @@ public class ArcadeDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	m_leftPower = m_oi.getDriveJoyRightX() + m_oi.getDriveJoyLeftY();
-    	m_rightPower = -m_oi.getDriveJoyRightX() + m_oi.getDriveJoyLeftY();
+    	m_leftPower = NerdyMath.squareInput(m_oi.getDriveJoyLeftX()) + NerdyMath.squareInput(m_oi.getDriveJoyRightY());
+    	m_rightPower = -NerdyMath.squareInput(m_oi.getDriveJoyLeftX()) +  NerdyMath.squareInput(m_oi.getDriveJoyRightY());
     	m_drive.setPower(m_leftPower, m_rightPower);
     }
 

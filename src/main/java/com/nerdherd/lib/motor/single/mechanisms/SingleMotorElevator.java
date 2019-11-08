@@ -92,4 +92,4 @@ public class SingleMotorElevator extends GravityAffectedMechanism {
     NerdyBadlog.createTopic(name + "/Height", () -> getHeight());
   }
 
-}
+}  
