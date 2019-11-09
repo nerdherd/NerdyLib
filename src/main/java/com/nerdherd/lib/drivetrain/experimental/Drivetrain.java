@@ -46,6 +46,8 @@ public class Drivetrain extends AbstractDrivetrain {
 	private double m_leftDesiredVel, m_rightDesiredVel;
 	public double m_lookaheadX, m_lookaheadY;
 	public double kLeftStatic, kRightStatic, kMaxVelocity, kLeftTicksPerFoot, kRightTicksPerFoot;
+	public double kLeftV, kRightV;
+	public double kLeftA, kRightA;
 	public Command defaultCommand;
 
     public Drivetrain(SmartCANMotorController leftMaster, SmartCANMotorController rightMaster, CANMotorController[] leftSlaves, CANMotorController[] rightSlaves, boolean leftInversion, boolean rightInversion) {
@@ -155,7 +157,18 @@ public class Drivetrain extends AbstractDrivetrain {
 	public void configDate(String date) {
 		m_date = date;
 		m_fileName = m_date + "drive";
-	}
+	}	
+public void configFeedforwardRight(double kV, double kS, double kA){
+	kRightV = kV;
+	kRightS = kS;
+	kRightA = kA;
+}
+
+public void configFeedforwardLeft(double kV, double kS, double kA){
+	kLeftV = kV;
+	kLeftS = kS;
+	kLeftA = kA;
+}
 
 	/**
 	 * configure a peak and continuous current limit
