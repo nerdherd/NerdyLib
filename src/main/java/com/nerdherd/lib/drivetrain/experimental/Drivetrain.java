@@ -160,13 +160,13 @@ public class Drivetrain extends AbstractDrivetrain {
 	}	
 public void configFeedforwardRight(double kV, double kS, double kA){
 	kRightV = kV;
-	kRightS = kS;
+	kRightStatic = kS;
 	kRightA = kA;
 }
 
 public void configFeedforwardLeft(double kV, double kS, double kA){
 	kLeftV = kV;
-	kLeftS = kS;
+	kLeftStatic = kS;
 	kLeftA = kA;
 }
 
@@ -395,6 +395,11 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		addDesiredVelocities(leftVel, rightVel);
 		setVelocity(fpsToTalonVelocityUnits(leftVel, kLeftTicksPerFoot),
 				fpsToTalonVelocityUnits(rightVel, kRightTicksPerFoot));
+	}
+
+	public void setVelocityFPS(double leftVel, double rightVel, double leftAccel, double rightAccel){
+		m_rightMaster.setVelocity(fpsToTalonVelocityUnits(rightVel, kRightTicksPerFoot), kRightStatic * Math.signum(rightVel) + rightVel * kRightV + rightAccel * kRightA);
+		m_leftMaster.setVelocity(fpsToTalonVelocityUnits(leftVel, kLeftTicksPerFoot), kLeftStatic * Math.signum(leftVel) + leftVel * kLeftV + leftAccel * kLeftA);	
 	}
 
 	public double getPitch() {
