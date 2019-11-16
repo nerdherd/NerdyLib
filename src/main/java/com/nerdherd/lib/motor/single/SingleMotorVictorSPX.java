@@ -60,6 +60,11 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
     return m_motor.getMotorOutputVoltage();
   }
 
+  public void setVoltage(double voltage) {
+    m_motor.set(ControlMode.PercentOutput, voltage/12.0);
+  }
+
+
   @Override
   public void reportToSmartDashboard() {
     SmartDashboard.putNumber(name + " Voltage", getVoltage());
