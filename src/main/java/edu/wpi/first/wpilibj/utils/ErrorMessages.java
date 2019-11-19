@@ -1,4 +1,4 @@
-package edu.wpi.first.wpilibj.Utils;
+package edu.wpi.first.wpilibj.utils;
 
 import static java.util.Objects.requireNonNull;
 

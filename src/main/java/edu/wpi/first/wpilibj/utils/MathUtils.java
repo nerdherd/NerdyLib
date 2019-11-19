@@ -1,4 +1,4 @@
-package edu.wpi.first.wpilibj.Utils;
+package edu.wpi.first.wpilibj.utils;
 
 public final class MathUtils {
   private MathUtils() {

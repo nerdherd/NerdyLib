@@ -1,4 +1,4 @@
-package edu.wpi.first.wpilibj.Utils;
+package edu.wpi.first.wpilibj.utils;
 
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */

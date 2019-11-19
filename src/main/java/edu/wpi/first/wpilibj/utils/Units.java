@@ -1,4 +1,4 @@
-package edu.wpi.first.wpilibj.Utils;
+package edu.wpi.first.wpilibj.utils;
 
 /**
  * Utility class that converts between commonly used units in FRC.
