@@ -1,4 +1,11 @@
-package edu.wpi.first.wpilibj.ramsete;
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
+package edu.wpi.first.wpilibj.controller;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
@@ -28,9 +35,10 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
  * acronym for the title of the book it came from in Italian ("Robotica
  * Articolata e Mobile per i SErvizi e le TEcnologie").
  *
- * <p>See <a href="https://file.tavsys.net/control/state-space-guide.pdf">
- * Controls Engineering in the FIRST Robotics Competition</a>
- * section on Ramsete unicycle controller for a derivation and analysis.
+ * <p>See
+ * <a href="https://file.tavsys.net/control/controls-engineering-in-frc.pdf">
+ * Controls Engineering in the FIRST Robotics Competition</a> section on Ramsete
+ * unicycle controller for a derivation and analysis.
  */
 public class RamseteController {
   @SuppressWarnings("MemberName")
@@ -64,8 +72,8 @@ public class RamseteController {
     final var tolTranslate = m_poseTolerance.getTranslation();
     final var tolRotate = m_poseTolerance.getRotation();
     return Math.abs(eTranslate.getX()) < tolTranslate.getX()
-        && Math.abs(eTranslate.getY()) < tolTranslate.getY()
-        && Math.abs(eRotate.getRadians()) < tolRotate.getRadians();
+           && Math.abs(eTranslate.getY()) < tolTranslate.getY()
+           && Math.abs(eRotate.getRadians()) < tolRotate.getRadians();
   }
 
   /**
@@ -84,30 +92,30 @@ public class RamseteController {
    * <p>The reference pose, linear velocity, and angular velocity should come
    * from a drivetrain trajectory.
    *
-   * @param currentPose              The current pose.
-   * @param poseRef                  The desired pose.
-   * @param linearVelocityRefMeters  The desired linear velocity in meters.
-   * @param angularVelocityRefMeters The desired angular velocity in meters.
+   * @param currentPose                        The current pose.
+   * @param poseRef                            The desired pose.
+   * @param linearVelocityRefMeters            The desired linear velocity in meters.
+   * @param angularVelocityRefRadiansPerSecond The desired angular velocity in meters.
    */
   @SuppressWarnings("LocalVariableName")
   public ChassisSpeeds calculate(Pose2d currentPose,
                                  Pose2d poseRef,
                                  double linearVelocityRefMeters,
-                                 double angularVelocityRefMeters) {
+                                 double angularVelocityRefRadiansPerSecond) {
     m_poseError = poseRef.relativeTo(currentPose);
 
     // Aliases for equation readability
-    double eX = m_poseError.getTranslation().getX();
-    double eY = m_poseError.getTranslation().getY();
-    double eTheta = m_poseError.getRotation().getRadians();
-    double vRef = linearVelocityRefMeters;
-    double omegaRef = angularVelocityRefMeters;
+    final double eX = m_poseError.getTranslation().getX();
+    final double eY = m_poseError.getTranslation().getY();
+    final double eTheta = m_poseError.getRotation().getRadians();
+    final double vRef = linearVelocityRefMeters;
+    final double omegaRef = angularVelocityRefRadiansPerSecond;
 
     double k = 2.0 * m_zeta * Math.sqrt(Math.pow(omegaRef, 2) + m_b * Math.pow(vRef, 2));
 
     return new ChassisSpeeds(vRef * m_poseError.getRotation().getCos() + k * eX,
-        0.0,
-        omegaRef + k * eTheta + m_b * vRef * sinc(eTheta) * eY);
+                             0.0,
+                             omegaRef + k * eTheta + m_b * vRef * sinc(eTheta) * eY);
   }
 
   /**
@@ -122,20 +130,8 @@ public class RamseteController {
    */
   @SuppressWarnings("LocalVariableName")
   public ChassisSpeeds calculate(Pose2d currentPose, Trajectory.State desiredState) {
-    m_poseError = desiredState.poseMeters.relativeTo(currentPose);
-
-    // Aliases for equation readability
-    double eX = m_poseError.getTranslation().getX();
-    double eY = m_poseError.getTranslation().getY();
-    double eTheta = m_poseError.getRotation().getRadians();
-    double vRef = desiredState.velocityMetersPerSecond;
-    double omegaRef = desiredState.velocityMetersPerSecond * desiredState.curvatureRadPerMeter;
-
-    double k = 2.0 * m_zeta * Math.sqrt(Math.pow(omegaRef, 2) + m_b * Math.pow(vRef, 2));
-
-    return new ChassisSpeeds(vRef * m_poseError.getRotation().getCos() + k * eX,
-        0.0,
-        omegaRef + k * eTheta + m_b * vRef * sinc(eTheta) * eY);
+    return calculate(currentPose, desiredState.poseMeters, desiredState.velocityMetersPerSecond,
+        desiredState.velocityMetersPerSecond * desiredState.curvatureRadPerMeter);
   }
 
   /**

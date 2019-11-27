@@ -1,3 +1,10 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package edu.wpi.first.wpilibj.kinematics;
 
 /**
@@ -39,7 +46,7 @@ public class DifferentialDriveWheelSpeeds {
    * this issue, one can "normalize" all the wheel speeds to make sure that all
    * requested module speeds are below the absolute threshold, while maintaining
    * the ratio of speeds between modules.
-   *  
+   *
    * @param attainableMaxSpeedMetersPerSecond The absolute max speed that a wheel can reach.
    */
   public void normalize(double attainableMaxSpeedMetersPerSecond) {

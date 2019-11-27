@@ -1,10 +1,18 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package edu.wpi.first.wpilibj.spline;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+
+import org.ejml.simple.SimpleMatrix;
+
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import org.ejml.simple.SimpleMatrix;
 
 /**
  * Represents a two-dimensional parametric spline that interpolates between two
@@ -81,5 +89,28 @@ public abstract class Spline {
         new Pose2d(x, y, new Rotation2d(dx, dy)),
         curvature
     );
+  }
+
+  /**
+   * Represents a control vector for a spline.
+   *
+   * <p>Each element in each array represents the value of the derivative at the index. For
+   * example, the value of x[2] is the second derivative in the x dimension.
+   */
+  @SuppressWarnings("MemberName")
+  public static class ControlVector {
+    public double[] x;
+    public double[] y;
+
+    /**
+     * Instantiates a control vector.
+     * @param x The x dimension of the control vector.
+     * @param y The y dimension of the control vector.
+     */
+    @SuppressWarnings("ParameterName")
+    public ControlVector(double[] x, double[] y) {
+      this.x = Arrays.copyOf(x, x.length);
+      this.y = Arrays.copyOf(y, y.length);
+    }
   }
 }

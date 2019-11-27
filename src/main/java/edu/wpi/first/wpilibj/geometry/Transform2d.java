@@ -1,3 +1,10 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package edu.wpi.first.wpilibj.geometry;
 
 import java.util.Objects;
@@ -20,7 +27,7 @@ public class Transform2d {
     // using a clockwise rotation matrix. This transforms the global
     // delta into a local delta (relative to the initial pose).
     m_translation = last.getTranslation().minus(initial.getTranslation())
-        .rotateBy(initial.getRotation().unaryMinus());
+            .rotateBy(initial.getRotation().unaryMinus());
 
     m_rotation = last.getRotation().minus(initial.getRotation());
   }
@@ -70,6 +77,11 @@ public class Transform2d {
    */
   public Rotation2d getRotation() {
     return m_rotation;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("Transform2d(%s, %s)", m_translation, m_rotation);
   }
 
   /**

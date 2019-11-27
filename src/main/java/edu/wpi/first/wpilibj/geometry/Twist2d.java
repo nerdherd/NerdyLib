@@ -1,3 +1,10 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package edu.wpi.first.wpilibj.geometry;
 
 import java.util.Objects;
@@ -39,6 +46,11 @@ public class Twist2d {
     this.dx = dx;
     this.dy = dy;
     this.dtheta = dtheta;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("Twist2d(dX: %.2f, dY: %.2f, dTheta: %.2f)", dx, dy, dtheta);
   }
 
   /**

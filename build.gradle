@@ -1,8 +1,8 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO"
+    // id "edu.wpi.first.GradleRIO"
     // uncomment to check if nerdylib builds
-    // id "edu.wpi.first.GradleRIO" version "2019.4.1"
+    id "edu.wpi.first.GradleRIO" version "2019.4.1"
     id "maven"
 }
 
@@ -60,6 +60,9 @@ dependencies {
     compile 'com.github.nerdherd:badlog:bb49ca38f2ea0a201327ba36960695590a97b708'
     compile 'gov.nist.math:jama:1.0.3'
     compile group: 'org.ejml', name: 'ejml-all', version: '0.38'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+
 
 }
 

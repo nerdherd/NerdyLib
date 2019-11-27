@@ -1,3 +1,10 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package edu.wpi.first.wpilibj.trajectory.constraint;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -17,6 +24,7 @@ public class DifferentialDriveKinematicsConstraint implements TrajectoryConstrai
   /**
    * Constructs a differential drive dynamics constraint.
    *
+   * @param kinematics A kinematics component describing the drive geometry.
    * @param maxSpeedMetersPerSecond The max speed that a side of the robot can travel at.
    */
   public DifferentialDriveKinematicsConstraint(final DifferentialDriveKinematics kinematics,

@@ -1,5 +1,3 @@
-package edu.wpi.first.wpilibj.utils;
-
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -7,11 +5,20 @@ package edu.wpi.first.wpilibj.utils;
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+package edu.wpi.first.wpilibj.controller;
+
+import edu.wpi.first.hal.FRCNetComm.tResourceType;
+import edu.wpi.first.hal.HAL;
+import edu.wpi.first.wpilibj2.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
+import edu.wpi.first.wpiutil.math.MathUtils;
+
 /**
  * Implements a PID control loop.
  */
 @SuppressWarnings("PMD.TooManyFields")
-public class PIDController {
+public class PIDController implements Sendable, AutoCloseable {
   private static int instances;
 
   // Factor for "proportional" control
@@ -91,6 +98,14 @@ public class PIDController {
     m_period = period;
 
     instances++;
+    SendableRegistry.addLW(this, "PIDController", instances);
+
+    HAL.report(tResourceType.kResourceType_PIDController, instances);
+  }
+
+  @Override
+  public void close() {
+    SendableRegistry.remove(this);
   }
 
   /**
@@ -318,6 +333,15 @@ public class PIDController {
   public void reset() {
     m_prevError = 0;
     m_totalError = 0;
+  }
+
+  @Override
+  public void initSendable(SendableBuilder builder) {
+    builder.setSmartDashboardType("PIDController");
+    builder.addDoubleProperty("p", this::getP, this::setP);
+    builder.addDoubleProperty("i", this::getI, this::setI);
+    builder.addDoubleProperty("d", this::getD, this::setD);
+    builder.addDoubleProperty("setpoint", this::getSetpoint, this::setSetpoint);
   }
 
   /**
