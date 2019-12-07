@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
@@ -584,6 +585,10 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		return Units.feetToMeters(getRightVelocityFeet());
 	}
 
+	public Pose2d getPose2d(){
+		return m_odometry.getPoseMeters();
+	}
+
 	public double getLeftVelocityMeters() {
 		return Units.feetToMeters(getLeftVelocityFeet());
 	}
@@ -611,5 +616,9 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		var rightVel = feetToTicks(Units.metersToFeet(speeds.rightMetersPerSecond), kRightTicksPerFoot);
 		m_leftMaster.setVelocity(leftVel, m_leftFeedforward.calculate(speeds.leftMetersPerSecond, leftAccel));
 		m_rightMaster.setVelocity(rightVel, m_rightFeedforward.calculate(speeds.rightMetersPerSecond, rightAccel));
+	}
+
+	public void setChasisSpeeds(ChassisSpeeds speeds, double leftAccel, double rightAccel){
+		setSpeeds(m_kinematics.toWheelSpeeds(speeds), leftAccel, rightAccel);
 	}
 }
