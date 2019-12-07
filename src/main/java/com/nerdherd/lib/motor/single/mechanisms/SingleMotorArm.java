@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.misc.NerdyMath;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -20,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SingleMotorArm extends GravityAffectedMechanism {
 
   protected double m_angleRatio, m_angleOffset;
+  protected ArmFeedForward m_armFeedForward;
 
   public SingleMotorArm(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     super(talonID, subsystemName, inversion, sensorPhase);
@@ -27,6 +27,10 @@ public class SingleMotorArm extends GravityAffectedMechanism {
     super.m_staticFF = 0;
     m_angleRatio = 1;
     m_angleOffset = 0;
+  }
+
+  public void configOblargConstants(double kS, double kV, double kA, double kCos){
+    m_armFeedForward = new ArmFeedForward(kS, kCos, kV, kA);
   }
 
   public void configAngleRatio(double newAngleRatio) {
