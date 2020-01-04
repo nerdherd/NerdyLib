@@ -15,22 +15,25 @@ import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
 
 /**
  * Add your docs here.
  */
 public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
- 
+
   public NerdyTalon motor;
+  private TrapezoidProfile.Constraints m_constraints;
 
   /**
    * 
-   * @param talonID CAN ID of talon
+   * @param talonID       CAN ID of talon
    * @param subsystemName String name of subsystem to display on smart dashboard
    */
   public SingleMotorTalonSRX(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     name = subsystemName;
-    motor = new NerdyTalon(talonID); 
+    motor = new NerdyTalon(talonID);
     motor.configDefaultSettings();
     setInversion(inversion);
     setSensorPhase(sensorPhase);
@@ -59,6 +62,10 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
 
   public void configMotionMagic(int accel, int cruise_vel) {
     motor.configMotionMagic(accel, cruise_vel);
+  }
+
+  public void configTrapezoidalConstraints(Constraints constraints) {
+    m_constraints = constraints;
   }
 
   public void configSensor(FeedbackDevice device) {
@@ -128,6 +135,16 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
   }
 
   @Override
+  public void setPositionOblargian(double pos){
+    motor.set(ControlMode.Position, pos);
+  }
+
+  @Override
+  public void setPositionOblargian(double pos, double arbFF){
+    motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, arbFF);
+  }
+
+  @Override
   public void setVelocity(double vel) {
     motor.set(ControlMode.Velocity, vel);
   }
@@ -177,6 +194,14 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
     NerdyBadlog.createTopic(name + "/Velocity", () -> getVelocity());
     NerdyBadlog.createTopic(name + "/Voltage", () -> getVoltage());
     NerdyBadlog.createTopic(name + "/Current", () -> getCurrent());
+  }
+
+  public double convertPosToRealUnits(double position) {
+    return position;
+  }
+
+  public double converVelToRealUnits(double velocity){
+    return velocity;
   }
   
 }

@@ -5,7 +5,6 @@ import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import jaci.pathfinder.Pathfinder;
 
 /**
  * Turn to a specified angle (no vision, absolute)
@@ -50,7 +49,7 @@ public class TurnToAngle extends Command {
 
     @Override
     protected void execute() {
-        m_error = Pathfinder.boundHalfDegrees(m_desiredAngle - m_drive.getRawYaw());
+        m_error = m_desiredAngle - m_drive.getRawYaw();
         m_dTerm = (m_prevError - m_error) / (m_prevTimestamp - Timer.getFPGATimestamp());
         m_prevTimestamp = Timer.getFPGATimestamp();
         double power = m_rotP * m_error + m_rotD * m_dTerm;

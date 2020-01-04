@@ -23,7 +23,15 @@ import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Units;
 
 /**
  * Add your docs here.
@@ -46,7 +54,13 @@ public class Drivetrain extends AbstractDrivetrain {
 	private double m_leftDesiredVel, m_rightDesiredVel;
 	public double m_lookaheadX, m_lookaheadY;
 	public double kLeftStatic, kRightStatic, kMaxVelocity, kLeftTicksPerFoot, kRightTicksPerFoot;
+	public double kLeftV, kRightV;
+	public double kLeftA, kRightA;
 	public Command defaultCommand;
+
+	private DifferentialDriveKinematics m_kinematics;
+	private DifferentialDriveOdometry m_odometry;
+	private SimpleMotorFeedforward m_leftFeedforward, m_rightFeedforward;
 
     public Drivetrain(SmartCANMotorController leftMaster, SmartCANMotorController rightMaster, CANMotorController[] leftSlaves, CANMotorController[] rightSlaves, boolean leftInversion, boolean rightInversion) {
         m_leftMaster = leftMaster;
@@ -155,7 +169,18 @@ public class Drivetrain extends AbstractDrivetrain {
 	public void configDate(String date) {
 		m_date = date;
 		m_fileName = m_date + "drive";
-	}
+	}	
+public void configFeedforwardRight(double kV, double kS, double kA){
+	kRightV = kV;
+	kRightStatic = kS;
+	kRightA = kA;
+}
+
+public void configFeedforwardLeft(double kV, double kS, double kA){
+	kLeftV = kV;
+	kLeftStatic = kS;
+	kLeftA = kA;
+}
 
 	/**
 	 * configure a peak and continuous current limit
@@ -384,6 +409,11 @@ public class Drivetrain extends AbstractDrivetrain {
 				fpsToTalonVelocityUnits(rightVel, kRightTicksPerFoot));
 	}
 
+	public void setVelocityFPS(double leftVel, double rightVel, double leftAccel, double rightAccel){
+		m_rightMaster.setVelocity(fpsToTalonVelocityUnits(rightVel, kRightTicksPerFoot), kRightStatic * Math.signum(rightVel) + rightVel * kRightV + rightAccel * kRightA);
+		m_leftMaster.setVelocity(fpsToTalonVelocityUnits(leftVel, kLeftTicksPerFoot), kLeftStatic * Math.signum(leftVel) + leftVel * kLeftV + leftAccel * kLeftA);	
+	}
+
 	public double getPitch() {
 		return m_nav.getPitch();
 	}
@@ -545,5 +575,50 @@ public class Drivetrain extends AbstractDrivetrain {
 		NerdyBadlog.createTopic("Drive/AccelX", () -> getLeftVelocityFeet());
 		NerdyBadlog.createTopic("Drive/AccelY", () -> getLeftVelocityFeet());
 		NerdyBadlog.createTopic("Drive/AccelZ", () -> getLeftVelocityFeet());
+	}
+
+	public Rotation2d getAngle() {
+		return new Rotation2d(-m_nav.getAngle());
+	}
+
+	public double getRightVelocityMeters() {
+		return Units.feetToMeters(getRightVelocityFeet());
+	}
+
+	public Pose2d getPose2d(){
+		return m_odometry.getPoseMeters();
+	}
+
+	public double getLeftVelocityMeters() {
+		return Units.feetToMeters(getLeftVelocityFeet());
+	}
+
+	public void configKinematics(double trackwidth, Rotation2d startingAngle, Pose2d startingPose) {
+		m_kinematics = new DifferentialDriveKinematics(trackwidth);
+		// m_odometry = new DifferentialDriveOdometry(m_kinematics, startingAngle, startingPose);
+	}
+
+	public void updateOdometry() {
+		// m_odometry.update(getAngle(), getCurrentSpeeds());
+	}
+
+	public DifferentialDriveWheelSpeeds getCurrentSpeeds() {
+		return new DifferentialDriveWheelSpeeds(getLeftVelocityMeters(), getRightVelocityMeters());
+	}
+
+	public void configFeedforwards(SimpleMotorFeedforward left, SimpleMotorFeedforward right) {
+		m_leftFeedforward = left;
+		m_rightFeedforward = right;
+	}
+
+	public void setSpeeds(DifferentialDriveWheelSpeeds speeds, double leftAccel, double rightAccel) {
+		var leftVel = feetToTicks(Units.metersToFeet(speeds.leftMetersPerSecond), kLeftTicksPerFoot);
+		var rightVel = feetToTicks(Units.metersToFeet(speeds.rightMetersPerSecond), kRightTicksPerFoot);
+		m_leftMaster.setVelocity(leftVel, m_leftFeedforward.calculate(speeds.leftMetersPerSecond, leftAccel));
+		m_rightMaster.setVelocity(rightVel, m_rightFeedforward.calculate(speeds.rightMetersPerSecond, rightAccel));
+	}
+
+	public void setChasisSpeeds(ChassisSpeeds speeds, double leftAccel, double rightAccel){
+		setSpeeds(m_kinematics.toWheelSpeeds(speeds), leftAccel, rightAccel);
 	}
 }

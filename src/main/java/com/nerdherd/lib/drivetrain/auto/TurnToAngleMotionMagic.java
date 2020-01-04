@@ -11,7 +11,6 @@ import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import jaci.pathfinder.Pathfinder;
 
 /**
  * Turn to an absolute angle using motion magic, still untested
@@ -45,7 +44,7 @@ public class TurnToAngleMotionMagic extends Command {
   @Override
   protected void execute() {
     m_error = m_angle - m_drive.getRawYaw();
-    m_error = Pathfinder.boundHalfDegrees(m_error);
+    // m_error = Pathfinder.boundHalfDegrees(m_error);
     m_distanceError = (Math.toRadians(m_error))* m_radius;
     m_leftPos = m_drive.getLeftMasterPosition() - m_distanceError;
     m_rightPos = m_drive.getRightMasterPosition() + m_distanceError;
