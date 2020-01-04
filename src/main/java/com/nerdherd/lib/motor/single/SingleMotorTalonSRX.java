@@ -15,23 +15,25 @@ import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
 
 /**
  * Add your docs here.
  */
 public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
- 
+
   public NerdyTalon motor;
-  private TrapizoidProfile.Constraints m_constraints;
+  private TrapezoidProfile.Constraints m_constraints;
 
   /**
    * 
-   * @param talonID CAN ID of talon
+   * @param talonID       CAN ID of talon
    * @param subsystemName String name of subsystem to display on smart dashboard
    */
   public SingleMotorTalonSRX(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     name = subsystemName;
-    motor = new NerdyTalon(talonID); 
+    motor = new NerdyTalon(talonID);
     motor.configDefaultSettings();
     setInversion(inversion);
     setSensorPhase(sensorPhase);
@@ -62,7 +64,7 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
     motor.configMotionMagic(accel, cruise_vel);
   }
 
-  public void configTrapezoidalConstraints(TrapizoidProfile.Costraints constraints){
+  public void configTrapezoidalConstraints(Constraints constraints) {
     m_constraints = constraints;
   }
 

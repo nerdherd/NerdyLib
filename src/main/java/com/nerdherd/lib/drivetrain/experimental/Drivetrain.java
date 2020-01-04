@@ -595,11 +595,11 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 
 	public void configKinematics(double trackwidth, Rotation2d startingAngle, Pose2d startingPose) {
 		m_kinematics = new DifferentialDriveKinematics(trackwidth);
-		m_odometry = new DifferentialDriveOdometry(m_kinematics, startingAngle, startingPose);
+		// m_odometry = new DifferentialDriveOdometry(m_kinematics, startingAngle, startingPose);
 	}
 
 	public void updateOdometry() {
-		m_odometry.update(getAngle(), getCurrentSpeeds());
+		// m_odometry.update(getAngle(), getCurrentSpeeds());
 	}
 
 	public DifferentialDriveWheelSpeeds getCurrentSpeeds() {
