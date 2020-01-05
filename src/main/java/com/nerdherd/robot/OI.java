@@ -7,9 +7,11 @@
 
 package com.nerdherd.robot;
 
+import com.nerdherd.lib.motor.commands.MotorVoltageRamping;
 import com.nerdherd.lib.motor.commands.ResetSingleMotorEncoder;
 import com.nerdherd.lib.motor.commands.SetMotorPositionPID;
 import com.nerdherd.lib.motor.commands.SetMotorPower;
+import com.nerdherd.lib.motor.commands.SetMotorVelocity;
 import com.nerdherd.lib.motor.commands.mechanisms.MechanismVoltageRampingWithFF;
 import com.nerdherd.lib.motor.commands.statespace.FollowSSMotionProfile;
 import com.nerdherd.lib.motor.commands.statespace.TrackReference;
@@ -80,5 +82,7 @@ public class OI extends DefaultOI{
     // SmartDashboard.putData("far right rocketo autoo", new DriveFalconTrajectory(Robot.drive, farRightRocket, 3, true, 0.15, 0));
     // SmartDashboard.putData("far right rocketo autoo twooo", new DriveFalconTrajectory(Robot.drive, farRightRocket2, 3, false, 0.15, 0));
     // SmartDashboard.putData("Straight Line", new DriveFalconTrajectory(Robot.drive, straightLine, 3, true, 0.15, 0));
+    SmartDashboard.putData("SetVel10000", new SetMotorVelocity(Robot.yeeterTalon, 10000, 0.5*1023./17500.));
+    SmartDashboard.putData("VoltageRamp", new MotorVoltageRamping(Robot.yeeterTalon, 0.25));
   }
 }

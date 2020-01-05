@@ -38,26 +38,24 @@ public class Robot extends TimedRobot {
   // public static SingleMotorElevator elevator;
   // public static SSTalonSRXPos testMotor;
   // public static SubscribedLoggable motProfPos, motProfVel;
-  public static SingleMotorTalonSRX talon;
-  public static LinearAnalogSensor manifoldAbsolutePressure;
-  public static NerdySparkMax Neo1, Neo2;
+  public static SingleMotorTalonSRX yeeterTalon;
 
   public static OI oi;
 
   public Robot() {
-    super(0.01);
+    super(0.02);
   }
   
   @Override
   public void robotInit() {
     chooser = new AutoChooser();
-    Neo1 = new NerdySparkMax(1, MotorType.kBrushless);
-    Neo2 = new NerdySparkMax(2, MotorType.kBrushless);
+    // Neo1 = new NerdySparkMax(1, MotorType.kBrushless);
+    // Neo2 = new NerdySparkMax(2, MotorType.kBrushless);
 
-    Neo1.setInverted(false);
-    Neo2.setInverted(false);
-    Neo1.configDefaultSettings();
-    Neo2.configDefaultSettings();
+    // Neo1.setInverted(false);
+    // Neo2.setInverted(false);
+    // Neo1.configDefaultSettings();
+    // Neo2.configDefaultSettings();
 
     // drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
     // new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
@@ -90,17 +88,16 @@ public class Robot extends TimedRobot {
     // testMotor.configTalonDeadband(0.004);
     // testMotor.configObserver(false);
     // testMotor.configStaticFF(0);
-    talon = new SingleMotorTalonSRX(1, "yay", true, true);
-
+    yeeterTalon = new SingleMotorTalonSRX(5, "flywheel", true, true);
+    yeeterTalon.configPIDF(0.1, 0, 0, (1023/17500));
 
     // motProfPos = new SubscribedLoggable("motProfPos");
     // motProfVel = new SubscribedLoggable("motProfVel");
 
-    manifoldAbsolutePressure = new LinearAnalogSensor("temp", 0);
   
     oi = new OI();
     // drive.configDefaultCommand(new ArcadeDrive(drive, oi));
-    // NerdyBadlog.initAndLog("/media/sda1/logs/", "wooo_testing", 0.02, testMotor, motProfPos, motProfVel);
+    NerdyBadlog.initAndLog("/media/sda1/logs/", "wooo_testing", 0.02, yeeterTalon);
   }
 
   /**
@@ -119,12 +116,11 @@ public class Robot extends TimedRobot {
     // // arm.reportToSmartDashboard();
     // climberWheelRight.reportToSmartDashboard();
     // testMotor.reportToSmartDashboard();
-    manifoldAbsolutePressure.reportToSmartDashboard();
+ 
 
-    SmartDashboard.putNumber("Conversion factor 1", Neo1.encoder.getVelocityConversionFactor());
-    SmartDashboard.putNumber("Conversion factor 2", Neo2.encoder.getVelocityConversionFactor());
     // SmartDashboard.putBoolean("Is not moving", testMotor.isNotMoving());
     // SmartDashboard.putNumber("FF if not moving", testMotor.getFFIfNotMoving(testMotor.u.get(0,0)));
+    yeeterTalon.reportToSmartDashboard();
   }
 
   /**
@@ -187,15 +183,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    Neo1.setVoltage(12);
-   // Neo2.setVoltage(12);
-    SmartDashboard.putNumber("Current1", Neo1.getCurrent());
-    SmartDashboard.putNumber("Current2", Neo2.getCurrent());
-    SmartDashboard.putNumber("Voltage1", Neo1.getVoltage());
-    SmartDashboard.putNumber("Voltage2", Neo2.getVoltage());
-    SmartDashboard.putNumber("Velocity1", Neo1.getVelocity());
-    SmartDashboard.putNumber("Velocity2", Neo2.getVelocity());
-
     // drive.logToCSV();
   }
 
