@@ -32,12 +32,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
   
-  // public static Drivetrain drive;
   public static AutoChooser chooser;
   public static SubscribedLoggable tester;
-  // public static SingleMotorElevator elevator;
-  // public static SSTalonSRXPos testMotor;
-  // public static SubscribedLoggable motProfPos, motProfVel;
   public static SingleMotorTalonSRX yeeterTalon;
 
   public static OI oi;
@@ -49,54 +45,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     chooser = new AutoChooser();
-    // Neo1 = new NerdySparkMax(1, MotorType.kBrushless);
-    // Neo2 = new NerdySparkMax(2, MotorType.kBrushless);
-
-    // Neo1.setInverted(false);
-    // Neo2.setInverted(false);
-    // Neo1.configDefaultSettings();
-    // Neo2.configDefaultSettings();
-
-    // drive = new Drivetrain(RobotMap.kLeftMasterTalonID, RobotMap.kRightMasterTalonID, 	    
-    // new NerdyTalon[]{new NerdyTalon(RobotMap.kLeftSlaveTalonID), new NerdyTalon(RobotMap.kLeftSlaveTalon2ID)}, 	  
-    // new NerdyTalon[]{new NerdyTalon(RobotMap.kRightSlaveTalonID), new NerdyTalon(RobotMap.kRightSlaveTalon2ID)}, 	
-    // true, false);
-    // drive.configAutoChooser(chooser);
-    // // drive.configMaxVelocity(30000);
-    // drive.configSensorPhase(false, false);
-    
-    // drive.configTicksPerFoot(17000, 17000);
-    // drive.configDate("2019_1_26_");
-    // // floor
-    // drive.configLeftPIDF(0.05, 0, 0, 0.028004625);
-    // drive.configRightPIDF(0.05, 0, 0, 0.030084725);
-    // drive.configStaticFeedforward(1.152, 1.228);
-
-    // cart
-    // drive.configLeftPIDF(0.05, 0, 0, 0.026995605);
-    // drive.configRightPIDF(0.05, 0, 0, 0.026487175);
-    // drive.configStaticFeedforward(0.760, 1.386);
-
-    // elevator = new SingleMotorElevator(0, "Elevator", false, false);
-    // testMotor = new SSTalonSRXPos(1, "testMotor", true, true, 
-    //   TestSSGains.testGains, new Matrix(new double[][] {
-    //     {0},
-    //     {0}
-    //   }), 0);
-    // testMotor.configPIDF(0.9264515394429866 / 6175.881918041717 * 1023. / 12., 
-    // 0, 0.0930904218144866 / 617.5881918041716 * 1023. / 12., 0);
-    // testMotor.configTalonDeadband(0.004);
-    // testMotor.configObserver(false);
-    // testMotor.configStaticFF(0);
     yeeterTalon = new SingleMotorTalonSRX(5, "flywheel", true, true);
     yeeterTalon.configPIDF(0.1, 0, 0, (1023/17500));
-
-    // motProfPos = new SubscribedLoggable("motProfPos");
-    // motProfVel = new SubscribedLoggable("motProfVel");
-
-  
     oi = new OI();
-    // drive.configDefaultCommand(new ArcadeDrive(drive, oi));
     NerdyBadlog.initAndLog("/media/sda1/logs/", "wooo_testing", 0.02, yeeterTalon);
   }
 
@@ -110,16 +61,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // NerdyBadlog.log();
-    // drive.reportToSmartDashboard();
-    // drive.calcXY();
-    // // arm.reportToSmartDashboard();
-    // climberWheelRight.reportToSmartDashboard();
-    // testMotor.reportToSmartDashboard();
- 
-
-    // SmartDashboard.putBoolean("Is not moving", testMotor.isNotMoving());
-    // SmartDashboard.putNumber("FF if not moving", testMotor.getFFIfNotMoving(testMotor.u.get(0,0)));
     yeeterTalon.reportToSmartDashboard();
   }
 
@@ -130,7 +71,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    // drive.stopLog();
   }
 
   @Override
@@ -151,16 +91,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
-
-    // schedule the autonomous command (example)
-
   }
 
   /**
@@ -173,7 +103,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // drive.startLog();
 
   }
 
@@ -183,7 +112,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    // drive.logToCSV();
   }
 
   /**
