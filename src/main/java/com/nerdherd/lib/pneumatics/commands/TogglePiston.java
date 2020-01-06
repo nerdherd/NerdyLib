@@ -11,7 +11,6 @@ import com.nerdherd.lib.pneumatics.Piston;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class TogglePiston extends CommandBase {
   private Piston m_piston;

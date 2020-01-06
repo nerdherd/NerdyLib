@@ -65,9 +65,6 @@ public class DriveAtHeading extends CommandBase {
 	m_drive.setPowerZero();
     }
 
-    @Override
-    protected void interrupted() {
-	end();
-    }
+    
 
 }

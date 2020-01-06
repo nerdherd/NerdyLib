@@ -55,7 +55,4 @@ public class Piston extends SubsystemBase {
     return Value.kReverse == getValue();
   }
 
-  @Override
-  public void initDefaultCommand() {
-  }
 }

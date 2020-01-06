@@ -48,9 +48,6 @@ public class DriveStraightContinuous extends CommandBase {
     public void end(boolean interrupted) {
     }
 
-    @Override
-    protected void interrupted() {
-	end();
-    }
+    
 
 }

@@ -57,7 +57,6 @@ public class Drivetrain extends AbstractDrivetrain {
 	public double kLeftStatic, kRightStatic, kMaxVelocity, kLeftTicksPerFoot, kRightTicksPerFoot;
 	public double kLeftV, kRightV;
 	public double kLeftA, kRightA;
-	public Command defaultCommand;
 
 	private DifferentialDriveKinematics m_kinematics;
 	private DifferentialDriveOdometry m_odometry;
@@ -146,10 +145,7 @@ public class Drivetrain extends AbstractDrivetrain {
 	 * 
 	 * @param defaultCom teleop drive command
 	 */
-	public void configDefaultCommand(Command defaultCom) {
-		defaultCommand = defaultCom;
-	}
-
+	
 	/**
 	 * Set the sensor phase, if moving the robot forwards doesn't increase the
 	 * encoder position positively, switch the sensor phase
@@ -346,9 +342,7 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		return (getRightMasterPosition() + getLeftMasterPosition()) / 2;
 	}
 
-	public void initDefaultCommand() {
-		setDefaultCommand(defaultCommand);
-	}
+	
 
 	public void setXY(double x, double y) {
 		m_currentX = x;

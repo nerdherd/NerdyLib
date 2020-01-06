@@ -67,9 +67,6 @@ public class DriftTurnToAngle extends CommandBase {
 	m_drive.setPowerZero();
     }
 
-    @Override
-    protected void interrupted() {
-	end();
-    }
+    
 
 }

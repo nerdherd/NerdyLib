@@ -8,18 +8,9 @@
 package com.nerdherd.robot;
 
 import com.nerdherd.lib.motor.commands.MotorVoltageRamping;
-import com.nerdherd.lib.motor.commands.ResetSingleMotorEncoder;
-import com.nerdherd.lib.motor.commands.SetMotorPositionPID;
-import com.nerdherd.lib.motor.commands.SetMotorPower;
 import com.nerdherd.lib.motor.commands.SetMotorVelocity;
-import com.nerdherd.lib.motor.commands.mechanisms.MechanismVoltageRampingWithFF;
-import com.nerdherd.lib.motor.commands.statespace.FollowSSMotionProfile;
-import com.nerdherd.lib.motor.commands.statespace.TrackReference;
-import com.nerdherd.lib.motor.statespace.SSMotionProfile;
 import com.nerdherd.lib.oi.DefaultOI;
 
-import Jama.Matrix;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -29,7 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI extends DefaultOI{
   
   
-  JoystickButton trigger_1, button_2;
   
   public OI() {
     super();

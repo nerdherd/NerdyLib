@@ -87,9 +87,6 @@ public class ArcTurn extends CommandBase {
 	m_drive.setPowerZero();
     }
 
-    @Override
-    protected void interrupted() {
-	end();
-    }
+    
 
 }
