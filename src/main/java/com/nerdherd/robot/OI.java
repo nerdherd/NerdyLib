@@ -82,7 +82,8 @@ public class OI extends DefaultOI{
     // SmartDashboard.putData("far right rocketo autoo", new DriveFalconTrajectory(Robot.drive, farRightRocket, 3, true, 0.15, 0));
     // SmartDashboard.putData("far right rocketo autoo twooo", new DriveFalconTrajectory(Robot.drive, farRightRocket2, 3, false, 0.15, 0));
     // SmartDashboard.putData("Straight Line", new DriveFalconTrajectory(Robot.drive, straightLine, 3, true, 0.15, 0));
-    SmartDashboard.putData("SetVel10000", new SetMotorVelocity(Robot.yeeterTalon, 10000, 0.5*1023./17500.));
+    SmartDashboard.putData("SetVel35000", new SetMotorVelocity(Robot.yeeterTalon, 38000, 0.0003448 * (1023/12), 0));
     SmartDashboard.putData("VoltageRamp", new MotorVoltageRamping(Robot.yeeterTalon, 0.25));
+    SmartDashboard.putData("12Volt", new SetMotorPower(Robot.yeeterTalon, 1));
   }
 }

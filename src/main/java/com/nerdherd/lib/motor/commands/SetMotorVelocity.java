@@ -16,13 +16,21 @@ public class SetMotorVelocity extends Command {
   private SingleMotorTalonSRX m_motor;
   private double m_velocity, m_arbFF;
     
-    public SetMotorVelocity(SingleMotorTalonSRX motor, double velocity, double kF) {
+    public SetMotorVelocity(SingleMotorTalonSRX motor, double velocity, double kF, double arbFF) {
       m_motor = motor;
       m_velocity = velocity;
-      m_arbFF = m_velocity*kF/1023;
+      m_arbFF = m_velocity*kF/1023 + arbFF;
+      
       requires(m_motor);
     }
   
+
+    public SetMotorVelocity(SingleMotorTalonSRX motor, double velocity) {
+      this(motor, velocity, 0, 0);
+    }
+
+
+
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {

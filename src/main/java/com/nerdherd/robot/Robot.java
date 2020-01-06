@@ -45,8 +45,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     chooser = new AutoChooser();
-    yeeterTalon = new SingleMotorTalonSRX(5, "flywheel", true, true);
-    yeeterTalon.configPIDF(0.1, 0, 0, (1023/17500));
+    yeeterTalon = new SingleMotorTalonSRX(2, "flywheel", true, true);
+    yeeterTalon.configPIDF(0.175, 0, 0, 0);
     oi = new OI();
     NerdyBadlog.initAndLog("/media/sda1/logs/", "wooo_testing", 0.02, yeeterTalon);
   }
@@ -62,6 +62,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     yeeterTalon.reportToSmartDashboard();
+    SmartDashboard.putNumber("RPM", ((yeeterTalon.getVelocity()*60)/409.6));
   }
 
   /**
