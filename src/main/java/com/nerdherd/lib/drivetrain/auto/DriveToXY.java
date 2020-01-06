@@ -3,12 +3,13 @@ package com.nerdherd.lib.drivetrain.auto;
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 import com.nerdherd.lib.misc.NerdyMath;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 
 /**
  * Drive to an XY point using a rotational PID and an optional straight PID
  */
-public class DriveToXY extends Command {
+public class DriveToXY extends CommandBase {
 
 	private double m_desiredX;
 	private double m_desiredY;
@@ -32,18 +33,18 @@ public class DriveToXY extends Command {
 		m_straightPower = straightPower;
 		m_rotP = rotP;
 		m_distP = straightP;
-        requires(m_drive);
+        addRequirements(m_drive);
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
+    public void initialize() {
     	m_direction = Math.signum(m_straightPower);
     	m_currentX = m_drive.getXpos();
     	m_currentY = m_drive.getYpos(); 	
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
+    public void execute() {
     	m_currentX = m_drive.getXpos();
     	m_currentY = m_drive.getYpos();
     	m_desiredAngle = Math.atan2(m_desiredX - m_currentX, m_desiredY - m_currentY);
@@ -69,12 +70,12 @@ public class DriveToXY extends Command {
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
+    public boolean isFinished() {
         return NerdyMath.distanceFormula(m_currentX, m_currentY, m_desiredX, m_desiredY) < 1;
     }
 
     // Called once after isFinished returns true
-    protected void end() {
+    public void end(boolean interrupted) {
     	m_drive.setPowerZero();
     }
 

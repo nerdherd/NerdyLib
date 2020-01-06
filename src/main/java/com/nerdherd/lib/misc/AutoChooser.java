@@ -3,6 +3,7 @@ package com.nerdherd.lib.misc;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 
 public class AutoChooser {
 
@@ -29,7 +30,7 @@ public class AutoChooser {
         return startingPositionChooser.getSelected();
     }
 
-    public CommandGroup getSelectedAuto() {
+    public CommandGroupBase getSelectedAuto() {
         return new CommandGroup();
         // replace with auto selection logic
     }

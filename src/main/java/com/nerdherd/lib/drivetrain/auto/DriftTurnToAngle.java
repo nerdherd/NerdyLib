@@ -2,7 +2,8 @@ package com.nerdherd.lib.drivetrain.auto;
 
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -11,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * closed on heading but not on straight power.
  */
 
-public class DriftTurnToAngle extends Command {
+public class DriftTurnToAngle extends CommandBase {
 
     private double m_straightPower;
     private double m_desiredAngle;
@@ -31,16 +32,16 @@ public class DriftTurnToAngle extends Command {
 	m_distance = distance;
 	m_kRotP = kRotP;
     m_drive = drive;
-	requires(m_drive);
+	addRequirements(m_drive);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
 	SmartDashboard.putString("Current Drive Command", "DriftTurnToAngle");
     }
 
     @Override
-    protected void execute() {
+    public void execute() {
 	double doneness = Math.abs(m_drive.getAverageEncoderPosition() / m_distance);
 	doneness = Math.sqrt(doneness); // this makes the arc turn more gradual
 	double yaw = m_drive.getRawYaw();
@@ -57,12 +58,12 @@ public class DriftTurnToAngle extends Command {
     }
 
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
 	return Math.abs(m_drive.getAverageEncoderPosition()) >= m_distance;
     }
 
     @Override
-    protected void end() {
+    public void end(boolean interrupted) {
 	m_drive.setPowerZero();
     }
 

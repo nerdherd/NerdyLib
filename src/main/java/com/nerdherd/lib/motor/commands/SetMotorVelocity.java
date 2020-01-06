@@ -9,10 +9,10 @@ package com.nerdherd.lib.motor.commands;
 
 import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SetMotorVelocity extends Command {
+public class SetMotorVelocity extends CommandBase {
   private SingleMotorTalonSRX m_motor;
   private double m_velocity, m_arbFF;
     
@@ -20,16 +20,16 @@ public class SetMotorVelocity extends Command {
       m_motor = motor;
       m_velocity = velocity;
       m_arbFF = m_velocity*kF/1023;
-      requires(m_motor);
+      addRequirements(m_motor);
     }
   
     // Called just before this Command runs the first time
     @Override
-    protected void initialize() {
+    public void initialize() {
   }
 
   @Override
-  protected void execute() {
+  public void execute() {
     m_motor.setVelocity(m_velocity, m_arbFF);
     SmartDashboard.putNumber("MotorVelocity", m_velocity);
 
@@ -37,18 +37,16 @@ public class SetMotorVelocity extends Command {
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+  
 }

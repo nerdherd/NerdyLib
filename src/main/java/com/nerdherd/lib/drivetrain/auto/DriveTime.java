@@ -3,14 +3,15 @@ package com.nerdherd.lib.drivetrain.auto;
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Drive for a specified time
  */
 
-public class DriveTime extends Command {
+public class DriveTime extends CommandBase {
 
     private double m_straightPower;
     private double m_timeout;
@@ -26,27 +27,27 @@ public class DriveTime extends Command {
 	m_straightPower = straightPower;
 	m_timeout = timeout;
 
-	requires(m_drive);
+	addRequirements(m_drive);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
 	SmartDashboard.putString("Current Drive Command", "DriveTime");
 	m_startTime = Timer.getFPGATimestamp();
     }
 
     @Override
-    protected void execute() {
+    public void execute() {
 	m_drive.setPower(m_straightPower, m_straightPower);
     }
 // so, like, Dipsy made some comments on ur code. Hah. Hahaha. Good luck figuring out what we changed in your drive system. ;)
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
 	return Timer.getFPGATimestamp() - m_startTime > m_timeout;
     }
 
     @Override
-    protected void end() {
+    public void end(boolean interrupted) {
 	m_drive.setPowerZero();
     }
 

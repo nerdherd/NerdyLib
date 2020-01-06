@@ -3,7 +3,8 @@ package com.nerdherd.lib.drivetrain.auto;
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -12,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * modified by dylan barva
  */
 
-public class TurnToAngle extends Command {
+public class TurnToAngle extends CommandBase {
 
     private double m_desiredAngle;
     private double m_startTime, m_timeout;
@@ -37,18 +38,18 @@ public class TurnToAngle extends Command {
         m_rotP = rotP;
         m_rotD = rotD;
         m_timeout = timeout;
-	    requires(m_drive);
+	    addRequirements(m_drive);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
 	SmartDashboard.putString("Current Drive Command", "TurnToAngle");
 	m_startTime = Timer.getFPGATimestamp();
 	m_counter = 0;
     }
 
     @Override
-    protected void execute() {
+    public void execute() {
         m_error = m_desiredAngle - m_drive.getRawYaw();
         m_dTerm = (m_prevError - m_error) / (m_prevTimestamp - Timer.getFPGATimestamp());
         m_prevTimestamp = Timer.getFPGATimestamp();
@@ -63,13 +64,13 @@ public class TurnToAngle extends Command {
     }
 
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
 	return m_counter > m_tolerance || Timer.getFPGATimestamp() - m_startTime > m_timeout;
 	// return false;
     }
 
     @Override
-    protected void end() {
+    public void end(boolean interrupted) {
 	m_drive.setPowerZero();
     }
 

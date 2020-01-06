@@ -10,9 +10,10 @@ package com.nerdherd.lib.drivetrain.teleop;
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 import com.nerdherd.lib.oi.AbstractOI;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class CurvatureDrive extends Command {
+
+public class CurvatureDrive extends CommandBase {
   private double m_leftPower, m_rightPower;
   private double m_xSpeed, m_zRot, m_turningDeadband;
 
@@ -24,19 +25,19 @@ public class CurvatureDrive extends Command {
 
     m_drive = drive;
     m_oi = oi;
-    requires(m_drive); 
+    addRequirements(m_drive); 
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
   
   
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     m_xSpeed = m_oi.getDriveJoyLeftY();
     m_zRot = m_oi.getDriveJoyRightX();
     if(Math.abs(m_xSpeed) > m_turningDeadband){
@@ -54,18 +55,16 @@ public class CurvatureDrive extends Command {
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+  
 }
