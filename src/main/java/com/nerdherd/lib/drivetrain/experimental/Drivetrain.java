@@ -58,7 +58,7 @@ public class Drivetrain extends AbstractDrivetrain {
 	public double kLeftV, kRightV;
 	public double kLeftA, kRightA;
 
-	private DifferentialDriveKinematics m_kinematics;
+	public DifferentialDriveKinematics m_kinematics;
 	private DifferentialDriveOdometry m_odometry;
 	private SimpleMotorFeedforward m_leftFeedforward, m_rightFeedforward;
 
@@ -325,7 +325,8 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public double getRawYaw() {
-		return -m_nav.getAngle() + m_chooser.getDirection();
+		// return -m_nav.getAngle() + m_chooser.getDirection();
+		return -m_nav.getAngle();
 	}
 
 	public double getAngularVelocity() {
@@ -386,8 +387,16 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		return m_leftMaster.getPosition() / kLeftTicksPerFoot;
 	}
 
+	public double getLeftPositionMeters(){
+		return Units.feetToMeters(getLeftPositionFeet());
+	}
+
 	public double getRightPositionFeet() {
 		return m_rightMaster.getPosition() / kRightTicksPerFoot;
+	}
+
+	public double getRightPositionMeters(){
+		return Units.feetToMeters(getRightPositionFeet());
 	}
 
 	public double fpsToTalonVelocityUnits(double fps, double ticksPerFoot) {
@@ -590,15 +599,15 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 
 	public void configKinematics(double trackwidth, Rotation2d startingAngle, Pose2d startingPose) {
 		m_kinematics = new DifferentialDriveKinematics(trackwidth);
-		// m_odometry = new DifferentialDriveOdometry(m_kinematics, startingAngle, startingPose);
+		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getRawYaw()));
 	}
 
 	public void updateOdometry() {
-		// m_odometry.update(getAngle(), getCurrentSpeeds());
+		m_odometry.update(Rotation2d.fromDegrees(getRawYaw()), getLeftPositionMeters(), getRightPositionMeters());
 	}
 
 	public DifferentialDriveWheelSpeeds getCurrentSpeeds() {
-		return new DifferentialDriveWheelSpeeds(getLeftVelocityMeters(), getRightVelocityMeters());
+		return new DifferentialDriveWheelSpeeds(getLeftVelocityMeters(),getRightVelocityMeters());
 	}
 
 	public void configFeedforwards(SimpleMotorFeedforward left, SimpleMotorFeedforward right) {
@@ -614,6 +623,6 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public void setChasisSpeeds(ChassisSpeeds speeds, double leftAccel, double rightAccel){
-		setSpeeds(m_kinematics.toWheelSpeeds(speeds), leftAccel, rightAccel);
+		setSpeeds(m_kinematics.toWheelSpeeds(speeds), leftAccel, rightAccel); 
 	}
 }
