@@ -7,10 +7,13 @@
 
 package com.nerdherd.robot;
 
+import java.util.Arrays;
+
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.logging.SubscribedLoggable;
 import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.motorcontrollers.NerdySparkMax;
+import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
 import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 import com.nerdherd.lib.motor.statespace.SSTalonSRXPos;
 import com.nerdherd.lib.sensor.analog.LinearAnalogSensor;
@@ -45,8 +48,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     chooser = new AutoChooser();
-    yeeterTalon = new SingleMotorTalonSRX(2, "flywheel", true, true);
-    yeeterTalon.configPIDF(0.175, 0, 0, 0);
+    yeeterTalon = new SingleMotorTalonSRX(new NerdyTalon(5), "flywheel", false, true);
+    yeeterTalon.configFollowersTalons(new NerdyTalon[] {new NerdyTalon(2)})
+    ;
+    //Tuning for the big heavy flywheel
+    yeeterTalon.configPIDF(2.0, 0, 0, 0);
+    //old P 0.175
     oi = new OI();
     NerdyBadlog.initAndLog("/media/sda1/logs/", "wooo_testing", 0.02, yeeterTalon);
   }

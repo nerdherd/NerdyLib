@@ -60,21 +60,21 @@ public class SingleMotorArm extends GravityAffectedMechanism {
 
   public void setAngle(double angle) {
     if (isNotMoving()) {
-      motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
-        getFFIfNotMoving(angle - getAngle()));
+      // motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      //   getFFIfNotMoving(angle - getAngle()));
     } else {
-      motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
-        getFFIfMoving());
+      // motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      //   getFFIfMoving());
     }
   }
 
   public void setAngleMotionMagic(double angle) {
     if (isNotMoving()) {
-      motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
-        getFFIfNotMoving(angle - getAngle()));
+      // motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      //   getFFIfNotMoving(angle - getAngle()));
     } else {
-      motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
-        getFFIfMoving());
+      // motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      //   getFFIfMoving());
     }
   }
 
