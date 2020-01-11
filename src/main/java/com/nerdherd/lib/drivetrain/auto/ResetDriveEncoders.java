@@ -22,7 +22,8 @@ public class ResetDriveEncoders extends CommandBase {
     @Override
     public void initialize() {
 	SmartDashboard.putString("Current Drive Command", "ResetDriveEncoders");
-	m_drive.resetEncoders();
+    m_drive.resetEncoders();
+    // m_drive.resetXY();
     }
 
     @Override

@@ -62,14 +62,20 @@ public class Robot extends TimedRobot {
     // chooser = new AutoChooser();
     // yeeterTalon = new SingleMotorTalonSRX(5, "flywheel", true, true);
     // yeeterTalon.configPIDF(0.1, 0, 0, (1023 / 17500));
-    oi = new OI();
     // NerdyBadlog.initAndLog("/media/sda1/logs/", "wooo_testing", 0.02, yeeterTalon);
-    m_drive = new Drivetrain(new NerdyTalon(1), new NerdyTalon(2),
+    m_drive = new Drivetrain(new NerdyTalon(1), new NerdyTalon(2),  
         new CANMotorController[] { new NerdyVictorSPX(19), new NerdyVictorSPX(20) },
-        new CANMotorController[] { new NerdyVictorSPX(3), new NerdyVictorSPX(4) }, true, false);
+        new CANMotorController[] { new NerdyVictorSPX(3), new NerdyVictorSPX(4) }, true, false, 0.63742712872013762571);
+    
+    // m_drive.resetEncoders();
+    // m_drive.resetYaw();
+        
+    m_drive.configTicksPerFoot(25292.8, 25292.8);
+    m_drive.configSensorPhase(false, false);
     m_drive.configAutoChooser(chooser);
-    m_drive.configKinematics(6.224593296354875, new Rotation2d(0), new Pose2d(0,0, new Rotation2d(0)));
-
+    m_drive.configKinematics(0.63742712872013762571, new Rotation2d(0), new Pose2d(0,0, new Rotation2d(0)));
+    oi = new OI();
+    
   }
 
   /**
@@ -115,27 +121,35 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    var autoVoltageConstraint =
-    new DifferentialDriveVoltageConstraint(
-        new SimpleMotorFeedforward(DriveConstants.ksVolts,
-                                   DriveConstants.kvVoltSecondsPerMeter,
-                                   DriveConstants.kaVoltSecondsSquaredPerMeter),
-        DriveConstants.kDriveKinematics,
-        10);
+//     var autoVoltageConstraint =
+//     new DifferentialDriveVoltageConstraint(
+//         new SimpleMotorFeedforward(DriveConstants.ksVolts,
+//                                    DriveConstants.kvVoltSecondsPerMeter,
+//                                    DriveConstants.kaVoltSecondsSquaredPerMeter),
+//         DriveConstants.kDriveKinematics,
+//         10);
     
-    final TrajectoryConfig m_config = new TrajectoryConfig(3, 3)
-    .setKinematics(DriveConstants.kDriveKinematics)
-            // Apply the voltage constraint
-            .addConstraint(autoVoltageConstraint);
-;
-    final Trajectory m_traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)) , 
+    // final TrajectoryConfig m_config = new TrajectoryConfig(3, 3)
+    // .setKinematics(DriveConstants.kDriveKinematics)
+//             // Apply the voltage constraint
+//             .addConstraint(autoVoltageConstraint);
+// ;
+
+
+     TrajectoryConfig m_config = new TrajectoryConfig(3, 3);
+     Trajectory m_traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)) , 
     List.of(
-      new Translation2d(2.5, 0)
+      new Translation2d(0, 2.5)
   ), new Pose2d(0, 5, new Rotation2d(0)),
         m_config);
-    final RamseteCommand ramsete = new RamseteCommand(m_traj, m_drive::getPose2d, new RamseteController(2.0, 0.7), new SimpleMotorFeedforward(1.2, 0.241, 0.065), m_drive.m_kinematics, m_drive::getCurrentSpeeds, new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0), m_drive::setVoltage, m_drive);
-    m_autonomousCommand =  ramsete;
-    // m_autonomousCommand = new DriveStraightContinuous(m_drive, 5, 80);
+     RamseteCommand ramsete = new RamseteCommand(m_traj, () -> m_drive.getPose2d(), new RamseteController(3.0, 0.7), 
+                                    new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
+                                    m_drive.m_kinematics, () -> m_drive.getCurrentSpeeds(), 
+                                    new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
+                                     m_drive::setVoltage, m_drive);
+    m_autonomousCommand =  ramsete.andThen(() -> m_drive.setVoltage(0, 0));
+
+    // m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.3);
     if (m_autonomousCommand != null) { 
       m_autonomousCommand.schedule();
     }

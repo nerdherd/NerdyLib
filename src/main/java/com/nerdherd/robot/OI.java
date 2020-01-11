@@ -7,11 +7,29 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.motor.commands.MotorVoltageRamping;
-import com.nerdherd.lib.motor.commands.SetMotorVelocity;
+import java.util.List;
+import java.util.Set;
+
+import com.nerdherd.lib.drivetrain.auto.ResetDriveEncoders;
+import com.nerdherd.lib.drivetrain.auto.ResetGyro;
 import com.nerdherd.lib.oi.DefaultOI;
 
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -74,5 +92,24 @@ public class OI extends DefaultOI{
     // SmartDashboard.putData("Straight Line", new DriveFalconTrajectory(Robot.drive, straightLine, 3, true, 0.15, 0));
     // SmartDashboard.putData("SetVel10000", new SetMotorVelocity(Robot.yeeterTalon, 10000, 0.5*1023./17500.));
     // SmartDashboard.putData("VoltageRamp", new MotorVoltageRamping(Robot.yeeterTalon, 0.25));
+    
+    // Robot.m_drive.configKinematics(6.22, new Rotation2d(0), new Pose2d(0, 0, new Rotation2d(0)));
+    // var m_kinematics = new DifferentialDriveKinematics(6.22);
+  //   TrajectoryConfig m_config = new TrajectoryConfig(1, 1);
+  //   Trajectory m_traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)) , 
+  //   List.of(
+  //     new Translation2d(0, 2.5)
+  // ), new Pose2d(0, 5, new Rotation2d(0)),
+  //       m_config);
+  //    RamseteCommand ramsete = new RamseteCommand(m_traj, Robot.m_drive::getPose2d, new RamseteController(2.0, 0.7), 
+  //                                   new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
+  //                                   Robot.m_drive.m_kinematics, Robot.m_drive::getCurrentSpeeds, 
+  //                                   new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
+  //                                    Robot.m_drive::setVoltage, Robot.m_drive);
+    SmartDashboard.putData("Reset Gyro", new ResetGyro(Robot.m_drive));
+    SmartDashboard.putData("ResetXY", new InstantCommand(() -> Robot.m_drive.resetXY()));
+    SmartDashboard.putData("Reset Encoders", new ResetDriveEncoders(Robot.m_drive));  
+
+    
   }
 }

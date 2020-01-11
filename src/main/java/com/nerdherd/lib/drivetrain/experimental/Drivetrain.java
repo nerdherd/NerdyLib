@@ -62,7 +62,7 @@ public class Drivetrain extends AbstractDrivetrain {
 	private DifferentialDriveOdometry m_odometry;
 	private SimpleMotorFeedforward m_leftFeedforward, m_rightFeedforward;
 
-    public Drivetrain(SmartCANMotorController leftMaster, SmartCANMotorController rightMaster, CANMotorController[] leftSlaves, CANMotorController[] rightSlaves, boolean leftInversion, boolean rightInversion) {
+    public Drivetrain(SmartCANMotorController leftMaster, SmartCANMotorController rightMaster, CANMotorController[] leftSlaves, CANMotorController[] rightSlaves, boolean leftInversion, boolean rightInversion, double trackwidth) {
         m_leftMaster = leftMaster;
 		m_rightMaster = rightMaster;
 		m_leftSlaves = leftSlaves;
@@ -76,6 +76,8 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_leftMaster.configFollowers(m_leftSlaves);
 		m_rightMaster.configFollowers(m_rightSlaves);
 		m_nav = new AHRS(SPI.Port.kMXP);
+		m_kinematics = new DifferentialDriveKinematics(trackwidth);
+		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getRawYaw()));
     }
 
 
@@ -343,7 +345,17 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		return (getRightMasterPosition() + getLeftMasterPosition()) / 2;
 	}
 
-	
+	public double getXPosMeters(){
+		return m_odometry.getPoseMeters().getTranslation().getX();
+	}
+
+	public double getYPosMeters(){
+		return m_odometry.getPoseMeters().getTranslation().getY();
+	}
+
+	public void resetXY(){
+		m_odometry.resetPosition(new Pose2d(0,0, new Rotation2d(0)), Rotation2d.fromDegrees(getRawYaw()));
+	}
 
 	public void setXY(double x, double y) {
 		m_currentX = x;
@@ -403,6 +415,10 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		return feetToTicks(fps, ticksPerFoot) / 10;
 	}
 
+	@Override
+	public void periodic(){
+		updateOdometry();
+	}
 	/**set velocity to Talon SRXs in units of feet/s, unit conversions are handled internally
 	 * @param leftVel
 	 * @param rightVel
@@ -468,8 +484,13 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		SmartDashboard.putNumber("left Velocity", getLeftMasterVelocity());
 		SmartDashboard.putNumber("Right Velocity", getRightMasterVelocity());
 		SmartDashboard.putNumber("Yaw", getRawYaw());
-		SmartDashboard.putNumber("X pos", m_currentX);
-		SmartDashboard.putNumber("Y pos", m_currentY);
+		
+		// SmartDashboard.putNumber("X pos", m_currentX);
+		// SmartDashboard.putNumber("Y pos", m_currentY);
+
+		SmartDashboard.putNumber("X pos meters", getXPosMeters());
+		SmartDashboard.putNumber("Y pos meters", getYPosMeters());
+		
 
 	}
 
