@@ -48,14 +48,14 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     chooser = new AutoChooser();
-    yeeterTalon = new SingleMotorTalonSRX(new NerdyTalon(5), "flywheel", false, true);
-    yeeterTalon.configFollowersTalons(new NerdyTalon[] {new NerdyTalon(2)})
-    ;
+    yeeterTalon = new SingleMotorTalonSRX(new NerdyTalon(5), "flywheel", false, false);
+    yeeterTalon.configFollowersTalons(new NerdyTalon[] {new NerdyTalon(2)});
+    yeeterTalon.configDeadband(0.004);
     //Tuning for the big heavy flywheel
-    yeeterTalon.configPIDF(2.0, 0, 0, 0);
+    yeeterTalon.configPIDF(0, 0, 0, 0);
     //old P 0.175
     oi = new OI();
-    NerdyBadlog.initAndLog("/media/sda1/logs/", "wooo_testing", 0.02, yeeterTalon);
+    NerdyBadlog.initAndLog("/media/sda1/logs/", "testing", 0.02, yeeterTalon);
   }
 
   /**

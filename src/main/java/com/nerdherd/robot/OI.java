@@ -82,9 +82,9 @@ public class OI extends DefaultOI{
     // SmartDashboard.putData("far right rocketo autoo", new DriveFalconTrajectory(Robot.drive, farRightRocket, 3, true, 0.15, 0));
     // SmartDashboard.putData("far right rocketo autoo twooo", new DriveFalconTrajectory(Robot.drive, farRightRocket2, 3, false, 0.15, 0));
     // SmartDashboard.putData("Straight Line", new DriveFalconTrajectory(Robot.drive, straightLine, 3, true, 0.15, 0));
-    SmartDashboard.putData("SetVel36000", new SetMotorVelocity(Robot.yeeterTalon, 36000, 0.0004273 * (1023/12), 0));
-    SmartDashboard.putData("SetVel27000", new SetMotorVelocity(Robot.yeeterTalon,  27000, 0.0004273 * (1023/12), 0));
-    SmartDashboard.putData("VoltageRamp", new MotorVoltageRamping(Robot.yeeterTalon, 0.25));
+    SmartDashboard.putData("SetVel36000", new SetMotorVelocity(Robot.yeeterTalon, 36000, 0.0007966 * (1023/12), 0));
+    SmartDashboard.putData("SetVel27000", new SetMotorVelocity(Robot.yeeterTalon,  27000, 0.0007966 * (1023/12), 0));
+    SmartDashboard.putData("VoltageRamp", new MotorVoltageRamping(Robot.yeeterTalon, 0.1));
     SmartDashboard.putData("12Volt", new SetMotorPower(Robot.yeeterTalon, 1));
     SmartDashboard.putData("50", new SetMotorPower(Robot.yeeterTalon, 0.5));
     SmartDashboard.putData("55%", new SetMotorPower(Robot.yeeterTalon, 0.55));
@@ -92,6 +92,7 @@ public class OI extends DefaultOI{
     SmartDashboard.putData("65%", new SetMotorPower(Robot.yeeterTalon, 0.65));
     SmartDashboard.putData("70%", new SetMotorPower(Robot.yeeterTalon, 0.70));
     SmartDashboard.putData("75%", new SetMotorPower(Robot.yeeterTalon, 0.75));
+    SmartDashboard.putData("20%", new SetMotorPower(Robot.yeeterTalon, 0.20));
 
 
     
