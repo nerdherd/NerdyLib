@@ -12,9 +12,9 @@ import com.nerdherd.lib.logging.Loggable;
 /**
  * Add your docs here.
  */
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public abstract class AbstractDrivetrain extends Subsystem implements Loggable {
+public abstract class AbstractDrivetrain extends SubsystemBase implements Loggable {
 
     public abstract void setPower(double leftPower, double rightPower);
 

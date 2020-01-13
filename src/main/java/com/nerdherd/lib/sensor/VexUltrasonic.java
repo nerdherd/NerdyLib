@@ -38,7 +38,7 @@ public class VexUltrasonic extends Ultrasonic implements Loggable {
   // }
 
   public void reportToSmartDashboard(){
-    SmartDashboard.putNumber("Inches", getInches());
+    SmartDashboard.putNumber(name + " inches", getInches());
   }
 
   @Override

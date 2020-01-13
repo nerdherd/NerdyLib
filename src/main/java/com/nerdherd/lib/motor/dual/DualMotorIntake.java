@@ -36,11 +36,7 @@ public class DualMotorIntake extends AbstractDualMotorIntake {
     m_rightMotor.setPower(rightPower);
   }
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+  
 
   public void initLoggingData() {
     m_rightMotor.initLoggingData();

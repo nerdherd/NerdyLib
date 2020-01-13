@@ -11,13 +11,14 @@ import com.nerdherd.lib.drivetrain.experimental.Drivetrain;
 
 // import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 
-public class DriveRamsete extends Command {
+public class DriveRamsete extends CommandBase {
   private RamseteController m_controller;
   private Trajectory m_trajectory;
   private Drivetrain m_drive;
@@ -30,31 +31,29 @@ public class DriveRamsete extends Command {
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
     m_time = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     m_time += 0.02;
     m_drive.setChasisSpeeds(m_controller.calculate(m_drive.getPose2d(), m_trajectory.sample(m_time)), m_trajectory.sample(m_time).accelerationMetersPerSecondSq, m_trajectory.sample(m_time).accelerationMetersPerSecondSq);
     }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+  
 }

@@ -22,7 +22,8 @@ import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
 
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -56,13 +57,12 @@ public class Drivetrain extends AbstractDrivetrain {
 	public double kLeftStatic, kRightStatic, kMaxVelocity, kLeftTicksPerFoot, kRightTicksPerFoot;
 	public double kLeftV, kRightV;
 	public double kLeftA, kRightA;
-	public Command defaultCommand;
 
-	private DifferentialDriveKinematics m_kinematics;
+	public DifferentialDriveKinematics m_kinematics;
 	private DifferentialDriveOdometry m_odometry;
 	private SimpleMotorFeedforward m_leftFeedforward, m_rightFeedforward;
 
-    public Drivetrain(SmartCANMotorController leftMaster, SmartCANMotorController rightMaster, CANMotorController[] leftSlaves, CANMotorController[] rightSlaves, boolean leftInversion, boolean rightInversion) {
+    public Drivetrain(SmartCANMotorController leftMaster, SmartCANMotorController rightMaster, CANMotorController[] leftSlaves, CANMotorController[] rightSlaves, boolean leftInversion, boolean rightInversion, double trackwidth) {
         m_leftMaster = leftMaster;
 		m_rightMaster = rightMaster;
 		m_leftSlaves = leftSlaves;
@@ -76,6 +76,8 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_leftMaster.configFollowers(m_leftSlaves);
 		m_rightMaster.configFollowers(m_rightSlaves);
 		m_nav = new AHRS(SPI.Port.kMXP);
+		m_kinematics = new DifferentialDriveKinematics(trackwidth);
+		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getRawYaw()));
     }
 
 
@@ -145,10 +147,7 @@ public class Drivetrain extends AbstractDrivetrain {
 	 * 
 	 * @param defaultCom teleop drive command
 	 */
-	public void configDefaultCommand(Command defaultCom) {
-		defaultCommand = defaultCom;
-	}
-
+	
 	/**
 	 * Set the sensor phase, if moving the robot forwards doesn't increase the
 	 * encoder position positively, switch the sensor phase
@@ -328,7 +327,8 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public double getRawYaw() {
-		return -m_nav.getAngle() + m_chooser.getDirection();
+		// return -m_nav.getAngle() + m_chooser.getDirection();
+		return -m_nav.getAngle();
 	}
 
 	public double getAngularVelocity() {
@@ -345,8 +345,16 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		return (getRightMasterPosition() + getLeftMasterPosition()) / 2;
 	}
 
-	public void initDefaultCommand() {
-		setDefaultCommand(defaultCommand);
+	public double getXPosMeters(){
+		return m_odometry.getPoseMeters().getTranslation().getX();
+	}
+
+	public double getYPosMeters(){
+		return m_odometry.getPoseMeters().getTranslation().getY();
+	}
+
+	public void resetXY(){
+		m_odometry.resetPosition(new Pose2d(0,0, new Rotation2d(0)), Rotation2d.fromDegrees(getRawYaw()));
 	}
 
 	public void setXY(double x, double y) {
@@ -391,14 +399,26 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		return m_leftMaster.getPosition() / kLeftTicksPerFoot;
 	}
 
+	public double getLeftPositionMeters(){
+		return Units.feetToMeters(getLeftPositionFeet());
+	}
+
 	public double getRightPositionFeet() {
 		return m_rightMaster.getPosition() / kRightTicksPerFoot;
+	}
+
+	public double getRightPositionMeters(){
+		return Units.feetToMeters(getRightPositionFeet());
 	}
 
 	public double fpsToTalonVelocityUnits(double fps, double ticksPerFoot) {
 		return feetToTicks(fps, ticksPerFoot) / 10;
 	}
 
+	@Override
+	public void periodic(){
+		updateOdometry();
+	}
 	/**set velocity to Talon SRXs in units of feet/s, unit conversions are handled internally
 	 * @param leftVel
 	 * @param rightVel
@@ -464,8 +484,13 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		SmartDashboard.putNumber("left Velocity", getLeftMasterVelocity());
 		SmartDashboard.putNumber("Right Velocity", getRightMasterVelocity());
 		SmartDashboard.putNumber("Yaw", getRawYaw());
-		SmartDashboard.putNumber("X pos", m_currentX);
-		SmartDashboard.putNumber("Y pos", m_currentY);
+		
+		// SmartDashboard.putNumber("X pos", m_currentX);
+		// SmartDashboard.putNumber("Y pos", m_currentY);
+
+		SmartDashboard.putNumber("X pos meters", getXPosMeters());
+		SmartDashboard.putNumber("Y pos meters", getYPosMeters());
+		
 
 	}
 
@@ -595,15 +620,15 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 
 	public void configKinematics(double trackwidth, Rotation2d startingAngle, Pose2d startingPose) {
 		m_kinematics = new DifferentialDriveKinematics(trackwidth);
-		// m_odometry = new DifferentialDriveOdometry(m_kinematics, startingAngle, startingPose);
+		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getRawYaw()));
 	}
 
 	public void updateOdometry() {
-		// m_odometry.update(getAngle(), getCurrentSpeeds());
+		m_odometry.update(Rotation2d.fromDegrees(getRawYaw()), getLeftPositionMeters(), getRightPositionMeters());
 	}
 
 	public DifferentialDriveWheelSpeeds getCurrentSpeeds() {
-		return new DifferentialDriveWheelSpeeds(getLeftVelocityMeters(), getRightVelocityMeters());
+		return new DifferentialDriveWheelSpeeds(getLeftVelocityMeters(),getRightVelocityMeters());
 	}
 
 	public void configFeedforwards(SimpleMotorFeedforward left, SimpleMotorFeedforward right) {
@@ -619,6 +644,6 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public void setChasisSpeeds(ChassisSpeeds speeds, double leftAccel, double rightAccel){
-		setSpeeds(m_kinematics.toWheelSpeeds(speeds), leftAccel, rightAccel);
+		setSpeeds(m_kinematics.toWheelSpeeds(speeds), leftAccel, rightAccel); 
 	}
 }

@@ -10,9 +10,10 @@ package com.nerdherd.lib.motor.commands.mechanisms;
 import com.nerdherd.lib.motor.single.mechanisms.StaticFrictionMechanism;
 import com.nerdherd.lib.sensor.digital.BooleanSensor;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ZeroMechanismWithHallEffect extends Command {
+
+public class ZeroMechanismWithHallEffect extends CommandBase {
 
   private StaticFrictionMechanism m_mechanism;
   private BooleanSensor m_hallSensor;
@@ -29,18 +30,18 @@ public class ZeroMechanismWithHallEffect extends Command {
       m_hallSensor = hallEffectSensor;
       m_rate = descentRate;
       m_useFF = useFF;
-      requires(m_mechanism);
+      addRequirements(m_mechanism);
 
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
     if (m_useFF) {
       m_mechanism.setVoltageWithFF(m_rate);
     } else {
@@ -51,19 +52,17 @@ public class ZeroMechanismWithHallEffect extends Command {
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return m_hallSensor.getValue();
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
     m_mechanism.resetEncoder();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+  
 }

@@ -1,8 +1,10 @@
 package com.nerdherd.lib.misc;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 public class AutoChooser {
 
@@ -29,8 +31,8 @@ public class AutoChooser {
         return startingPositionChooser.getSelected();
     }
 
-    public CommandGroup getSelectedAuto() {
-        return new CommandGroup();
+    public Command getSelectedAuto() {
+        return new InstantCommand();
         // replace with auto selection logic
     }
     

@@ -2,7 +2,8 @@ package com.nerdherd.lib.drivetrain.auto;
 
 import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -10,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * adjustment, all open loop. Use with extreme caution and a finger on the disable key
  */
 
-public class DriveStraightContinuous extends Command {
+public class DriveStraightContinuous extends CommandBase {
 
     private double m_distance;
     private double m_straightPower;
@@ -25,31 +26,28 @@ public class DriveStraightContinuous extends Command {
 	m_distance = distance;
 	m_straightPower = straightPower;
 
-	requires(m_drive);
+	addRequirements(m_drive);
     }
 
     @Override
-    protected void initialize() {
+    public void initialize() {
 	SmartDashboard.putString("Current Drive Command", "DriveStraightContinuous");
     }
 
     @Override
-    protected void execute() {
+    public void execute() {
 	m_drive.setPower(m_straightPower, m_straightPower);
     }
 
     @Override
-    protected boolean isFinished() {
+    public boolean isFinished() {
 	return m_drive.getAverageEncoderPosition() > m_distance;
     }
 
     @Override
-    protected void end() {
+    public void end(boolean interrupted) {
     }
 
-    @Override
-    protected void interrupted() {
-	end();
-    }
+    
 
 }

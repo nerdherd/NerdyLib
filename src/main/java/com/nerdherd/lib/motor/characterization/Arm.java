@@ -15,9 +15,10 @@ import com.nerdherd.lib.motor.single.mechanisms.SingleMotorElevator;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.RobotController;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Arm extends Command {
+
+public class Arm extends CommandBase {
 
   private SingleMotorArm m_arm;
   private Supplier<Double> m_batteryVoltage;
@@ -30,17 +31,17 @@ public class Arm extends Command {
   public Arm(SingleMotorElevator arm, Supplier<Double> batteryVoltage) {
     // m_arm = arm;
     m_batteryVoltage = batteryVoltage;
-    requires(m_arm);
+    addRequirements(m_arm);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  public void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  public void execute() {
 
     // double now = Timer.getFPGATimestamp();
 
@@ -72,18 +73,16 @@ public class Arm extends Command {
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  public boolean isFinished() {
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  public void end(boolean interrupted) {
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+  
 }

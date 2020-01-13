@@ -9,12 +9,12 @@ package com.nerdherd.lib.pneumatics;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * Add your docs here.
  */
-public class Piston extends Subsystem {
+public class Piston extends SubsystemBase {
  
   private DoubleSolenoid m_piston;
 
@@ -55,7 +55,4 @@ public class Piston extends Subsystem {
     return Value.kReverse == getValue();
   }
 
-  @Override
-  public void initDefaultCommand() {
-  }
 }
