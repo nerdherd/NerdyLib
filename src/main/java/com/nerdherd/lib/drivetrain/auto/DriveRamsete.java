@@ -9,14 +9,12 @@ package com.nerdherd.lib.drivetrain.auto;
 
 import com.nerdherd.lib.drivetrain.experimental.Drivetrain;
 
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+
 // import com.nerdherd.lib.drivetrain.singlespeed.AbstractDrivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
-import edu.wpi.first.wpilibj.controller.RamseteController;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.trajectory.Trajectory;
 
 public class DriveRamsete extends CommandBase {
   private RamseteController m_controller;

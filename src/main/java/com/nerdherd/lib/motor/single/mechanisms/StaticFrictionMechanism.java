@@ -7,14 +7,12 @@
 
 package com.nerdherd.lib.motor.single.mechanisms;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
-import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
+import com.nerdherd.lib.motor.single.SingleMotorMechanism;
 
 /**
  * Add your docs here.
  */
-public abstract class StaticFrictionMechanism extends SingleMotorTalonSRX {
+public abstract class StaticFrictionMechanism extends SingleMotorMechanism {
 
     // This is in STU (Stupid Talon Units, AKA ticks/decisecond)
     protected static final double kStaticFrictionDeadband = 5;

@@ -7,8 +7,6 @@
 
 package com.nerdherd.lib.motor.single;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
@@ -22,7 +20,7 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
 /**
  * Add your docs here.
  */
-public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
+public class SingleMotorMechanism extends SmartMotorControllerSubsystem {
 
   public SmartCANMotorController motor;
   private TrapezoidProfile.Constraints m_constraints;
@@ -32,7 +30,7 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
    * @param talonID       CAN ID of talon
    * @param subsystemName String name of subsystem to display on smart dashboard
    */
-  public SingleMotorTalonSRX(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
+  public SingleMotorMechanism(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     name = subsystemName;
     motor = new NerdyTalon(talonID);
     motor.configDefaultSettings();
@@ -40,7 +38,7 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
     setSensorPhase(sensorPhase);
   }
 
-  public SingleMotorTalonSRX(SmartCANMotorController motorController, String subsystemName, boolean inversion, boolean sensorPhase) {
+  public SingleMotorMechanism(SmartCANMotorController motorController, String subsystemName, boolean inversion, boolean sensorPhase) {
     name = subsystemName;
     motor = motorController;
     motor.configDefaultSettings();

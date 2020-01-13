@@ -9,7 +9,6 @@ package com.nerdherd.lib.sensor.digital;
 
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 
 
 /**
