@@ -11,6 +11,8 @@ import java.util.List;
 
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.nerdherd.lib.drivetrain.auto.DriveStraightContinuous;
+import com.nerdherd.lib.drivetrain.auto.TurnTime;
+import com.nerdherd.lib.drivetrain.auto.TurnToAngle;
 import com.nerdherd.lib.drivetrain.experimental.Drivetrain;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.logging.SubscribedLoggable;
@@ -121,34 +123,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-//     var autoVoltageConstraint =
-//     new DifferentialDriveVoltageConstraint(
-//         new SimpleMotorFeedforward(DriveConstants.ksVolts,
-//                                    DriveConstants.kvVoltSecondsPerMeter,
-//                                    DriveConstants.kaVoltSecondsSquaredPerMeter),
-//         DriveConstants.kDriveKinematics,
-//         10);
-    
-    // final TrajectoryConfig m_config = new TrajectoryConfig(3, 3)
-    // .setKinematics(DriveConstants.kDriveKinematics)
-//             // Apply the voltage constraint
-//             .addConstraint(autoVoltageConstraint);
-// ;
-
-
-     TrajectoryConfig m_config = new TrajectoryConfig(3, 3);
-     Trajectory m_traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)) , 
-    List.of(
-      new Translation2d(0, 2.5)
-  ), new Pose2d(0, 5, new Rotation2d(0)),
-        m_config);
-     RamseteCommand ramsete = new RamseteCommand(m_traj, () -> m_drive.getPose2d(), new RamseteController(3.0, 0.7), 
-                                    new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
-                                    m_drive.m_kinematics, () -> m_drive.getCurrentSpeeds(), 
-                                    new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
-                                     m_drive::setVoltage, m_drive);
-    m_autonomousCommand =  ramsete.andThen(() -> m_drive.setVoltage(0, 0));
-
+  //    TrajectoryConfig m_config = new TrajectoryConfig(3, 3);
+  //    Trajectory m_traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)) , 
+  //   List.of(
+  //     new Translation2d(0, 2.5)
+  // ), new Pose2d(0, 5, new Rotation2d(0)),
+  //       m_config);
+  //    RamseteCommand ramsete = new RamseteCommand(m_traj, m_drive::getPose2d, new RamseteController(3.0, 0.7), 
+  //                                   new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
+  //                                   m_drive.m_kinematics, m_drive::getCurrentSpeeds, 
+  //                                   new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
+  //                                    m_drive::setVoltage, m_drive);
+    // m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.8);
+    // m_autonomousCommand =  ramsete.andThen(() -> m_drive.setVoltage(0, 0));
     // m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.3);
     if (m_autonomousCommand != null) { 
       m_autonomousCommand.schedule();
