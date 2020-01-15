@@ -23,7 +23,7 @@ import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -54,10 +54,11 @@ public class Drivetrain extends AbstractDrivetrain {
 	private double m_logStartTime = 0;
 	private double m_leftDesiredVel, m_rightDesiredVel;
 	public double m_lookaheadX, m_lookaheadY;
-	public double kLeftStatic, kRightStatic, kMaxVelocity, kLeftTicksPerFoot, kRightTicksPerFoot;
-	public double kLeftV, kRightV;
-	public double kLeftA, kRightA;
-
+	public double kS, kV, kA, kMaxVelocity, kLeftTicksPerFoot, kRightTicksPerFoot;
+	
+	public PIDController m_LeftPIDController, m_RightPIDController ; 
+	public SimpleMotorFeedforward m_Feedforward; 
+	
 	public DifferentialDriveKinematics m_kinematics;
 	private DifferentialDriveOdometry m_odometry;
 	private SimpleMotorFeedforward m_leftFeedforward, m_rightFeedforward;
@@ -114,10 +115,11 @@ public class Drivetrain extends AbstractDrivetrain {
 	 * @param leftStatic  left static friction feedforward, in volts
 	 * @param rightStatic right static friction feedforward, in volts
 	 */
-	public void configStaticFeedforward(double leftStatic, double rightStatic) {
+
+	/* public void configStaticFeedforward(double leftStatic, double rightStatic) {
 		kLeftStatic = leftStatic / 12;
 		kRightStatic = rightStatic / 12;
-	}
+	} */
 
 	/**
 	 * set a maximum velocity, this will keep the code from requesting a velocity
@@ -169,17 +171,18 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_date = date;
 		m_fileName = m_date + "drive";
 	}	
-public void configFeedforwardRight(double kV, double kS, double kA){
-	kRightV = kV;
-	kRightStatic = kS;
-	kRightA = kA;
-}
 
-public void configFeedforwardLeft(double kV, double kS, double kA){
-	kLeftV = kV;
-	kLeftStatic = kS;
-	kLeftA = kA;
-}
+/* public void configFeedforwardRight(double kV, double kS, double kA){
+ 	kRightV = kV;
+ 	kRightStatic = kS;
+ 	kRightA = kA;
+ }
+
+ 	public void configFeedforwardLeft(double kV, double kS, double kA){
+ 	kLeftV = kV;
+ 	kLeftStatic = kS;
+ 	kLeftA = kA;
+ } */
 
 	/**
 	 * configure a peak and continuous current limit
@@ -202,8 +205,33 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	 * @param kD
 	 * @param kF
 	 */
+
 	public void configLeftPIDF(double kP, double kI, double kD, double kF) {
 		m_leftMaster.configPIDF(kP, kI, kD, kF, 0);
+	}
+
+	public void configLeftPIDController(double kP, double kI, double kD){
+		m_LeftPIDController = new PIDController(kP, kI, kD);
+	}
+
+	public PIDController getLeftPIDController() {
+		return m_LeftPIDController;
+	}
+
+	public void configRightPIDController(double kP, double kI, double kD){
+		m_RightPIDController = new PIDController(kP, kI, kD);
+	}
+
+	public PIDController getRightPIDController() {
+		return m_RightPIDController;
+	}
+
+	public void configFeedForward(double kS, double kV, double kA){
+		m_Feedforward = new SimpleMotorFeedforward(kS, kV, kA);
+	}
+
+	public SimpleMotorFeedforward getFeedForward() {
+		return m_Feedforward;
 	}
 
 	/**
@@ -229,8 +257,8 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 
 	@Override
 	public void setPowerFeedforward(double leftPower, double rightPower) {
-		m_leftMaster.setPower(leftPower, kLeftStatic * Math.signum(leftPower));
-        m_rightMaster.setPower(rightPower, kRightStatic * Math.signum(rightPower));
+		m_leftMaster.setPower(leftPower, kS * Math.signum(leftPower));
+        m_rightMaster.setPower(rightPower, kS * Math.signum(rightPower));
     }
 
 	/** Set voltage to the drivetrain, from -12 to 12 volts
@@ -267,8 +295,8 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		m_rightMaster.configMotionMagic(acceleration, cruiseVelocity);
 		double leftError = leftPosition - getLeftMasterPosition();
 		double rightError = rightPosition - getRightMasterPosition();
-        m_leftMaster.setPositionMotionMagic(leftPosition, kLeftStatic * Math.signum(leftError));
-        m_rightMaster.setPositionMotionMagic(rightPosition, kRightStatic * Math.signum(rightError));
+        m_leftMaster.setPositionMotionMagic(leftPosition, kS * Math.signum(leftError));
+        m_rightMaster.setPositionMotionMagic(rightPosition, kS * Math.signum(rightError));
 	}
 
 	/**Set a velocity to the drivetrain in talon velocity units (ticks/decisecond)
@@ -282,8 +310,8 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		if (Math.abs(rightVel) > kMaxVelocity) {
 			rightVel = kMaxVelocity * Math.signum(rightVel);
 		}
-        m_leftMaster.setVelocity(leftVel, kLeftStatic * Math.signum(leftVel));
-        m_rightMaster.setVelocity(rightVel, kRightStatic * Math.signum(rightVel));
+        m_leftMaster.setVelocity(leftVel, kS * Math.signum(leftVel));
+        m_rightMaster.setVelocity(rightVel, kS * Math.signum(rightVel));
 	}
 
 	/**
@@ -430,8 +458,8 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public void setVelocityFPS(double leftVel, double rightVel, double leftAccel, double rightAccel){
-		m_rightMaster.setVelocity(fpsToTalonVelocityUnits(rightVel, kRightTicksPerFoot), kRightStatic * Math.signum(rightVel) + rightVel * kRightV + rightAccel * kRightA);
-		m_leftMaster.setVelocity(fpsToTalonVelocityUnits(leftVel, kLeftTicksPerFoot), kLeftStatic * Math.signum(leftVel) + leftVel * kLeftV + leftAccel * kLeftA);	
+		m_rightMaster.setVelocity(fpsToTalonVelocityUnits(rightVel, kRightTicksPerFoot), kS * Math.signum(rightVel) + rightVel * kV + rightAccel * kA);
+		m_leftMaster.setVelocity(fpsToTalonVelocityUnits(leftVel, kLeftTicksPerFoot), kS * Math.signum(leftVel) + leftVel * kV + leftAccel * kA);	
 	}
 
 	public double getPitch() {

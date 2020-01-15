@@ -16,11 +16,17 @@ package com.nerdherd.robot;
 public class RobotMap {
   
   public static final int kLeftMasterTalonID = 1;
-  public static final int kRightMasterTalonID = 4;
-  public static final int kLeftSlaveTalonID = 3;
-  public static final int kRightSlaveTalonID = 5;
+  public static final int kRightMasterTalonID = 2;
 
-  public static final int kLeftSlaveTalon2ID = 2;
-  public static final int kRightSlaveTalon2ID = 6;
+  public static final int kLeftSlaveTalon1ID = 19;
+  public static final int kLeftSlaveTalon2ID = 20;
+
+  public static final int kRightSlaveTalon1ID = 3;
+  public static final int kRightSlaveTalon2ID = 4;
+
+  public static final double kDriveS = 0;
+  public static final double kDriveV = 0;
+  public static final double kDriveA = 0;
+  
 
 }
