@@ -21,6 +21,8 @@ import com.nerdherd.lib.motor.motorcontrollers.CANMotorController;
 import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
 import com.nerdherd.lib.motor.motorcontrollers.NerdyVictorSPX;
 import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
+import com.playingwithfusion.TimeOfFlight;
+import com.playingwithfusion.TimeOfFlight.RangingMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -38,6 +40,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -95,6 +98,16 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     m_drive.reportToSmartDashboard();
+    TimeOfFlight m_tof = new TimeOfFlight(0);
+    m_tof.setRangingMode(RangingMode.Long, 24);
+    SmartDashboard.putNumber("Distance", m_tof.getRange());
+    SmartDashboard.putString("Range Mode", m_tof.getRangingMode().toString());
+    SmartDashboard.putData("Set Short Range", new InstantCommand(() -> m_tof.setRangingMode(RangingMode.Short, 24)));
+    SmartDashboard.putData("Set Medium Range", new InstantCommand(() -> m_tof.setRangingMode(RangingMode.Medium, 24)));
+    SmartDashboard.putData("Set Long Range", new InstantCommand(() -> m_tof.setRangingMode(RangingMode.Long, 24)));
+    
+    // SmartDashboard.putData("Set Short Range", new InstantCommand(m_tof.setRangingMode(RangingMode.Short, 24), m_tof));
+    
     // yeeterTalon.reportToSmartDashboard();
   }
 
@@ -126,6 +139,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    
   //    TrajectoryConfig m_config = new TrajectoryConfig(3, 3);
   //    Trajectory m_traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)) , 
   //   List.of(

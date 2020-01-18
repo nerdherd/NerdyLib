@@ -68,6 +68,11 @@ public class SingleMotorArm extends GravityAffectedMechanism {
     }
   }
 
+  public void setAngleCalculated(double angle){
+    super.setPositionCalculated(angleToTicks(angle), m_armFeedForward.calculate(NerdyMath.degreesToRadians(getAngle()),
+       NerdyMath.degreesToRadians(getAngularVelocity())));
+  }
+
   public void setAngleMotionMagic(double angle) {
     if (isNotMoving()) {
       motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
@@ -88,6 +93,10 @@ public class SingleMotorArm extends GravityAffectedMechanism {
 
   public double getAngle() {
     return ticksToAngle(this.getPosition());
+  }
+
+  public double getAngularVelocity() {
+    return ((m_angleRatio * this.getVelocity()) * 10);
   }
 
   @Override

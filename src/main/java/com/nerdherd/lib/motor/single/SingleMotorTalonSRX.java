@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
 
+import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
@@ -24,7 +25,8 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
 public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
 
   public NerdyTalon motor;
-  private TrapezoidProfile.Constraints m_constraints;
+  private TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(0, 0);
+  private ProfiledPIDController m_controller = new ProfiledPIDController(0, 0, 0, m_constraints, 0.02);
 
   /**
    * 
@@ -49,6 +51,7 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
 
   public void configPIDF(double kP, double kI, double kD, double kF) {
     motor.configPIDF(kP, kI, kD, kF, 0);
+    m_controller.setPID(kP, kI, kD);
   }
 
   public void configPIDF(double kP, double kI, double kD, double kF, int pidIndex) {
@@ -62,6 +65,9 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
 
   public void configMotionMagic(int accel, int cruise_vel) {
     motor.configMotionMagic(accel, cruise_vel);
+    m_constraints.maxAcceleration = accel;
+    m_constraints.maxVelocity = cruise_vel;
+    m_controller.setConstraints(m_constraints);
   }
 
   public void configTrapezoidalConstraints(Constraints constraints) {
@@ -135,13 +141,15 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
   }
 
   @Override
-  public void setPositionOblargian(double pos){
-    motor.set(ControlMode.Position, pos);
+  public void setPositionCalculated(double pos){
+    m_controller.setGoal(pos);
+    motor.set(ControlMode.PercentOutput, m_controller.calculate(getPosition()));
   }
 
   @Override
-  public void setPositionOblargian(double pos, double arbFF){
-    motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, arbFF);
+  public void setPositionCalculated(double pos, double arbFF){
+    m_controller.setGoal(pos);
+    motor.set(ControlMode.PercentOutput, pos, DemandType.ArbitraryFeedForward, arbFF);
   }
 
   @Override
