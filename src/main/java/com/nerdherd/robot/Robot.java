@@ -139,10 +139,10 @@ public class Robot extends TimedRobot {
   //                                    m_drive::setVoltage, m_drive);
     // m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.8);
     // m_autonomousCommand =  ramsete.andThen(() -> m_drive.setVoltage(0, 0));
-    // m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.5);
-    if (m_autonomousCommand != null) { 
-      m_autonomousCommand.schedule();
-    }
+    // m_autonomousCommand =  null;
+    // if (m_autonomousCommand != null) { 
+    //   m_autonomousCommand.schedule();
+    // }
   }
 
   /**
@@ -151,15 +151,14 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     CommandScheduler.getInstance().run();
-    if (m_autonomousCommand.isScheduled()) {
-      SmartDashboard.putBoolean("Auto Command Running", true);
-    }
+  //  if (m_autonomousCommand.isScheduled()) {
+  //     SmartDashboard.putBoolean("Auto Command Running", true);
+  //   }
   }
 
   @Override
   public void teleopInit() {
-    
-    m_drive.setPose(new Pose2d(3.048, 2.404, new Rotation2d(Math.PI)));
+    m_drive.setPose(new Pose2d(3.048, -2.404, new Rotation2d(Math.PI)));
 
   }
 
