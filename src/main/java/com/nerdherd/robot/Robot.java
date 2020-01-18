@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 /**
@@ -52,7 +53,8 @@ public class Robot extends TimedRobot {
   // public static SingleMotorTalonSRX yeeterTalon;
   public static Drivetrain m_drive;
   public static Command m_autonomousCommand;
-
+  public static SingleMotorTalonSRX m_leftMotor;
+  public static NerdyTalon m_rightMotor;
   public static OI oi;
 
   public Robot() {
@@ -69,8 +71,9 @@ public class Robot extends TimedRobot {
         new CANMotorController[] { new NerdyVictorSPX(19), new NerdyVictorSPX(20) },
         new CANMotorController[] { new NerdyVictorSPX(3), new NerdyVictorSPX(4) }, true, false, 0.63742712872013762571);
     
-    // m_drive.resetEncoders();
-    // m_drive.resetYaw();
+    
+    m_drive.resetEncoders();
+    m_drive.resetYaw();
         
     m_drive.configTicksPerFoot(25292.8, 25292.8);
     m_drive.configSensorPhase(false, false);
@@ -136,7 +139,7 @@ public class Robot extends TimedRobot {
   //                                    m_drive::setVoltage, m_drive);
     // m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.8);
     // m_autonomousCommand =  ramsete.andThen(() -> m_drive.setVoltage(0, 0));
-    // m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.3);
+    // m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.5);
     if (m_autonomousCommand != null) { 
       m_autonomousCommand.schedule();
     }
@@ -155,6 +158,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    
+    m_drive.setPose(new Pose2d(3.048, 2.404, new Rotation2d(Math.PI)));
 
   }
 

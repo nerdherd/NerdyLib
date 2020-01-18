@@ -37,16 +37,14 @@ public class RamseteStop extends SequentialCommandGroup {
     m_drive = drive;
     // super();
     TrajectoryConfig m_config = new TrajectoryConfig(3, 3);
-     Trajectory m_traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)) , 
-    List.of(
-      new Translation2d(2.5, 0)
-  ), new Pose2d(5, 0, new Rotation2d(0)),
+     Trajectory m_traj = TrajectoryGenerator.generateTrajectory(new Pose2d(3.048, 2.404, new Rotation2d(Math.PI)),
+    List.of(new Translation2d(0, 2.404)), new Pose2d(5.182, -0.762, new Rotation2d(0)),
         m_config);
      RamseteCommand ramsete = new RamseteCommand(m_traj, m_drive::getPose2d, new RamseteController(2.0, 0.7), 
                                     new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
                                     m_drive.m_kinematics, m_drive::getCurrentSpeeds, 
                                     new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
-                                     m_drive::setVoltage, m_drive);
+                                     m_drive::setVoltage, m_drive);   
   addCommands(ramsete, new DriveStraightContinuous(m_drive, 0, 0));
   }
 }

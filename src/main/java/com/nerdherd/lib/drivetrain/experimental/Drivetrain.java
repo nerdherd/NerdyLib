@@ -345,6 +345,10 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		return (getRightMasterPosition() + getLeftMasterPosition()) / 2;
 	}
 
+	public void setPose(Pose2d pose){
+		m_odometry.resetPosition(pose, pose.getRotation());
+		m_nav.setAngleAdjustment(pose.getRotation().getDegrees());
+	}
 	public double getXPosMeters(){
 		return m_odometry.getPoseMeters().getTranslation().getX();
 	}
