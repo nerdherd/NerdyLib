@@ -43,12 +43,12 @@ public class RamseteStop extends SequentialCommandGroup {
         m_drive.m_kinematics,
         10);
 
-    TrajectoryConfig m_config = new TrajectoryConfig(2, 2);
+    TrajectoryConfig m_config = new TrajectoryConfig(4.5, 2);
     m_config.addConstraint(autoVoltageConstraint);
      Trajectory m_traj = TrajectoryGenerator.generateTrajectory(new Pose2d(3.048, -2.404, new Rotation2d(Math.PI)),
     List.of(new Translation2d(1.5,-2.404)), new Pose2d(-0.0254, -2.404, new Rotation2d(Math.PI)),
         m_config);
-     RamseteCommand ramsete = new RamseteCommand(m_traj, m_drive::getPose2d, new RamseteController(2.3, 3.0), 
+     RamseteCommand ramsete = new RamseteCommand(m_traj, m_drive::getPose2d, new RamseteController(1.6, 3.0), 
                                     new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
                                     m_drive.m_kinematics, m_drive::getCurrentSpeeds, 
                                     new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
@@ -59,11 +59,11 @@ public class RamseteStop extends SequentialCommandGroup {
     // TrajectoryConfig m_config2 = new TrajectoryConfig(4, 4);
     // m_config2.addConstraint(autoVoltageConstraint);
     // m_config2.addConstraint(centripetalConstraint);
-
+      // m_config.setEndVelocity(2);
       Trajectory m_traj2 = TrajectoryGenerator.generateTrajectory(new Pose2d(0, -2.404, new Rotation2d(Math.PI)),
       List.of(new Translation2d(1.344, -2.268), new Translation2d(3.5, -0.685)), new Pose2d(5.182, -0.705, new Rotation2d(0)),
       m_config);
-      RamseteCommand ramsete2 = new RamseteCommand(m_traj2, m_drive::getPose2d, new RamseteController(2.6, 0.26), 
+      RamseteCommand ramsete2 = new RamseteCommand(m_traj2, m_drive::getPose2d, new RamseteController(2.0, 2.6), 
       new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
       m_drive.m_kinematics, m_drive::getCurrentSpeeds, 
       new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
@@ -71,9 +71,9 @@ public class RamseteStop extends SequentialCommandGroup {
       
       
       Trajectory m_traj3 = TrajectoryGenerator.generateTrajectory(new Pose2d(5.182, -0.705, new Rotation2d(0)),
-      List.of(new Translation2d(7.53, -0.9)), new Pose2d(6.401, -2.404, new Rotation2d(Math.PI)),
+      List.of(new Translation2d(8.166, -1.4)), new Pose2d(6.401, -2.404, new Rotation2d(Math.PI)),
       m_config);
-      RamseteCommand ramsete3 = new RamseteCommand(m_traj3, m_drive::getPose2d, new RamseteController(2.0, 0.3), 
+      RamseteCommand ramsete3 = new RamseteCommand(m_traj3, m_drive::getPose2d, new RamseteController(2.3, 0.3), 
       new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
       m_drive.m_kinematics, m_drive::getCurrentSpeeds, 
       new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
