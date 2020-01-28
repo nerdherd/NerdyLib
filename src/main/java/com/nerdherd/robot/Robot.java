@@ -152,12 +152,12 @@ public class Robot extends TimedRobot {
   //                                   m_drive.m_kinematics, m_drive::getCurrentSpeeds, 
   //                                   new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
   //                                    m_drive::setVoltage, m_drive);
-    // m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.8);
+    m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.8);
     // m_autonomousCommand =  ramsete.andThen(() -> m_drive.setVoltage(0, 0));
     // m_autonomousCommand =  null;
-    // if (m_autonomousCommand != null) { 
-    //   m_autonomousCommand.schedule();
-    // }
+    if (m_autonomousCommand != null) { 
+      m_autonomousCommand.schedule();
+    }
   }
 
   /**

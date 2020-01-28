@@ -327,7 +327,6 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public double getRawYaw() {
-		// return -m_nav.getAngle() + m_chooser.getDirection();
 		return -m_nav.getAngle();
 	}
 
@@ -488,8 +487,6 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		SmartDashboard.putNumber("Right Velocity", getRightMasterVelocity());
 		SmartDashboard.putNumber("Yaw", getRawYaw());
 		
-		// SmartDashboard.putNumber("X pos", m_currentX);
-		// SmartDashboard.putNumber("Y pos", m_currentY);
 		SmartDashboard.putNumber("Odometry Angle", m_odometry.getPoseMeters().getRotation().getDegrees());
 		SmartDashboard.putNumber("X pos meters", getXPosMeters());
 		SmartDashboard.putNumber("Y pos meters", getYPosMeters());
