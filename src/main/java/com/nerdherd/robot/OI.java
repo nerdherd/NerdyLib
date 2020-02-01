@@ -7,7 +7,12 @@
 
 package com.nerdherd.robot;
 
+import com.nerdherd.lib.motor.commands.MotorVoltageRamping;
+import com.nerdherd.lib.motor.commands.SetMotorPower;
+import com.nerdherd.lib.motor.commands.SetMotorVelocity;
 import com.nerdherd.lib.oi.DefaultOI;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -68,27 +73,21 @@ public class OI extends DefaultOI{
     // SmartDashboard.putData("far right rocketo autoo", new DriveFalconTrajectory(Robot.drive, farRightRocket, 3, true, 0.15, 0));
     // SmartDashboard.putData("far right rocketo autoo twooo", new DriveFalconTrajectory(Robot.drive, farRightRocket2, 3, false, 0.15, 0));
     // SmartDashboard.putData("Straight Line", new DriveFalconTrajectory(Robot.drive, straightLine, 3, true, 0.15, 0));
-    // SmartDashboard.putData("SetVel10000", new SetMotorVelocity(Robot.yeeterTalon, 10000, 0.5*1023./17500.));
-    // SmartDashboard.putData("VoltageRamp", new MotorVoltageRamping(Robot.yeeterTalon, 0.25));
+    SmartDashboard.putData("SetVel36000", new SetMotorVelocity(Robot.yeeterTalon, 36000, 0.0007966 * (1023/12), 0));
+    SmartDashboard.putData("SetVel27000", new SetMotorVelocity(Robot.yeeterTalon,  27000, 0.0007966 * (1023/12), 0));
+    SmartDashboard.putData("VoltageRamp", new MotorVoltageRamping(Robot.yeeterTalon, 0.1));
+    SmartDashboard.putData("12Volt", new SetMotorPower(Robot.yeeterTalon, 1));
+    SmartDashboard.putData("50", new SetMotorPower(Robot.yeeterTalon, 0.5));
+    SmartDashboard.putData("55%", new SetMotorPower(Robot.yeeterTalon, 0.55));
+    SmartDashboard.putData("60%", new SetMotorPower(Robot.yeeterTalon, 0.6));
+    SmartDashboard.putData("65%", new SetMotorPower(Robot.yeeterTalon, 0.65));
+    SmartDashboard.putData("70%", new SetMotorPower(Robot.yeeterTalon, 0.70));
+    SmartDashboard.putData("75%", new SetMotorPower(Robot.yeeterTalon, 0.75));
+    SmartDashboard.putData("20%", new SetMotorPower(Robot.yeeterTalon, 0.20));
+
+
     
-    // Robot.m_drive.configKinematics(6.22, new Rotation2d(0), new Pose2d(0, 0, new Rotation2d(0)));
-    // var m_kinematics = new DifferentialDriveKinematics(6.22);
-  //   TrajectoryConfig m_config = new TrajectoryConfig(1, 1);
-  //   Trajectory m_traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)) , 
-  //   List.of(
-  //     new Translation2d(0, 2.5)
-  // ), new Pose2d(0, 5, new Rotation2d(0)),
-  //       m_config);
-  //    RamseteCommand ramsete = new RamseteCommand(m_traj, Robot.m_drive::getPose2d, new RamseteController(2.0, 0.7), 
-  //                                   new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
-  //                                   Robot.m_drive.m_kinematics, Robot.m_drive::getCurrentSpeeds, 
-  //                                   new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
-  //                                    Robot.m_drive::setVoltage, Robot.m_drive);
-    // SmartDashboard.putData("Reset Gyro", new ResetGyro(Robot.m_drive));
-    // SmartDashboard.putData("ResetXY", new InstantCommand(() -> Robot.m_drive.resetXY()));
-    // SmartDashboard.putData("Reset Encoders", new ResetDriveEncoders(Robot.m_drive));  
-    // SmartDashboard.putData("Ramsete3", new Ramsete3BallShoot(Robot.m_drive));
-    // SmartDashboard.putData("Ramsete5", new Ramsete5Ball(Robot.m_drive));
-    
+
+
   }
 }

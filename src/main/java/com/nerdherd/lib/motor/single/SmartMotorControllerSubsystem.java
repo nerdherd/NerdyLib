@@ -42,9 +42,8 @@ public abstract class SmartMotorControllerSubsystem extends AbstractSingleMotor 
     public abstract void setPositionMotionMagic(double pos);
     public abstract void setPositionMotionMagic(double pos, double arbFF);
     
-    public abstract void setPositionCalculated(double pos);
-    public abstract void setPositionCalculated(double pos, double arbFF);
-
+    public abstract void setPositionOblargian(double pos);
+    public abstract void setPositionOblargian(double pos, double arbFF);
     /**
      * Configure TalonSRX onboard PIDF
      * @param kP
@@ -57,7 +56,7 @@ public abstract class SmartMotorControllerSubsystem extends AbstractSingleMotor 
     /**
      * Configure TalonSRX deadband
      */
-    public abstract void configTalonDeadband(double deadband);
+    public abstract void configDeadband(double deadband);
   
     /**
      * Get the mechanism's velocity

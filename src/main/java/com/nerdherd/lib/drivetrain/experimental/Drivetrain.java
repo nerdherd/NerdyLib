@@ -22,8 +22,6 @@ import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
 
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -327,6 +325,7 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public double getRawYaw() {
+		// return -m_nav.getAngle() + m_chooser.getDirection();
 		return -m_nav.getAngle();
 	}
 
@@ -338,14 +337,12 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		m_nav.reset();
 	}
 
+
+
 	public double getAverageEncoderPosition() {
 		return (getRightMasterPosition() + getLeftMasterPosition()) / 2;
 	}
 
-	public void setPose(Pose2d pose){
-		m_nav.setAngleAdjustment(pose.getRotation().getDegrees());
-		m_odometry.resetPosition(pose, new Rotation2d(pose.getRotation().getRadians()));
-		}
 	public double getXPosMeters(){
 		return m_odometry.getPoseMeters().getTranslation().getX();
 	}
@@ -355,7 +352,6 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public void resetXY(){
-		// m_nav.reset();
 		m_odometry.resetPosition(new Pose2d(0,0, new Rotation2d(0)), Rotation2d.fromDegrees(getRawYaw()));
 	}
 
@@ -487,7 +483,9 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		SmartDashboard.putNumber("Right Velocity", getRightMasterVelocity());
 		SmartDashboard.putNumber("Yaw", getRawYaw());
 		
-		SmartDashboard.putNumber("Odometry Angle", m_odometry.getPoseMeters().getRotation().getDegrees());
+		// SmartDashboard.putNumber("X pos", m_currentX);
+		// SmartDashboard.putNumber("Y pos", m_currentY);
+
 		SmartDashboard.putNumber("X pos meters", getXPosMeters());
 		SmartDashboard.putNumber("Y pos meters", getYPosMeters());
 		
