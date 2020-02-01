@@ -24,7 +24,8 @@ public class TurnTime extends CommandBase {
      * @param timeout
      */
     public TurnTime(AbstractDrivetrain drive,double rotPower, double timeout) {
-	m_rotPower = rotPower;
+    m_drive = drive;
+    m_rotPower = rotPower;
 	m_timeout = timeout;
 
 	addRequirements(m_drive);
