@@ -22,7 +22,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
  */
 public class NerdyFalcon extends TalonFX implements SmartCANMotorController  {
     public NerdyFalcon(int deviceID){
-        super(deviceID);
+		super(deviceID);
     }
     
     /**
@@ -61,6 +61,11 @@ public class NerdyFalcon extends TalonFX implements SmartCANMotorController  {
 	 * Limit maximum voltage applied by the TalonSRX, is 12 Volts by default
 	 * @param voltage 
 	 */
+
+	// public void temperatureSensor(){
+	// 	super.getTemperature();
+	// }
+	 
 	public void configVoltageCompensation(double voltage) {
 		super.configVoltageCompSaturation(voltage, 0);
 		super.enableVoltageCompensation(true);

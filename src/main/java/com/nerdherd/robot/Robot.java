@@ -7,6 +7,9 @@
 
 package com.nerdherd.robot;
 
+import com.nerdherd.lib.motor.motorcontrollers.NerdyFalcon;
+import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
+import com.nerdherd.lib.pneumatics.Piston;
 import com.nerdherd.lib.sensor.RevColorSensorV3;
 
 import edu.wpi.first.wpilibj.AddressableLED;
@@ -30,6 +33,9 @@ public class Robot extends TimedRobot {
   // public static AddressableLED m_led;
   // public static AddressableLEDBuffer m_ledBuffer;
   public static RevColorSensorV3 colorSensor;
+  public static NerdyFalcon falcon;
+  public static Piston solenoid;
+  public static OI oi;
 
   
   public Robot() {
@@ -40,6 +46,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     colorSensor = new RevColorSensorV3(I2C.Port.kOnboard, "ColorSensor");
     colorSensor.addColor(0, 0, 0);
+    falcon = new NerdyFalcon(2);
+    solenoid = new Piston(0, 7);
+    oi = new OI();
 
     // m_led = new AddressableLED(2);
     // m_ledBuffer = new AddressableLEDBuffer(10);
@@ -61,6 +70,13 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     colorSensor.reportToSmartDashboard();
+    SmartDashboard.putNumber("Motor Temp", falcon.getTemperature());
+    falcon.setPower(oi.driveJoyLeft.getRawAxis(3));
+    if(oi.driveJoyLeft.getRawButton(1)){
+      solenoid.setForwards();
+    }else{
+      solenoid.setReverse();
+    }
   }
 
   /**
@@ -118,13 +134,13 @@ public class Robot extends TimedRobot {
   //                                   m_drive.m_kinematics, m_drive::getCurrentSpeeds, 
   //                                   new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
   //                                    m_drive::setVoltage, m_drive);
-    m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.8);
-    // m_autonomousCommand =  ramsete.andThen(() -> m_drive.setVoltage(0, 0));
-    // m_autonomousCommand =  null;
-    if (m_autonomousCommand != null) { 
-      m_autonomousCommand.schedule();
+    // m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.8);
+    // // m_autonomousCommand =  ramsete.andThen(() -> m_drive.setVoltage(0, 0));
+    // // m_autonomousCommand =  null;
+    // if (m_autonomousCommand != null) { 
+    //   m_autonomousCommand.schedule();
     }
-  }
+  
 
   /**
    * This function is called periodically during autonomous.
@@ -144,7 +160,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-CommandScheduler.getInstance().run();
+    CommandScheduler.getInstance().run();
+    
   }
 
   /**

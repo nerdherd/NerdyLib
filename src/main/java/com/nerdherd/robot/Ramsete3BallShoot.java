@@ -68,14 +68,14 @@ public class Ramsete3BallShoot extends SequentialCommandGroup {
       Trajectory m_traj3 = TrajectoryGenerator.generateTrajectory(new Pose2d(5.182, -0.705, new Rotation2d(0)),
       List.of(new Translation2d(8.166, -1.4)), new Pose2d(6.0, -2.404, new Rotation2d(Math.PI)),
       m_config);
-      RamseteCommand ramsete3 = new RamseteCommand(m_traj3, m_drive::getPose2d, new RamseteController(2.0, 0.7), 
-      new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
-      m_drive.m_kinematics, m_drive::getCurrentSpeeds, 
-      new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
-      Robot.m_drive::setVoltage, m_drive);   
+  //     RamseteCommand ramsete3 = new RamseteCommand(m_traj3, m_drive::getPose2d, new RamseteController(2.0, 0.7), 
+  //     new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
+  //     m_drive.m_kinematics, m_drive::getCurrentSpeeds, 
+  //     new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
+  //     // Robot.m_drive::setVoltage, m_drive);   
       
                                                                       
-  addCommands(ramsete, ramsete2, ramsete3, new DriveStraightContinuous(m_drive, 0, 0));
+  // addCommands(ramsete, ramsete2, ramsete3, new DriveStraightContinuous(m_drive, 0, 0));
   }
 }
 // new Pose2d(5.182, -0.762, new Rotation2d(2*Math.PI)
