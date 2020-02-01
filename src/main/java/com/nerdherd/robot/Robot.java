@@ -71,11 +71,11 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     colorSensor.reportToSmartDashboard();
     SmartDashboard.putNumber("Motor Temp", falcon.getTemperature());
-    falcon.setPower(oi.driveJoyLeft.getRawAxis(3));
+    falcon.setPower(oi.driveJoyLeft.getRawAxis(1));
     if(oi.driveJoyLeft.getRawButton(1)){
       solenoid.setForwards();
     }else{
-      solenoid.setReverse();
+      solenoid.setForwards();
     }
   }
 
