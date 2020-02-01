@@ -7,6 +7,7 @@
 
 package com.nerdherd.lib.sensor.analog;
 
+import com.nerdherd.lib.logging.Loggable;
 import com.nerdherd.lib.logging.NerdyBadlog;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
