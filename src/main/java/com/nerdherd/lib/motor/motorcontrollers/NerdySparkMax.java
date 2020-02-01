@@ -7,12 +7,12 @@
 
 package com.nerdherd.lib.motor.motorcontrollers;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANPIDController.AccelStrategy;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
-
 
 /**
  * Add your docs here.
@@ -124,9 +124,9 @@ public class NerdySparkMax extends CANSparkMax implements SmartCANMotorControlle
     public void setVoltage(double voltage, double arbitraryFF) {
         PIDController.setReference(voltage, ControlType.kVoltage, 0, arbitraryFF);
     }
+
     /**
-     * @param current
-     * Set smart current limit
+     * @param current Set smart current limit
      */
     @Override
     public void configCurrentLimitContinuous(double current) {
@@ -297,5 +297,17 @@ public class NerdySparkMax extends CANSparkMax implements SmartCANMotorControlle
     @Override
     public boolean getInversion() {
         return super.getInverted();
+    }
+
+    @Override
+    public void configSensor(FeedbackDevice device) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void configDeadband(double deadband) {
+        // TODO Auto-generated method stub
+
     }
 }

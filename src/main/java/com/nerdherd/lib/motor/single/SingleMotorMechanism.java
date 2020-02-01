@@ -7,14 +7,12 @@
 
 package com.nerdherd.lib.motor.single;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
+import com.nerdherd.lib.motor.motorcontrollers.NerdyVictorSPX;
+import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
 
-import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
@@ -22,18 +20,17 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
 /**
  * Add your docs here.
  */
-public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
+public class SingleMotorMechanism extends SmartMotorControllerSubsystem {
 
-  public NerdyTalon motor;
-  private TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(0, 0);
-  private ProfiledPIDController m_controller = new ProfiledPIDController(0, 0, 0, m_constraints, 0.02);
-  public double kF;
+  public SmartCANMotorController motor;
+  private TrapezoidProfile.Constraints m_constraints;
+
   /**
    * 
    * @param talonID       CAN ID of talon
    * @param subsystemName String name of subsystem to display on smart dashboard
    */
-  public SingleMotorTalonSRX(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
+  public SingleMotorMechanism(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     name = subsystemName;
     motor = new NerdyTalon(talonID);
     motor.configDefaultSettings();
@@ -41,18 +38,24 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
     setSensorPhase(sensorPhase);
   }
 
+  public SingleMotorMechanism(SmartCANMotorController motorController, String subsystemName, boolean inversion, boolean sensorPhase) {
+    name = subsystemName;
+    motor = motorController;
+    motor.configDefaultSettings();
+    setInversion(inversion);
+    setSensorPhase(sensorPhase);
+  }
+  
   public void configFollowersTalons(NerdyTalon[] followers) {
-    motor.configFollowerTalons(followers);
+    motor.configFollowers(followers);
   }
 
-  public void configFollowerVictors(VictorSPX[] followers) {
-    motor.configFollowerVictors(followers);
+  public void configFollowerVictors(NerdyVictorSPX[] followers) {
+    motor.configFollowers(followers);
   }
 
   public void configPIDF(double kP, double kI, double kD, double kF) {
     motor.configPIDF(kP, kI, kD, kF, 0);
-    m_controller.setPID(kP, kI, kD);
-    this.kF = kF;
   }
 
   public void configPIDF(double kP, double kI, double kD, double kF, int pidIndex) {
@@ -66,9 +69,6 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
 
   public void configMotionMagic(int accel, int cruise_vel) {
     motor.configMotionMagic(accel, cruise_vel);
-    m_constraints.maxAcceleration = accel;
-    m_constraints.maxVelocity = cruise_vel;
-    m_controller.setConstraints(m_constraints);
   }
 
   public void configTrapezoidalConstraints(Constraints constraints) {
@@ -76,111 +76,123 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
   }
 
   public void configSensor(FeedbackDevice device) {
-    motor.configSelectedFeedbackSensor(device);
+    motor.configSensor(device);
   }
 
-  public void configTalonDeadband(double deadband) {
-    motor.configNeutralDeadband(deadband);
+  @Override
+  public void configDeadband(double deadband) {
+    motor.configDeadband(deadband);
+    // motor.conf
   }
 
   @Override
   public void setInversion(boolean inversion) {
-    motor.setInverted(inversion);
+    motor.setInversion(inversion);
   }
 
   @Override
   public void resetEncoder() {
-    motor.setSelectedSensorPosition(0);
+    motor.resetEncoder();
   }
   @Override
   public void setSensorPhase(boolean phase) {
     motor.setSensorPhase(phase);
   }
 
-  public void controlMotor(ControlMode controlMode, double setpoint, double arbFF) {
-    motor.set(controlMode, setpoint, DemandType.ArbitraryFeedForward, arbFF);
-  }
+  // public void controlMotor(ControlMode controlMode, double setpoint, double arbFF) {
+  //   motor.set(controlMode, setpoint, DemandType.ArbitraryFeedForward, arbFF);
+  // }
   
   @Override
   public void setPower(double power) {
-    motor.set(ControlMode.PercentOutput, power);
+    // motor.set(ControlMode.PercentOutput, power);
+    motor.setPower(power);
   }
 
   @Override
   public void setPower(double power, double arbFF) {
-    motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, arbFF);
+    // motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, arbFF);
+    motor.setPower(power, arbFF);
   }
 
   @Override
   public void setVoltage(double voltage) {
-    motor.set(ControlMode.PercentOutput, voltage/12.0);
+    // motor.set(ControlMode.PercentOutput, voltage/12.0);
+    motor.setVoltage(voltage);
   }
 
   @Override
   public void setVoltage(double voltage, double arbFF) {
-    motor.set(ControlMode.PercentOutput, voltage/12.0, DemandType.ArbitraryFeedForward, arbFF);
+    // motor.set(ControlMode.PercentOutput, voltage/12.0, DemandType.ArbitraryFeedForward, arbFF);
+    motor.setVoltage(voltage, arbFF);
   }
 
   @Override
   public void setPosition(double pos) {
-    motor.set(ControlMode.Position, pos);
+    // motor.set(ControlMode.Position, pos);
+    motor.setPositionPID(pos);
   }
 
   @Override
   public void setPosition(double pos, double arbFF) {
-    motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, arbFF);
+    // motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, arbFF);
+    motor.setPositionPID(pos, arbFF);
   }
   
   @Override
   public void setPositionMotionMagic(double pos) {
-    motor.set(ControlMode.MotionMagic, pos);
+    // motor.set(ControlMode.MotionMagic, pos);
+    motor.setPositionMotionMagic(pos);
   }
 
   @Override
   public void setPositionMotionMagic(double pos, double arbFF) {
-    motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, arbFF);
+    // motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, arbFF);
+    motor.setPositionMotionMagic(pos, arbFF);
   }
 
   @Override
-  public void setPositionCalculated(double pos){
-    m_controller.setGoal(pos);
-    motor.set(ControlMode.PercentOutput, m_controller.calculate(getPosition()));
+  public void setPositionOblargian(double pos){
+    // motor.set(ControlMode.Position, pos);
+    motor.setPositionPID(pos);
   }
 
   @Override
-  public void setPositionCalculated(double pos, double arbFF){
-    m_controller.setGoal(pos);
-    motor.set(ControlMode.PercentOutput, pos, DemandType.ArbitraryFeedForward, arbFF);
+  public void setPositionOblargian(double pos, double arbFF){
+    // motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, arbFF);
+    motor.setPositionPID(pos, arbFF);
   }
 
   @Override
   public void setVelocity(double vel) {
-    motor.set(ControlMode.Velocity, vel);
+    // motor.set(ControlMode.Velocity, vel);
+    motor.setVelocity(vel);
   }
 
   @Override
   public void setVelocity(double vel, double arbFF) {
-    motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, arbFF);
+    // motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, arbFF);
+    motor.setVelocity(vel, arbFF);
   }
 
   @Override
   public double getCurrent() {
-    return motor.getOutputCurrent();
+    return motor.getCurrent();
   }
 
   @Override
   public double getPosition() {
-    return motor.getSelectedSensorPosition();
+    return motor.getPosition();
   }
 
   @Override
   public double getVelocity() {
-    return motor.getSelectedSensorVelocity();
+    return motor.getVelocity();
   }
 
   @Override
   public double getVoltage() {
-    return motor.getMotorOutputVoltage();
+    return motor.getVoltage();
   }
 
   @Override

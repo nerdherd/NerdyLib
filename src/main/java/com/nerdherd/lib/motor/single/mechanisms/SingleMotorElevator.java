@@ -7,8 +7,6 @@
 
 package com.nerdherd.lib.motor.single.mechanisms;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.nerdherd.lib.logging.NerdyBadlog;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -52,19 +50,19 @@ public class SingleMotorElevator extends GravityAffectedMechanism {
 
   public void setHeight(double height) {
     if (isNotMoving()) {
-      motor.set(ControlMode.Position, heightToTicks(height), DemandType.ArbitraryFeedForward, 
-        getFFIfNotMoving(height - getHeight()));
+      //motor.set(ControlMode.Position, heightToTicks(height), DemandType.ArbitraryFeedForward, 
+      //  getFFIfNotMoving(height - getHeight()));
     } else {
-      motor.set(ControlMode.Position, heightToTicks(height), DemandType.ArbitraryFeedForward, getFFIfMoving());
+      //motor.set(ControlMode.Position, heightToTicks(height), DemandType.ArbitraryFeedForward, getFFIfMoving());
     }
   }
 
   public void setHeightMotionMagic(double height) {
     if (isNotMoving()) {
-      motor.set(ControlMode.MotionMagic, heightToTicks(height), DemandType.ArbitraryFeedForward, 
-        getFFIfNotMoving(height - getHeight()));
+      //motor.set(ControlMode.MotionMagic, heightToTicks(height), DemandType.ArbitraryFeedForward, 
+       // getFFIfNotMoving(height - getHeight()));
     } else {
-      motor.set(ControlMode.MotionMagic, heightToTicks(height), DemandType.ArbitraryFeedForward, getFFIfMoving());
+      //motor.set(ControlMode.MotionMagic, heightToTicks(height), DemandType.ArbitraryFeedForward, getFFIfMoving());
     }
   }
 
