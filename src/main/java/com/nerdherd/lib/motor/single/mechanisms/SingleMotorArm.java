@@ -7,8 +7,6 @@
 
 package com.nerdherd.lib.motor.single.mechanisms;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.misc.NerdyMath;
 
@@ -60,11 +58,11 @@ public class SingleMotorArm extends GravityAffectedMechanism {
 
   public void setAngle(double angle) {
     if (isNotMoving()) {
-      motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
-        getFFIfNotMoving(angle - getAngle()));
+      // motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      //   getFFIfNotMoving(angle - getAngle()));
     } else {
-      motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
-        getFFIfMoving());
+      // motor.set(ControlMode.Position, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      //   getFFIfMoving());
     }
   }
 
@@ -75,11 +73,11 @@ public class SingleMotorArm extends GravityAffectedMechanism {
 
   public void setAngleMotionMagic(double angle) {
     if (isNotMoving()) {
-      motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
-        getFFIfNotMoving(angle - getAngle()));
+      // motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      //   getFFIfNotMoving(angle - getAngle()));
     } else {
-      motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
-        getFFIfMoving());
+      // motor.set(ControlMode.MotionMagic, angleToTicks(angle), DemandType.ArbitraryFeedForward, 
+      //   getFFIfMoving());
     }
   }
 

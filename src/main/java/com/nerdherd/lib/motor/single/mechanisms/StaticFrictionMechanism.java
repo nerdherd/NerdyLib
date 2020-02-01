@@ -7,14 +7,12 @@
 
 package com.nerdherd.lib.motor.single.mechanisms;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
-import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
+import com.nerdherd.lib.motor.single.SingleMotorMechanism;
 
 /**
  * Add your docs here.
  */
-public abstract class StaticFrictionMechanism extends SingleMotorTalonSRX {
+public abstract class StaticFrictionMechanism extends SingleMotorMechanism {
 
     // This is in STU (Stupid Talon Units, AKA ticks/decisecond)
     protected static final double kStaticFrictionDeadband = 5;
@@ -38,51 +36,51 @@ public abstract class StaticFrictionMechanism extends SingleMotorTalonSRX {
 
     public void setPowerWithFF(double power) {
         if (isNotMoving()) {
-            motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
-                getFFIfNotMoving(power));
+            // motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
+            //     getFFIfNotMoving(power));
         } else {
-            motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
-                getFFIfMoving());
+            // motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, 
+            //     getFFIfMoving());
         }
     }
 
     public void setVoltageWithFF(double voltage) {
         if (isNotMoving()) {
-            motor.set(ControlMode.PercentOutput, voltage / 12., DemandType.ArbitraryFeedForward, 
-                getFFIfNotMoving(voltage));
+            // motor.set(ControlMode.PercentOutput, voltage / 12., DemandType.ArbitraryFeedForward, 
+            //     getFFIfNotMoving(voltage));
         } else {
-            motor.set(ControlMode.PercentOutput, voltage / 12., DemandType.ArbitraryFeedForward, 
-                getFFIfMoving());
+            // motor.set(ControlMode.PercentOutput, voltage / 12., DemandType.ArbitraryFeedForward, 
+            //     getFFIfMoving());
         }
     }
   
     public void setPosition(double pos) {
         if (isNotMoving()) {
-            motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
-                getFFIfNotMoving(pos - getPosition()));
+            // motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
+            //     getFFIfNotMoving(pos - getPosition()));
         } else {
-            motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
-                getFFIfMoving());
+            // motor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, 
+            //     getFFIfMoving());
         }
     }
   
     public void setPositionMotionMagic(double pos) {
         if (isNotMoving()) {
-            motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, 
-                getFFIfNotMoving(pos - getPosition()));
+            // motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, 
+            //     getFFIfNotMoving(pos - getPosition()));
         } else {
-            motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, 
-                getFFIfMoving());
+            // motor.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, 
+            //     getFFIfMoving());
         }
     }
   
     public void setVelocity(double vel) {
         if (isNotMoving()) {
-            motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, 
-                getFFIfNotMoving(vel - getVelocity()));
+            // motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, 
+            //     getFFIfNotMoving(vel - getVelocity()));
         } else {
-            motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, 
-                getFFIfMoving());
+            // motor.set(ControlMode.Velocity, vel, DemandType.ArbitraryFeedForward, 
+            //     getFFIfMoving());
         }
     }
 

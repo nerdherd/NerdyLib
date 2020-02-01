@@ -57,7 +57,7 @@ public abstract class SmartMotorControllerSubsystem extends AbstractSingleMotor 
     /**
      * Configure TalonSRX deadband
      */
-    public abstract void configTalonDeadband(double deadband);
+    public abstract void configDeadband(double deadband);
   
     /**
      * Get the mechanism's velocity
