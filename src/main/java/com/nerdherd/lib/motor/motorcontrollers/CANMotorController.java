@@ -7,8 +7,6 @@
 
 package com.nerdherd.lib.motor.motorcontrollers;
 
-import com.ctre.phoenix.motorcontrol.IMotorController;
-
 /**
  * Add your docs here.
  */
