@@ -86,6 +86,8 @@ public interface CANMotorController {
             follower.setBrakeMode();
         }
     }
+
+    public abstract void configDeadband(double deadband);
     
 
 

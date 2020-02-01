@@ -94,4 +94,10 @@ public class NerdyVictorSPX extends VictorSPX implements CANMotorController {
     public boolean getInversion() {
         return super.getInverted();
     }
+
+    @Override
+    public void configDeadband(double deadband) {
+       super.configNeutralDeadband(deadband);
+
+    }
 }

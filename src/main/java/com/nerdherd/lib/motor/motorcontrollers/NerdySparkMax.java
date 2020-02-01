@@ -298,4 +298,10 @@ public class NerdySparkMax extends CANSparkMax implements SmartCANMotorControlle
     public boolean getInversion() {
         return super.getInverted();
     }
+
+    @Override
+    public void configDeadband(double deadband) {
+        
+
+    }
 }

@@ -8,7 +8,7 @@
 package com.nerdherd.lib.motor.statespace;
 
 import com.nerdherd.lib.logging.NerdyBadlog;
-import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
+import com.nerdherd.lib.motor.single.SingleMotorMechanism;
 import com.nerdherd.lib.motor.single.mechanisms.StaticFrictionMechanism;
 
 import Jama.Matrix;

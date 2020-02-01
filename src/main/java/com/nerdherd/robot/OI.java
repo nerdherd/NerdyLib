@@ -7,13 +7,7 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.drivetrain.auto.ResetDriveEncoders;
-import com.nerdherd.lib.drivetrain.auto.ResetGyro;
 import com.nerdherd.lib.oi.DefaultOI;
-import com.playingwithfusion.TimeOfFlight;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
