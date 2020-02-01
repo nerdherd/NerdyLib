@@ -27,7 +27,7 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
   public NerdyTalon motor;
   private TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(0, 0);
   private ProfiledPIDController m_controller = new ProfiledPIDController(0, 0, 0, m_constraints, 0.02);
-
+  public double kF;
   /**
    * 
    * @param talonID       CAN ID of talon
@@ -52,6 +52,7 @@ public class SingleMotorTalonSRX extends SmartMotorControllerSubsystem {
   public void configPIDF(double kP, double kI, double kD, double kF) {
     motor.configPIDF(kP, kI, kD, kF, 0);
     m_controller.setPID(kP, kI, kD);
+    this.kF = kF;
   }
 
   public void configPIDF(double kP, double kI, double kD, double kF, int pidIndex) {

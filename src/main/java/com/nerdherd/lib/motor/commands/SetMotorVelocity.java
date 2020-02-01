@@ -22,6 +22,13 @@ public class SetMotorVelocity extends CommandBase {
       m_arbFF = m_velocity*kF/1023;
       addRequirements(m_motor);
     }
+
+    public SetMotorVelocity(SingleMotorTalonSRX motor, double velocity) {
+      m_motor = motor;
+      m_velocity = velocity;
+      m_arbFF = m_velocity*m_motor.kF;
+      addRequirements(m_motor);
+    }
   
     // Called just before this Command runs the first time
     @Override
