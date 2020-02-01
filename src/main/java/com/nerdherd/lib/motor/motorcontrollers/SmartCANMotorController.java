@@ -7,8 +7,6 @@
 
 package com.nerdherd.lib.motor.motorcontrollers;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-
 /**
  * Add your docs here.
  */
@@ -56,11 +54,5 @@ public interface SmartCANMotorController extends CANMotorController{
      * @param phase
      */
     public abstract void setSensorPhase(boolean phase);
-
-    public abstract void configSensor(FeedbackDevice device);
-
-    public abstract void configDeadband(double deadband);
-
-
 
 }

@@ -1,30 +1,31 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package com.nerdherd.lib.motor.motorcontrollers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 /**
- * 
- * @author dbarv
- *Basic wrapper for TalonSRXs 
+ * Add your docs here.
  */
-
-public class NerdyTalon extends TalonSRX implements SmartCANMotorController{
-	
-	/**
-	 * @param talonID
-	 */
-	public NerdyTalon(int talonID) {
-		super(talonID);
-		super.configFactoryDefault();
-	}
-
-	/**
+public class NerdyFalcon extends TalonFX implements SmartCANMotorController  {
+    public NerdyFalcon(int deviceID){
+        super(deviceID);
+    }
+    
+    /**
 	 * configure default settings:
 	 * 12 volt voltage compensation
 	 * Brake Mode
@@ -70,8 +71,7 @@ public class NerdyTalon extends TalonSRX implements SmartCANMotorController{
 	 * @param current peak current limit in amps
 	 */
 	public void configCurrentLimitPeak(double current) {
-		super.configPeakCurrentLimit( (int) current, 0);
-		super.enableCurrentLimit(true);
+        super.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, current, 0, 0.01));
 	}
 	
 	/**
@@ -79,8 +79,7 @@ public class NerdyTalon extends TalonSRX implements SmartCANMotorController{
 	 * @param current continuous current limits in amps
 	 */
 	public void configCurrentLimitContinuous(double current) {
-		super.configContinuousCurrentLimit( (int) current, 0);
-		super.enableCurrentLimit(true);
+        super.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, current, 0, 0.25));
 	}
 
 	/**
@@ -230,4 +229,5 @@ public class NerdyTalon extends TalonSRX implements SmartCANMotorController{
         return super.getInverted();
     }
 	
+
 }

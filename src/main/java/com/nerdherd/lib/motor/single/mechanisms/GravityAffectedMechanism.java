@@ -7,6 +7,8 @@
 
 package com.nerdherd.lib.motor.single.mechanisms;
 
+import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
+
 /**
  * Add your docs here.
  */
