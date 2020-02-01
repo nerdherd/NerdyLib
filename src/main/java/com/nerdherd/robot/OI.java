@@ -84,11 +84,11 @@ public class OI extends DefaultOI{
   //                                   Robot.m_drive.m_kinematics, Robot.m_drive::getCurrentSpeeds, 
   //                                   new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
   //                                    Robot.m_drive::setVoltage, Robot.m_drive);
-    SmartDashboard.putData("Reset Gyro", new ResetGyro(Robot.m_drive));
-    SmartDashboard.putData("ResetXY", new InstantCommand(() -> Robot.m_drive.resetXY()));
-    SmartDashboard.putData("Reset Encoders", new ResetDriveEncoders(Robot.m_drive));  
-    SmartDashboard.putData("Ramsete3", new Ramsete3BallShoot(Robot.m_drive));
-    SmartDashboard.putData("Ramsete5", new Ramsete5Ball(Robot.m_drive));
+    // SmartDashboard.putData("Reset Gyro", new ResetGyro(Robot.m_drive));
+    // SmartDashboard.putData("ResetXY", new InstantCommand(() -> Robot.m_drive.resetXY()));
+    // SmartDashboard.putData("Reset Encoders", new ResetDriveEncoders(Robot.m_drive));  
+    // SmartDashboard.putData("Ramsete3", new Ramsete3BallShoot(Robot.m_drive));
+    // SmartDashboard.putData("Ramsete5", new Ramsete5Ball(Robot.m_drive));
     
   }
 }
