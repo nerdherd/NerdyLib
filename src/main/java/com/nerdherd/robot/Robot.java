@@ -7,15 +7,13 @@
 
 package com.nerdherd.robot;
 
-import com.nerdherd.lib.logging.NerdyBadlog;
-import com.nerdherd.lib.logging.SubscribedLoggable;
-import com.nerdherd.lib.misc.AutoChooser;
-import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
-import com.nerdherd.lib.motor.single.SingleMotorMechanism;
+import com.nerdherd.lib.sensor.RevColorSensorV3;
 
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
@@ -28,11 +26,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class Robot extends TimedRobot {
 
-  public static AutoChooser chooser;
-  public static SubscribedLoggable tester;
-  public static SingleMotorMechanism yeeterTalon;
-  // public static Drivetrain m_drive;
-  public static Command m_autonomousCommand;
 
   // public static AddressableLED m_led;
   // public static AddressableLEDBuffer m_ledBuffer;
@@ -45,15 +38,15 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    chooser = new AutoChooser();
-    yeeterTalon = new SingleMotorMechanism(new NerdyTalon(5), "flywheel", false, false);
-    yeeterTalon.configFollowersTalons(new NerdyTalon[] {new NerdyTalon(2)});
-    yeeterTalon.configDeadband(0.004);
-    //Tuning for the big heavy flywheel
-    yeeterTalon.configPIDF(0, 0, 0, 0);
-    //old P 0.175
-    oi = new OI();
-    NerdyBadlog.initAndLog("/media/sda1/logs/", "testing", 0.02, yeeterTalon);
+    colorSensor = new RevColorSensorV3(I2C.Port.kOnboard, "ColorSensor");
+    colorSensor.addColor(0, 0, 0);
+
+    // m_led = new AddressableLED(2);
+    // m_ledBuffer = new AddressableLEDBuffer(10);
+    // m_led.setLength(m_ledBuffer.getLength());
+    // m_led.setData(m_ledBuffer);
+    // m_led.start();
+    
   }
 
   /**
@@ -67,8 +60,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    yeeterTalon.reportToSmartDashboard();
-    SmartDashboard.putNumber("RPM", ((yeeterTalon.getVelocity()*60)/409.6));
+    colorSensor.reportToSmartDashboard();
   }
 
   /**
@@ -109,6 +101,29 @@ public class Robot extends TimedRobot {
    * the switch structure below with additional strings & commands.
    */
 
+
+
+
+  @Override
+  public void autonomousInit() {
+    
+  //    TrajectoryConfig m_config = new TrajectoryConfig(3, 3);
+  //    Trajectory m_traj = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)) , 
+  //   List.of(
+  //     new Translation2d(0, 2.5)
+  // ), new Pose2d(0, 5, new Rotation2d(0)),
+  //       m_config);
+  //    RamseteCommand ramsete = new RamseteCommand(m_traj, m_drive::getPose2d, new RamseteController(3.0, 0.7), 
+  //                                   new SimpleMotorFeedforward(1.2, 0.241, 0.065), 
+  //                                   m_drive.m_kinematics, m_drive::getCurrentSpeeds, 
+  //                                   new PIDController(3.1, 0, 0), new PIDController(3.1, 0, 0),
+  //                                    m_drive::setVoltage, m_drive);
+    m_autonomousCommand =  new DriveStraightContinuous(m_drive, 10000, 0.8);
+    // m_autonomousCommand =  ramsete.andThen(() -> m_drive.setVoltage(0, 0));
+    // m_autonomousCommand =  null;
+    if (m_autonomousCommand != null) { 
+      m_autonomousCommand.schedule();
+    }
   }
 
   /**

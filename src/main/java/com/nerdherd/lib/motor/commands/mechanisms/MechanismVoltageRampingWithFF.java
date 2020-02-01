@@ -7,6 +7,7 @@
 
 package com.nerdherd.lib.motor.commands.mechanisms;
 
+import com.nerdherd.lib.motor.single.mechanisms.GravityAffectedMechanism;
 import com.nerdherd.lib.motor.single.mechanisms.StaticFrictionMechanism;
 
 import edu.wpi.first.wpilibj.Timer;
