@@ -32,8 +32,16 @@ public class RevColorSensorV3 extends ColorSensorV3 implements Loggable {
 
     }
 
+    public void addColor(double r, double g, double b) {
+      m_colorMatcher.addColorMatch(ColorMatch.makeColor(r, g, b));
+    }
+
+    public Color getColor() {
+      return m_colorMatcher.matchClosestColor(new Color(this.getRed(), this.getGreen(), this.getBlue())).color;
+    }  
+
     //get currently matched color 
-    private  Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+  //   private Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
   //  m_colorMatcher.addColorMatch(kBlueTarget);
 
     // private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
@@ -53,6 +61,9 @@ public class RevColorSensorV3 extends ColorSensorV3 implements Loggable {
         SmartDashboard.putNumber(name + " Red", this.getRed());
         SmartDashboard.putNumber(name + " Blue", this.getBlue());
         SmartDashboard.putNumber(name + " Green", this.getGreen());
+        SmartDashboard.putNumber(name + " Matched Red", this.getColor().red);
+        SmartDashboard.putNumber(name + " Matched Green", this.getColor().green);
+        SmartDashboard.putNumber(name + " Matched Blue", this.getColor().blue);
         SmartDashboard.putNumber(name + " IR", this.getIR());
         SmartDashboard.putNumber(name + " Proximity", this.getProximity());
       }
