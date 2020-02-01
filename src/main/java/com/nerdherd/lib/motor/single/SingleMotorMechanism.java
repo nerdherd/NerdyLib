@@ -24,6 +24,7 @@ public class SingleMotorMechanism extends SmartMotorControllerSubsystem {
 
   public SmartCANMotorController motor;
   private TrapezoidProfile.Constraints m_constraints;
+  public double kF;
 
   /**
    * 
@@ -56,6 +57,7 @@ public class SingleMotorMechanism extends SmartMotorControllerSubsystem {
 
   public void configPIDF(double kP, double kI, double kD, double kF) {
     motor.configPIDF(kP, kI, kD, kF, 0);
+    this.kF = kF;
   }
 
   public void configPIDF(double kP, double kI, double kD, double kF, int pidIndex) {
@@ -75,15 +77,9 @@ public class SingleMotorMechanism extends SmartMotorControllerSubsystem {
     m_constraints = constraints;
   }
 
-  public void configSensor(FeedbackDevice device) {
-    motor.configSensor(device);
-  }
-
-  @Override
-  public void configDeadband(double deadband) {
-    motor.configDeadband(deadband);
-    // motor.conf
-  }
+  // public void configSensor(FeedbackDevice device) {
+  //   motor.configSensor(device);
+  // }
 
   @Override
   public void setInversion(boolean inversion) {
@@ -219,6 +215,18 @@ public class SingleMotorMechanism extends SmartMotorControllerSubsystem {
 
   public double converVelToRealUnits(double velocity){
     return velocity;
+  }
+
+  @Override
+  public void configDeadband(double deadband) {
+    motor.configDeadband(deadband);
+
+  }
+
+  @Override
+  public void configSensor(FeedbackDevice device) {
+    // TODO Auto-generated method stub
+
   }
   
 }

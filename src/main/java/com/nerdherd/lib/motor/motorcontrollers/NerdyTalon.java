@@ -229,5 +229,11 @@ public class NerdyTalon extends TalonSRX implements SmartCANMotorController{
     public boolean getInversion() {
         return super.getInverted();
     }
+
+	@Override
+	public void configDeadband(double deadband) {
+		super.configNeutralDeadband(deadband);
+
+	}
 	
 }
