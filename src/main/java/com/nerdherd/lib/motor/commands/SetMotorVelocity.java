@@ -7,29 +7,29 @@
 
 package com.nerdherd.lib.motor.commands;
 
-import com.nerdherd.lib.motor.single.SingleMotorMechanism;
+import com.nerdherd.lib.motor.single.SingleMotorTalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetMotorVelocity extends CommandBase {
-  private SingleMotorMechanism m_motor;
+  private SingleMotorTalonSRX m_motor;
   private double m_velocity, m_arbFF;
     
-    public SetMotorVelocity(SingleMotorMechanism motor, double velocity, double kF, double arbFF) {
+    public SetMotorVelocity(SingleMotorTalonSRX motor, double velocity, double kF) {
       m_motor = motor;
       m_velocity = velocity;
       m_arbFF = m_velocity*kF/1023;
       addRequirements(m_motor);
     }
-  
 
-    public SetMotorVelocity(SingleMotorMechanism motor, double velocity) {
-      this(motor, velocity, 0, 0);
+    public SetMotorVelocity(SingleMotorTalonSRX motor, double velocity) {
+      m_motor = motor;
+      m_velocity = velocity;
+      m_arbFF = m_velocity*m_motor.kF;
+      addRequirements(m_motor);
     }
-
-
-
+  
     // Called just before this Command runs the first time
     @Override
     public void initialize() {

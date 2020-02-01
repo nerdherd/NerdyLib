@@ -49,14 +49,21 @@ public class NerdyBadlog {
     // Check that the directory exists
     String pathToUse;
     File dir = new File(directory);
-    if (!(dir.isDirectory())) {
+    if (dir.getParentFile().isDirectory()) {
+      if (!dir.isDirectory()) {
+        dir.mkdir();
+      }
+      pathToUse = directory;
+    } else {
       if (RobotBase.isReal()) {
+        File defaultLogsFolder = new File(kDefaultPath);
+        if (!(defaultLogsFolder.isDirectory())) {
+          defaultLogsFolder.mkdir();
+        }
         pathToUse = kDefaultPath;
       } else {
         pathToUse = System.getProperty("user.dir") + kDefaultSimPath;
       }
-    } else {
-      pathToUse = directory;
     }
 
     int fileNumber = 0;
