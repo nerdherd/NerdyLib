@@ -95,6 +95,6 @@ public class OI extends DefaultOI{
     SmartDashboard.putData("Reset Encoders", new ResetDriveEncoders(Robot.m_drive));  
     SmartDashboard.putData("Ramsete3", new Ramsete3BallShoot(Robot.m_drive));
     SmartDashboard.putData("Ramsete5", new Ramsete5Ball(Robot.m_drive));
-    
+    SmartDashboard.putData("Bryant", new Bryant(Robot.m_drive));
   }
 }

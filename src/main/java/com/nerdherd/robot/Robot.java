@@ -83,7 +83,7 @@ public class Robot extends TimedRobot {
     m_drive.configAutoChooser(chooser);
     m_drive.configKinematics(0.63742712872013762571, new Rotation2d(0), new Pose2d(0,0, new Rotation2d(0)));
     oi = new OI();
-    NerdyBadlog.initAndLog("/media/sda1/logs/", "ramseteTuning", 0.02, m_drive);
+    // NerdyBadlog.initAndLog("/media/sda1/logs/", "ramseteTuning", 0.02, m_drive);
     
   }
 
