@@ -7,7 +7,12 @@
 
 package com.nerdherd.robot;
 
+import com.nerdherd.lib.drivetrain.auto.ResetDriveEncoders;
+import com.nerdherd.lib.drivetrain.auto.ResetGyro;
 import com.nerdherd.lib.oi.DefaultOI;
+import com.nerdherd.robot.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -87,8 +92,8 @@ public class OI extends DefaultOI{
     SmartDashboard.putData("Reset Gyro", new ResetGyro(Robot.m_drive));
     SmartDashboard.putData("ResetXY", new InstantCommand(() -> Robot.m_drive.resetXY()));
     SmartDashboard.putData("Reset Encoders", new ResetDriveEncoders(Robot.m_drive));  
-    SmartDashboard.putData("Ramsete3", new Ramsete3BallShoot(Robot.m_drive));
-    SmartDashboard.putData("Ramsete5", new Ramsete5Ball(Robot.m_drive));
-    SmartDashboard.putData("Bryant", new Bryant(Robot.m_drive));
+    // SmartDashboard.putData("Ramsete3", new Ramsete3BallShoot(Robot.m_drive));
+    // SmartDashboard.putData("Ramsete5", new Ramsete5Ball(Robot.m_drive));
+    // SmartDashboard.putData("Bryant", new Bryant(Robot.m_drive));
   }
 }

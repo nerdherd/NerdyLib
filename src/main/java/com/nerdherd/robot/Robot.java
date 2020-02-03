@@ -7,13 +7,20 @@
 
 package com.nerdherd.robot;
 
+import com.nerdherd.lib.drivetrain.experimental.Drivetrain;
+import com.nerdherd.lib.logging.SubscribedLoggable;
+import com.nerdherd.lib.misc.AutoChooser;
+import com.nerdherd.lib.motor.motorcontrollers.CANMotorController;
+import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
+import com.nerdherd.lib.motor.motorcontrollers.NerdyVictorSPX;
+import com.nerdherd.lib.motor.single.SingleMotorMechanism;
 import com.nerdherd.lib.sensor.RevColorSensorV3;
 
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
@@ -30,7 +37,14 @@ public class Robot extends TimedRobot {
   // public static AddressableLED m_led;
   // public static AddressableLEDBuffer m_ledBuffer;
   public static RevColorSensorV3 colorSensor;
-
+  public static AutoChooser chooser;	
+  public static SubscribedLoggable tester;	
+  // public static SingleMotorTalonSRX yeeterTalon;	
+  public static Drivetrain m_drive;	
+  public static Command m_autonomousCommand;	
+  public static SingleMotorMechanism m_leftMotor;	
+  public static NerdyTalon m_rightMotor;	
+  public static OI oi;
   
   public Robot() {
     super(0.02);
@@ -40,7 +54,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     colorSensor = new RevColorSensorV3(I2C.Port.kOnboard, "ColorSensor");
     colorSensor.addColor(0, 0, 0);
-
+    m_drive = new Drivetrain(new NerdyTalon(1), new NerdyTalon(2),  	    
+    new CANMotorController[] { new NerdyVictorSPX(19), new NerdyVictorSPX(20) },	  
+    new CANMotorController[] { new NerdyVictorSPX(3), new NerdyVictorSPX(4) }, true, false, 0.63742712872013762571);	
     // m_led = new AddressableLED(2);
     // m_ledBuffer = new AddressableLEDBuffer(10);
     // m_led.setLength(m_ledBuffer.getLength());
