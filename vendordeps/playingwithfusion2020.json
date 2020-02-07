@@ -1,7 +1,7 @@
 {
     "fileName": "playingwithfusion2020.json",
     "name": "PlayingWithFusion",
-    "version": "2020.01.12",
+    "version": "2020.01.30",
     "uuid": "14b8ad04-24df-11ea-978f-2e728ce88125",
     "jsonUrl": "https://www.playingwithfusion.com/frc/playingwithfusion2020.json",
     "mavenUrls": [
@@ -11,14 +11,14 @@
         {
             "groupId": "com.playingwithfusion.frc",
             "artifactId": "PlayingWithFusion-java",
-            "version": "2020.01.12"
+            "version": "2020.01.30"
         }
     ],
     "jniDependencies": [
         {
             "groupId": "com.playingwithfusion.frc",
             "artifactId": "PlayingWithFusion-driver",
-            "version": "2020.01.12",
+            "version": "2020.01.30",
             "isJar": false,
             "skipInvalidPlatforms": true,
             "validPlatforms": [
@@ -30,7 +30,7 @@
         {
             "groupId": "com.playingwithfusion.frc",
             "artifactId": "PlayingWithFusion-cpp",
-            "version": "2020.01.12",
+            "version": "2020.01.30",
             "headerClassifier": "headers",
             "sharedLibrary": false,
             "libName": "PlayingWithFusion",
@@ -42,7 +42,7 @@
         {
             "groupId": "com.playingwithfusion.frc",
             "artifactId": "PlayingWithFusion-driver",
-            "version": "2020.01.12",
+            "version": "2020.01.30",
             "headerClassifier": "headers",
             "sharedLibrary": true,
             "libName": "PlayingWithFusionDriver",

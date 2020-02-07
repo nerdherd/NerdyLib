@@ -47,7 +47,7 @@ public class SingleMotorMechanism extends SmartMotorControllerSubsystem {
     setSensorPhase(sensorPhase);
   }
   
-  public void configFollowersTalons(NerdyTalon[] followers) {
+  public void configFollowerTalons(NerdyTalon[] followers) {
     motor.configFollowers(followers);
   }
 
@@ -73,6 +73,7 @@ public class SingleMotorMechanism extends SmartMotorControllerSubsystem {
     motor.configMotionMagic(accel, cruise_vel);
   }
 
+  @Override
   public void configTrapezoidalConstraints(Constraints constraints) {
     m_constraints = constraints;
   }

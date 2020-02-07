@@ -9,6 +9,8 @@ package com.nerdherd.lib.motor.single;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
+
 /**
  * Add your docs here.
  */
@@ -86,6 +88,12 @@ public abstract class SmartMotorControllerSubsystem extends AbstractSingleMotor 
 	 * @param cruise_vel cruise velocity in ticks/decisecond
 	 */
     public abstract void configMotionMagic(int accel, int cruise_vel);
+
+    /**
+	 * Configure acceleration and velocity for Oblargian position control
+	 * @param constraints trapezoidal motion profile constraints for Oblargian position control
+	 */
+    public abstract void configTrapezoidalConstraints(Constraints constraints);
 
     /**
      * Configure a feedback device for the Talon
