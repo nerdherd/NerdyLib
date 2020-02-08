@@ -50,19 +50,17 @@ public class SingleMotorElevator extends GravityAffectedMechanism {
 
   public void setHeight(double height) {
     if (isNotMoving()) {
-      //motor.set(ControlMode.Position, heightToTicks(height), DemandType.ArbitraryFeedForward, 
-      //  getFFIfNotMoving(height - getHeight()));
+      motor.setPositionPID(heightToTicks(height), getFFIfNotMoving(height - getHeight()));
     } else {
-      //motor.set(ControlMode.Position, heightToTicks(height), DemandType.ArbitraryFeedForward, getFFIfMoving());
+      motor.setPositionPID(heightToTicks(height), getFFIfMoving());
     }
   }
 
   public void setHeightMotionMagic(double height) {
     if (isNotMoving()) {
-      //motor.set(ControlMode.MotionMagic, heightToTicks(height), DemandType.ArbitraryFeedForward, 
-       // getFFIfNotMoving(height - getHeight()));
+      motor.setPositionMotionMagic(heightToTicks(height), getFFIfNotMoving(height - getHeight()));
     } else {
-      //motor.set(ControlMode.MotionMagic, heightToTicks(height), DemandType.ArbitraryFeedForward, getFFIfMoving());
+      motor.setPositionMotionMagic(heightToTicks(height), getFFIfMoving());
     }
   }
 
