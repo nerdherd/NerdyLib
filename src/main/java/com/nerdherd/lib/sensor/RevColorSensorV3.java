@@ -10,12 +10,12 @@ package com.nerdherd.lib.sensor;
 import com.nerdherd.lib.logging.Loggable;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 
 /**
  * Add your docs here.
@@ -36,8 +36,8 @@ public class RevColorSensorV3 extends ColorSensorV3 implements Loggable {
       m_colorMatcher.addColorMatch(ColorMatch.makeColor(r, g, b));
     }
 
-    public Color getColor() {
-      return m_colorMatcher.matchClosestColor(new Color(this.getRed(), this.getGreen(), this.getBlue())).color;
+    public Color getMatchedColor() {
+      return m_colorMatcher.matchClosestColor(super.getColor()).color;
     }  
 
     //get currently matched color 

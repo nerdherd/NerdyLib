@@ -40,4 +40,13 @@ public class ShiftingDrivetrain extends Drivetrain implements TwoSpeedDrivetrain
       public void switchShift() {
         m_shifter.switchPosition();
       }
+
+      public void autoShift() {
+        if (super.getLeftMasterCurrent() > 50 && super.getLeftMasterCurrent() > 50) {
+          shiftHigh(); 
+        }
+        else {
+          shiftLow();
+        }
+    }
 }
