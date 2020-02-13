@@ -9,6 +9,7 @@ package com.nerdherd.lib.motor.single;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.nerdherd.lib.logging.NerdyBadlog;
+import com.nerdherd.lib.motor.motorcontrollers.CANMotorController;
 import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
 import com.nerdherd.lib.motor.motorcontrollers.NerdyVictorSPX;
 import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
@@ -54,6 +55,10 @@ public class SingleMotorMechanism extends SmartMotorControllerSubsystem {
   public void configFollowerVictors(NerdyVictorSPX[] followers) {
     motor.configFollowers(followers);
   }
+
+  // public void configFollwers(CANMotorController[] followers) {
+  //   motor.
+  // }
 
   public void configPIDF(double kP, double kI, double kD, double kF) {
     motor.configPIDF(kP, kI, kD, kF, 0);
