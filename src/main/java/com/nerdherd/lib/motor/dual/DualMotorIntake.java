@@ -18,7 +18,7 @@ public class DualMotorIntake extends AbstractDualMotorIntake {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private AbstractSingleMotor m_leftMotor, m_rightMotor;
+  public AbstractSingleMotor leftMotor, rightMotor;
 
   /**
    * 
@@ -26,25 +26,25 @@ public class DualMotorIntake extends AbstractDualMotorIntake {
    * @param right right or bottom motor on intake
    */
   public DualMotorIntake(AbstractSingleMotor left, AbstractSingleMotor right) {
-    m_leftMotor = left;
-    m_rightMotor = right;
+    leftMotor = left;
+    rightMotor = right;
   }
 
   @Override
   public void setPower(double leftPower, double rightPower) {
-    m_leftMotor.setPower(leftPower);
-    m_rightMotor.setPower(rightPower);
+    leftMotor.setPower(leftPower);
+    rightMotor.setPower(rightPower);
   }
 
   
 
   public void initLoggingData() {
-    m_rightMotor.initLoggingData();
-    m_leftMotor.initLoggingData();
+    rightMotor.initLoggingData();
+    leftMotor.initLoggingData();
   }  
 
   public void reportToSmartDashboard() {
-    m_leftMotor.reportToSmartDashboard();
-    m_rightMotor.reportToSmartDashboard();
+    leftMotor.reportToSmartDashboard();
+    rightMotor.reportToSmartDashboard();
   }
 }

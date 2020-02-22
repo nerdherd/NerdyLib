@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.nerdherd.lib.logging.NerdyBadlog;
+import com.nerdherd.lib.motor.motorcontrollers.NerdyVictorSPX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,7 +22,7 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private VictorSPX m_motor;
+  public NerdyVictorSPX motor;
 
    /**
    * 
@@ -31,37 +32,37 @@ public class SingleMotorVictorSPX extends AbstractSingleMotor {
    */
   public SingleMotorVictorSPX(int victorID, String subsystemName, boolean inversion) {
     name = subsystemName;
-    m_motor = new VictorSPX(victorID); 
-    m_motor.configFactoryDefault();
+    motor = new NerdyVictorSPX(victorID); 
+    motor.configFactoryDefault();
     setInversion(inversion);
   }
 
   @Override
   public void setInversion(boolean inversion) {
-    m_motor.setInverted(inversion);
+    motor.setInverted(inversion);
   }
 
   public void controlMotor(ControlMode controlMode, double setpoint, double arbFF) {
-    m_motor.set(controlMode, setpoint, DemandType.ArbitraryFeedForward, arbFF);
+    motor.set(controlMode, setpoint, DemandType.ArbitraryFeedForward, arbFF);
   }
 
   @Override
   public void setPower(double power) {
-    m_motor.set(ControlMode.PercentOutput, power);
+    motor.set(ControlMode.PercentOutput, power);
   }
 
   @Override
   public void setPower(double power, double arbFF) {
-    m_motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, arbFF);
+    motor.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, arbFF);
   }
 
   @Override
   public double getVoltage() {
-    return m_motor.getMotorOutputVoltage();
+    return motor.getMotorOutputVoltage();
   }
 
   public void setVoltage(double voltage) {
-    m_motor.set(ControlMode.PercentOutput, voltage/12.0);
+    motor.set(ControlMode.PercentOutput, voltage/12.0);
   }
 
 
