@@ -27,18 +27,18 @@ public class SetDualMotorPower extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    m_intake.setPower(m_leftPower, m_rightPower);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
+    m_intake.setPower(m_leftPower, m_rightPower);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
