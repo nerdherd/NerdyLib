@@ -16,11 +16,20 @@ public class ArcadeDrive extends CommandBase {
 	private double m_leftPower, m_rightPower;
     private AbstractDrivetrain m_drive;
     private AbstractOI m_oi;
+    private double m_mult;
     
     public ArcadeDrive(AbstractDrivetrain drive, AbstractOI oi) {
         m_drive = drive;
         m_oi = oi;
-    	addRequirements(m_drive);
+        addRequirements(m_drive);
+        m_mult = 1;
+    }
+
+    public ArcadeDrive(AbstractDrivetrain drive, AbstractOI oi, double mult) {
+        m_drive = drive;
+        m_oi = oi;
+        addRequirements(m_drive);
+        m_mult = mult;
     }
 
     // Called just before this Command runs the first time
@@ -32,7 +41,7 @@ public class ArcadeDrive extends CommandBase {
     public void execute() {
     	m_leftPower = NerdyMath.squareInput(m_oi.getDriveJoyLeftX()) + NerdyMath.squareInput(m_oi.getDriveJoyRightY());
     	m_rightPower = -NerdyMath.squareInput(m_oi.getDriveJoyLeftX()) +  NerdyMath.squareInput(m_oi.getDriveJoyRightY());
-    	m_drive.setPower(m_leftPower, m_rightPower);
+    	m_drive.setPower(m_leftPower * m_mult, m_rightPower * m_mult);
     }
 
     // Make this return true when this Command no longer needs to run execute()
