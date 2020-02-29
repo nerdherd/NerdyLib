@@ -8,6 +8,7 @@
 package com.nerdherd.lib.motor.single.mechanisms;
 
 import com.nerdherd.lib.logging.NerdyBadlog;
+import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -20,6 +21,14 @@ public class SingleMotorElevator extends GravityAffectedMechanism {
 
   public SingleMotorElevator(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     super(talonID, subsystemName, inversion, sensorPhase);
+    super.m_gravityFF = 0;
+    super.m_staticFF = 0;
+    m_distanceRatio = 1;
+    m_distanceOffset = 0;
+  }
+
+  public SingleMotorElevator(SmartCANMotorController motorController, String subsystemName, boolean inversion, boolean sensorPhase) {
+    super(motorController, subsystemName, inversion, sensorPhase);
     super.m_gravityFF = 0;
     super.m_staticFF = 0;
     m_distanceRatio = 1;

@@ -7,6 +7,7 @@
 
 package com.nerdherd.lib.motor.single.mechanisms;
 
+import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
 import com.nerdherd.lib.motor.single.SingleMotorMechanism;
 
 /**
@@ -19,6 +20,10 @@ public abstract class StaticFrictionMechanism extends SingleMotorMechanism {
 
     public StaticFrictionMechanism(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
         super(talonID, subsystemName, inversion, sensorPhase);
+    }
+
+    public StaticFrictionMechanism(SmartCANMotorController motorController, String subsystemName, boolean inversion, boolean sensorPhase){
+        super(motorController, subsystemName, inversion, sensorPhase);
     }
 
     protected double m_staticFF;

@@ -7,6 +7,8 @@
 
 package com.nerdherd.lib.motor.single.mechanisms;
 
+import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
+
 /**
  * Add your docs here.
  */
@@ -14,6 +16,10 @@ public abstract class GravityAffectedMechanism extends StaticFrictionMechanism {
 
   public GravityAffectedMechanism(int talonID, String subsystemName, boolean inversion, boolean sensorPhase) {
     super(talonID, subsystemName, inversion, sensorPhase);
+  }
+
+  public GravityAffectedMechanism(SmartCANMotorController motorController, String subsystemName, boolean inversion, boolean sensorPhase){
+    super(motorController, subsystemName, inversion, sensorPhase);
   }
 
   // These are initialized in volts using the config methods, but are stored as percent outputs
