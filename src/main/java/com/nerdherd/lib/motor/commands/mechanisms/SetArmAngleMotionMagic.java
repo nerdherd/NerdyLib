@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 public class SetArmAngleMotionMagic extends CommandBase {
-  private SingleMotorArm m_motor;
+  protected SingleMotorArm m_motor;
   private double m_angle;
 
   public SetArmAngleMotionMagic(SingleMotorArm motor, double angle) {
