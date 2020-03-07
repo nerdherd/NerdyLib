@@ -100,4 +100,16 @@ public class NerdyVictorSPX extends VictorSPX implements CANMotorController {
        super.configNeutralDeadband(deadband);
 
     }
+
+    @Override
+    public void configCurrentLimitPeak(double current) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void configCurrentLimitContinuous(double current) {
+        // TODO Auto-generated method stub
+
+    }
 }

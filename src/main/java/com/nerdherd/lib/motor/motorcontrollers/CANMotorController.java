@@ -88,7 +88,10 @@ public interface CANMotorController {
     }
 
     public abstract void configDeadband(double deadband);
-    
+
+    public abstract void configCurrentLimitPeak(double current);
+
+    public abstract void configCurrentLimitContinuous(double current);    
 
 
 }

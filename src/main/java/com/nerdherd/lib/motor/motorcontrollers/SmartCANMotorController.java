@@ -39,10 +39,6 @@ public interface SmartCANMotorController extends CANMotorController{
 
     public abstract void configMotionMagic(int accel, int vel);
 
-    public abstract void configCurrentLimitPeak(double current);
-
-    public abstract void configCurrentLimitContinuous(double current);
-
     public abstract void resetEncoder();
 
     public abstract double getPosition();

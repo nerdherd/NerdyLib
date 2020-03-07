@@ -214,7 +214,7 @@ public class NerdyFalcon extends TalonFX implements SmartCANMotorController  {
      * Only works with CTRE Motor Controllers
      */
     public void followCANMotorController(CANMotorController master) {
-        if (master instanceof NerdyTalon || master instanceof NerdyVictorSPX) {
+        if (master instanceof NerdyTalon || master instanceof NerdyVictorSPX || master instanceof NerdyFalcon) {
             super.follow( (IMotorController) master);
         }
 	}
