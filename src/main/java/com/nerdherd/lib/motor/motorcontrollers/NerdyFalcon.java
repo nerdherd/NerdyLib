@@ -32,6 +32,7 @@ public class NerdyFalcon extends TalonFX implements SmartCANMotorController  {
 	 * Peak output of 100%
 	 */
 	public void configDefaultSettings() {
+		super.configFactoryDefault();
 		configVoltageCompensation(12);
 		super.setStatusFramePeriod(StatusFrame.Status_1_General, 20, 0);
 		super.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, 0);
