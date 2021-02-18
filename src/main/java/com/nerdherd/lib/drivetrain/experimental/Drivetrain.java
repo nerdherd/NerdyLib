@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 
@@ -61,7 +62,8 @@ public class Drivetrain extends AbstractDrivetrain {
 	public DifferentialDriveKinematics m_kinematics;
 	private DifferentialDriveOdometry m_odometry;
 	private SimpleMotorFeedforward m_leftFeedforward, m_rightFeedforward;
-
+	private Field2d m_field = new Field2d();
+	
     public Drivetrain(SmartCANMotorController leftMaster, SmartCANMotorController rightMaster, CANMotorController[] leftSlaves, CANMotorController[] rightSlaves, boolean leftInversion, boolean rightInversion, double trackwidth) {
         m_leftMaster = leftMaster;
 		m_rightMaster = rightMaster;
@@ -420,6 +422,7 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	@Override
 	public void periodic(){
 		updateOdometry();
+		m_field.setRobotPose(m_odometry.getPoseMeters());
 	}
 	/**set velocity to Talon SRXs in units of feet/s, unit conversions are handled internally
 	 * @param leftVel
@@ -474,6 +477,7 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public void reportToSmartDashboard() {
+		SmartDashboard.putData("Field", m_field);	  
 		SmartDashboard.putNumber("Left Master Voltage", getLeftOutputVoltage());
 		SmartDashboard.putNumber("Right Master Voltage", getRightOutputVoltage());
 
@@ -646,4 +650,5 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	public void setChasisSpeeds(ChassisSpeeds speeds, double leftAccel, double rightAccel){
 		setSpeeds(m_kinematics.toWheelSpeeds(speeds), leftAccel, rightAccel); 
 	}
+
 }
