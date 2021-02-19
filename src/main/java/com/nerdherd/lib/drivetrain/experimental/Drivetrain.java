@@ -63,6 +63,8 @@ public class Drivetrain extends AbstractDrivetrain {
 	private DifferentialDriveOdometry m_odometry;
 	private SimpleMotorFeedforward m_leftFeedforward, m_rightFeedforward;
 	private Field2d m_field = new Field2d();
+
+	public double simLeftVolt, simRightVolt;
 	
     public Drivetrain(SmartCANMotorController leftMaster, SmartCANMotorController rightMaster, CANMotorController[] leftSlaves, CANMotorController[] rightSlaves, boolean leftInversion, boolean rightInversion, double trackwidth) {
         m_leftMaster = leftMaster;
@@ -242,6 +244,9 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	public void setVoltage(double leftVoltage, double rightVoltage) {
 		m_leftMaster.setVoltage(leftVoltage);
 		m_rightMaster.setVoltage(rightVoltage);
+
+		simLeftVolt = leftVoltage; 
+		simRightVolt = rightVoltage;
 	}
 
 	/**
