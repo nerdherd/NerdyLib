@@ -21,6 +21,7 @@ public class ResetGyro extends CommandBase {
 
     @Override
     public void initialize() {
+    //if gyro dies or replaced, hold CAL 10 seconds then RESET after light flashing
 	SmartDashboard.putString("Current Drive Command", "ResetGyro");
     m_drive.resetYaw();
     m_drive.setXY(0, 0);

@@ -334,7 +334,14 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public double getRawYaw() {
-		return -m_nav.getAngle();
+		double temp = -m_na.getAngle();
+		// return -m_nav.getAngle(); //negative for right hand rule
+		if(temp < -180){
+			return temp + 360;
+		}
+		if(temp > 180){
+			return temp - 360;
+		}
 	}
 
 	public double getAngularVelocity() {
