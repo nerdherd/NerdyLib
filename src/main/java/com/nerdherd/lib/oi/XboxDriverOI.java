@@ -24,13 +24,14 @@ public class XboxDriverOI extends AbstractOI {
     private boolean m_isLerping;
 
     public XboxDriverOI() {
-        driverController = new NerdyXboxController(0);
-        operatorJoy = new Joystick(1);
+        this(0);
     }
 
     public XboxDriverOI(double deadband) {
         driverController = new NerdyXboxController(0);
         operatorJoy = new Joystick(1);
+        configJoystickDeadband(deadband);
+        configLerping(false);
     }
 
 
