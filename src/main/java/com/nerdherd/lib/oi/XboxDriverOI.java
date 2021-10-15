@@ -34,9 +34,6 @@ public class XboxDriverOI extends AbstractOI {
         configLerping(false);
     }
 
-
-
-
     @Override
     public void initLoggingData() {
         
