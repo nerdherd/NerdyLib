@@ -18,6 +18,10 @@ public abstract class AbstractDrivetrain extends SubsystemBase implements Loggab
 
     public abstract void setPower(double leftPower, double rightPower);
 
+    public abstract void setSwervePower(double frontLeftPower, double frontRightPower, double backLeftPower, double backRightPower);
+
+    public abstract void setSwerveAnglePower(double frontLeftAnglePower, double frontRightAnglePower, double backLeftAnglePower, double backRightAnglePower);
+
     public abstract void setPowerFeedforward(double leftPower, double rightPower);
 
     public abstract void setVoltage(double leftVoltage, double rightVoltage);
