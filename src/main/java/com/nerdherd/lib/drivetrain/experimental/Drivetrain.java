@@ -20,20 +20,30 @@ import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.motorcontrollers.CANMotorController;
 import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+
+import edu.wpi.first.math.util.Units;
+
+// import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+// import edu.wpi.first.wpilibj.geometry.Pose2d;
+// import edu.wpi.first.wpilibj.geometry.Rotation2d;
+// import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
+// import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+// import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+// import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Units;
+// import edu.wpi.first.wpilibj.util.Units;
 
 /**
  * Add your docs here.
@@ -334,14 +344,15 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public double getRawYaw() {
-		// double temp = -m_na.getAngle();
-		return -m_nav.getAngle(); //negative for right hand rule
-		// if(temp < -180){
-		// 	return temp + 360;
-		// }
-		// if(temp > 180){
-		// 	return temp - 360;
-		// }
+		double temp = -m_nav.getAngle();
+		// return -m_nav.getAngle(); //negative for right hand rule
+		if(temp < -180){
+			return temp + 360;
+		}
+		if(temp > 180){
+			return temp - 360;
+		}
+		return temp;
 	}
 
 	public double getAngularVelocity() {
@@ -661,6 +672,24 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 
 	public void setChasisSpeeds(ChassisSpeeds speeds, double leftAccel, double rightAccel){
 		setSpeeds(m_kinematics.toWheelSpeeds(speeds), leftAccel, rightAccel); 
+	}
+
+
+
+	@Override
+	public void setSwervePower(double frontLeftPower, double frontRightPower, double backLeftPower,
+			double backRightPower) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void setSwerveAnglePower(double frontLeftAnglePower, double frontRightAnglePower, double backLeftAnglePower,
+			double backRightAnglePower) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

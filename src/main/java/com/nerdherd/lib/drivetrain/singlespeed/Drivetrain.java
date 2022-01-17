@@ -586,4 +586,18 @@ public class Drivetrain extends AbstractDrivetrain {
 		NerdyBadlog.createTopic("Drive/AccelZ", () -> getLeftVelocityFeet());
 	}
 
+	@Override
+	public void setSwervePower(double frontLeftPower, double frontRightPower, double backLeftPower,
+			double backRightPower) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setSwerveAnglePower(double frontLeftAnglePower, double frontRightAnglePower, double backLeftAnglePower,
+			double backRightAnglePower) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

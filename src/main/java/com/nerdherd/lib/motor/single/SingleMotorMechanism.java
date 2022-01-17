@@ -14,9 +14,11 @@ import com.nerdherd.lib.motor.motorcontrollers.NerdyTalon;
 import com.nerdherd.lib.motor.motorcontrollers.NerdyVictorSPX;
 import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
 
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
+// import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
+// import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
 
 /**
  * Add your docs here.
@@ -234,5 +236,5 @@ public class SingleMotorMechanism extends SmartMotorControllerSubsystem {
     // TODO Auto-generated method stub
 
   }
-  
+
 }

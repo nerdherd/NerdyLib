@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.nerdherd.lib.logging.NerdyBadlog;
 import com.nerdherd.lib.misc.NerdyMath;
 
-import edu.wpi.first.wpilibj.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
