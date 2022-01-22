@@ -37,5 +37,8 @@ public class NerdyXboxController extends XboxController{
         super(port);
     }
 
+    public static enum Hand {
+        kRight, kLeft;
+    }
 
 }
