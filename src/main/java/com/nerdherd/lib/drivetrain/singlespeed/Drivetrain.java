@@ -467,6 +467,9 @@ public class Drivetrain extends AbstractDrivetrain {
 		SmartDashboard.putNumber("Left Master Position", getLeftMasterPosition());
 		SmartDashboard.putNumber("Right Master Position", getRightMasterPosition());
 
+		SmartDashboard.putNumber("Left Master Current", getLeftMasterCurrent());
+		SmartDashboard.putNumber("Right Master Current", getRightMasterCurrent());
+
 		SmartDashboard.putNumber("Left Master Position Feet", getLeftPositionFeet());
 		SmartDashboard.putNumber("Right Master Position Feet", getRightPositionFeet());
 
@@ -494,7 +497,7 @@ public class Drivetrain extends AbstractDrivetrain {
 		if (!writeException) {
 			int counter = 0;
 			while (counter <= 99) {
-				m_file = new File(filePrefix.toString() + String.format("%02d", counter) + ".csv");
+				m_file = new File(filePrefix.toString() + String.format("%02d", counter) + ".csv"); // Name file with index (counter)
 				if (m_file.exists()) {
 					counter++;
 				} else {
@@ -506,8 +509,7 @@ public class Drivetrain extends AbstractDrivetrain {
 			}
 			try {
 				m_writer = new FileWriter(m_file);
-				m_writer.append(
-						"Time,RightPosition,LeftPosition,RightVelocity,LeftVelocity,RightDesiredVel,LeftDesiredVel,RightVoltage,LeftVoltage,"
+				m_writer.append("Time,RightPosition,LeftPosition,RightVelocity,LeftVelocity,RightDesiredVel,LeftDesiredVel,RightVoltage,LeftVoltage,"
 								+ "RightMasterCurrent,LeftMasterCurrent,Yaw,Pitch,Roll,"
 								+ "LeftVelocityFPS,RightVelocityFPS,RobotX,RobotY,LookaheadX,LookaheadY,AngularVelX,AngularVelY,AngularVelZ,AccelX,AccelY,AccelZ\n");
 				m_writer.flush();
@@ -533,15 +535,17 @@ public class Drivetrain extends AbstractDrivetrain {
 		if (!writeException) {
 			try {
 				double timestamp = Timer.getFPGATimestamp() - m_logStartTime;
-				m_writer.append(String.valueOf(timestamp) + "," + String.valueOf(getRightMasterPosition()) + ","
+				m_writer.append(
+						  String.valueOf(timestamp) + "," 
+						+ String.valueOf(getRightMasterPosition()) + ","
 						+ String.valueOf(getLeftMasterPosition()) + ","
 						+ String.valueOf(m_rightMaster.getSelectedSensorVelocity(0)) + ","
 						+ String.valueOf(m_leftMaster.getSelectedSensorVelocity(0)) + ","
 						+ String.valueOf(m_rightDesiredVel) + "," + String.valueOf(m_leftDesiredVel) + ","
 						+ String.valueOf(m_rightMaster.getMotorOutputVoltage()) + ","
 						+ String.valueOf(m_leftMaster.getMotorOutputVoltage()) + ","
-						+ String.valueOf(m_rightMaster.getOutputCurrent()) + ","
-						+ String.valueOf(m_leftMaster.getOutputCurrent()) + "," + String.valueOf(getRawYaw()) + ","
+						+ String.valueOf(m_rightMaster.getCurrent()) + ","
+						+ String.valueOf(m_leftMaster.getCurrent()) + "," + String.valueOf(getRawYaw()) + ","
 						+ String.valueOf(getPitch()) + "," + String.valueOf(getRoll()) + ","
 						+ String.valueOf(getLeftVelocityFeet()) + "," + String.valueOf(getRightVelocityFeet()) + ","
 						+ String.valueOf(m_currentX) + "," + String.valueOf(m_currentY) + ","

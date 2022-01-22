@@ -94,8 +94,6 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getRawYaw()));
     }
 
-
-
 	public void setBrakeMode() {
         m_leftMaster.setBrakeMode();
         m_rightMaster.setBrakeMode();
@@ -183,17 +181,18 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_date = date;
 		m_fileName = m_date + "drive";
 	}	
-public void configFeedforwardRight(double kV, double kS, double kA){
-	kRightV = kV;
-	kRightStatic = kS;
-	kRightA = kA;
-}
 
-public void configFeedforwardLeft(double kV, double kS, double kA){
-	kLeftV = kV;
-	kLeftStatic = kS;
-	kLeftA = kA;
-}
+	public void configFeedforwardRight(double kV, double kS, double kA){
+		kRightV = kV;
+		kRightStatic = kS;
+		kRightA = kA;
+	}
+
+	public void configFeedforwardLeft(double kV, double kS, double kA){
+		kLeftV = kV;
+		kLeftStatic = kS;
+		kLeftA = kA;
+	}
 
 	/**
 	 * configure a peak and continuous current limit
@@ -370,7 +369,8 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	public void setPose(Pose2d pose){
 		m_nav.setAngleAdjustment(pose.getRotation().getDegrees());
 		m_odometry.resetPosition(pose, new Rotation2d(pose.getRotation().getRadians()));
-		}
+	}
+
 	public double getXPosMeters(){
 		return m_odometry.getPoseMeters().getTranslation().getX();
 	}
@@ -454,7 +454,7 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	public void setVelocityFPS(double leftVel, double rightVel) {
 		addDesiredVelocities(leftVel, rightVel);
 		setVelocity(fpsToTalonVelocityUnits(leftVel, kLeftTicksPerFoot),
-				fpsToTalonVelocityUnits(rightVel, kRightTicksPerFoot));
+		fpsToTalonVelocityUnits(rightVel, kRightTicksPerFoot));
 	}
 
 	public void setVelocityFPS(double leftVel, double rightVel, double leftAccel, double rightAccel){
@@ -507,6 +507,9 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		SmartDashboard.putNumber("Left Master Position", getLeftMasterPosition());
 		SmartDashboard.putNumber("Right Master Position", getRightMasterPosition());
 
+		SmartDashboard.putNumber("Left Master Current", getLeftMasterCurrent());
+		SmartDashboard.putNumber("Right Master Current", getRightMasterCurrent());
+
 		SmartDashboard.putNumber("Left Master Position Feet", getLeftPositionFeet());
 		SmartDashboard.putNumber("Right Master Position Feet", getRightPositionFeet());
 
@@ -517,8 +520,6 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		SmartDashboard.putNumber("Odometry Angle", m_odometry.getPoseMeters().getRotation().getDegrees());
 		SmartDashboard.putNumber("X pos meters", getXPosMeters());
 		SmartDashboard.putNumber("Y pos meters", getYPosMeters());
-		
-
 	}
 
 	public void startLog() {
