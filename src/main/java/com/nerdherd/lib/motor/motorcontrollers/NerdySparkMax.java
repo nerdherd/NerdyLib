@@ -9,9 +9,11 @@ package com.nerdherd.lib.motor.motorcontrollers;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
-import com.revrobotics.CANPIDController.AccelStrategy;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.SparkMaxPIDController.AccelStrategy;
 
 
 /**
@@ -19,13 +21,13 @@ import com.revrobotics.ControlType;
  */
 public class NerdySparkMax extends CANSparkMax implements SmartCANMotorController {
 
-    public CANPIDController PIDController;
-    public CANEncoder encoder;
+    public SparkMaxPIDController PIDController;
+    public RelativeEncoder encoder;
 
     public NerdySparkMax(int deviceID, MotorType type) {
         super(deviceID, type);
         PIDController = super.getPIDController();
-        encoder = new CANEncoder(this);
+        encoder = super.getEncoder();
         super.restoreFactoryDefaults();
     }
 

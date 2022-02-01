@@ -10,7 +10,7 @@ package com.nerdherd.lib.oi;
 import com.nerdherd.lib.misc.NerdyMath;
 import com.nerdherd.lib.oi.controllers.NerdyXboxController;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -24,17 +24,15 @@ public class XboxDriverOI extends AbstractOI {
     private boolean m_isLerping;
 
     public XboxDriverOI() {
-        driverController = new NerdyXboxController(0);
-        operatorJoy = new Joystick(1);
+        this(0);
     }
 
     public XboxDriverOI(double deadband) {
         driverController = new NerdyXboxController(0);
         operatorJoy = new Joystick(1);
+        configJoystickDeadband(deadband);
+        configLerping(false);
     }
-
-
-
 
     @Override
     public void initLoggingData() {
@@ -45,9 +43,9 @@ public class XboxDriverOI extends AbstractOI {
     public double getDriveJoyLeftX() {
         // return driverController.getX(Hand.kLeft);
         if (m_isLerping) {
-            return NerdyMath.lerpJoystickDeadband(driverController.getX(Hand.kLeft), m_joystickDeadband);
+            return NerdyMath.lerpJoystickDeadband(driverController.getLeftX(), m_joystickDeadband);
         } else {
-            return NerdyMath.handleDeadband(driverController.getX(Hand.kLeft), m_joystickDeadband);
+            return NerdyMath.handleDeadband(driverController.getLeftX(), m_joystickDeadband);
         }
     }
 
@@ -55,9 +53,9 @@ public class XboxDriverOI extends AbstractOI {
     public double getDriveJoyLeftY() {
         // return -driverController.getY(Hand.kLeft);
         if (m_isLerping) {
-            return NerdyMath.lerpJoystickDeadband(-driverController.getY(Hand.kLeft), m_joystickDeadband);
+            return NerdyMath.lerpJoystickDeadband(-driverController.getLeftY(), m_joystickDeadband);
         } else {
-            return NerdyMath.handleDeadband(-driverController.getY(Hand.kLeft), m_joystickDeadband);
+            return NerdyMath.handleDeadband(-driverController.getLeftY(), m_joystickDeadband);
         }
     }
 
@@ -65,9 +63,9 @@ public class XboxDriverOI extends AbstractOI {
     public double getDriveJoyRightX() {
         // return driverController.getX(Hand.kRight);
         if (m_isLerping) {
-            return NerdyMath.lerpJoystickDeadband(driverController.getX(Hand.kRight), m_joystickDeadband);
+            return NerdyMath.lerpJoystickDeadband(driverController.getRightX(), m_joystickDeadband);
         } else {
-            return NerdyMath.handleDeadband(driverController.getX(Hand.kRight), m_joystickDeadband);
+            return NerdyMath.handleDeadband(driverController.getRightX(), m_joystickDeadband);
         }
     }
 
@@ -76,9 +74,9 @@ public class XboxDriverOI extends AbstractOI {
         // return -driverController.getY(Hand.kRight);
         // return -driverController.getY(Hand.kRight);
         if (m_isLerping) {
-            return NerdyMath.lerpJoystickDeadband(-driverController.getY(Hand.kRight), m_joystickDeadband);
+            return NerdyMath.lerpJoystickDeadband(-driverController.getRightY(), m_joystickDeadband);
         } else {
-            return NerdyMath.handleDeadband(-driverController.getY(Hand.kRight), m_joystickDeadband);
+            return NerdyMath.handleDeadband(-driverController.getRightY(), m_joystickDeadband);
         }
     }
 

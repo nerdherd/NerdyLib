@@ -19,7 +19,7 @@ public class Piston extends SubsystemBase {
   private DoubleSolenoid m_piston;
 
   public Piston(int port1, int port2) {
-    m_piston = new DoubleSolenoid(port1, port2);
+    m_piston = new DoubleSolenoid(null, port1, port2);
   }
 
   public void setForwards() {

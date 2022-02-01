@@ -33,7 +33,7 @@ public class RevColorSensorV3 extends ColorSensorV3 implements Loggable {
     }
 
     public void addColor(double r, double g, double b) {
-      m_colorMatcher.addColorMatch(ColorMatch.makeColor(r, g, b));
+      m_colorMatcher.addColorMatch(new Color(r, g, b));
     }
 
     public Color getMatchedColor() {

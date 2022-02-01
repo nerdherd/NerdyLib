@@ -4,9 +4,9 @@
     "version": "5.18.1",
     "uuid": "ab676553-b602-441f-a38d-f1296eff6537",
     "mavenUrls": [
-        "http://devsite.ctr-electronics.com/maven/release/"
+        "https://maven.ctr-electronics.com/release/"
     ],
-    "jsonUrl": "http://devsite.ctr-electronics.com/maven/release/com/ctre/phoenix/Phoenix-latest.json",
+    "jsonUrl": "https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix-frc2022-latest.json",
     "javaDependencies": [
         {
             "groupId": "com.ctre.phoenix",

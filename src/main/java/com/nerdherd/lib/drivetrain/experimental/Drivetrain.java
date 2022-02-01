@@ -20,20 +20,30 @@ import com.nerdherd.lib.misc.AutoChooser;
 import com.nerdherd.lib.motor.motorcontrollers.CANMotorController;
 import com.nerdherd.lib.motor.motorcontrollers.SmartCANMotorController;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+
+import edu.wpi.first.math.util.Units;
+
+// import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+// import edu.wpi.first.wpilibj.geometry.Pose2d;
+// import edu.wpi.first.wpilibj.geometry.Rotation2d;
+// import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
+// import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+// import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+// import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Units;
+// import edu.wpi.first.wpilibj.util.Units;
 
 /**
  * Add your docs here.
@@ -83,8 +93,6 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_kinematics = new DifferentialDriveKinematics(trackwidth);
 		m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getRawYaw()));
     }
-
-
 
 	public void setBrakeMode() {
         m_leftMaster.setBrakeMode();
@@ -173,17 +181,18 @@ public class Drivetrain extends AbstractDrivetrain {
 		m_date = date;
 		m_fileName = m_date + "drive";
 	}	
-public void configFeedforwardRight(double kV, double kS, double kA){
-	kRightV = kV;
-	kRightStatic = kS;
-	kRightA = kA;
-}
 
-public void configFeedforwardLeft(double kV, double kS, double kA){
-	kLeftV = kV;
-	kLeftStatic = kS;
-	kLeftA = kA;
-}
+	public void configFeedforwardRight(double kV, double kS, double kA){
+		kRightV = kV;
+		kRightStatic = kS;
+		kRightA = kA;
+	}
+
+	public void configFeedforwardLeft(double kV, double kS, double kA){
+		kLeftV = kV;
+		kLeftStatic = kS;
+		kLeftA = kA;
+	}
 
 	/**
 	 * configure a peak and continuous current limit
@@ -334,7 +343,7 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	}
 
 	public double getRawYaw() {
-		double temp = -m_na.getAngle();
+		double temp = -m_nav.getAngle();
 		// return -m_nav.getAngle(); //negative for right hand rule
 		if(temp < -180){
 			return temp + 360;
@@ -342,6 +351,7 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		if(temp > 180){
 			return temp - 360;
 		}
+		return temp;
 	}
 
 	public double getAngularVelocity() {
@@ -359,7 +369,8 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	public void setPose(Pose2d pose){
 		m_nav.setAngleAdjustment(pose.getRotation().getDegrees());
 		m_odometry.resetPosition(pose, new Rotation2d(pose.getRotation().getRadians()));
-		}
+	}
+
 	public double getXPosMeters(){
 		return m_odometry.getPoseMeters().getTranslation().getX();
 	}
@@ -443,7 +454,7 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 	public void setVelocityFPS(double leftVel, double rightVel) {
 		addDesiredVelocities(leftVel, rightVel);
 		setVelocity(fpsToTalonVelocityUnits(leftVel, kLeftTicksPerFoot),
-				fpsToTalonVelocityUnits(rightVel, kRightTicksPerFoot));
+		fpsToTalonVelocityUnits(rightVel, kRightTicksPerFoot));
 	}
 
 	public void setVelocityFPS(double leftVel, double rightVel, double leftAccel, double rightAccel){
@@ -496,6 +507,9 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		SmartDashboard.putNumber("Left Master Position", getLeftMasterPosition());
 		SmartDashboard.putNumber("Right Master Position", getRightMasterPosition());
 
+		SmartDashboard.putNumber("Left Master Current", getLeftMasterCurrent());
+		SmartDashboard.putNumber("Right Master Current", getRightMasterCurrent());
+
 		SmartDashboard.putNumber("Left Master Position Feet", getLeftPositionFeet());
 		SmartDashboard.putNumber("Right Master Position Feet", getRightPositionFeet());
 
@@ -506,8 +520,6 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 		SmartDashboard.putNumber("Odometry Angle", m_odometry.getPoseMeters().getRotation().getDegrees());
 		SmartDashboard.putNumber("X pos meters", getXPosMeters());
 		SmartDashboard.putNumber("Y pos meters", getYPosMeters());
-		
-
 	}
 
 	public void startLog() {
@@ -661,6 +673,24 @@ public void configFeedforwardLeft(double kV, double kS, double kA){
 
 	public void setChasisSpeeds(ChassisSpeeds speeds, double leftAccel, double rightAccel){
 		setSpeeds(m_kinematics.toWheelSpeeds(speeds), leftAccel, rightAccel); 
+	}
+
+
+
+	@Override
+	public void setSwervePower(double frontLeftPower, double frontRightPower, double backLeftPower,
+			double backRightPower) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void setSwerveAnglePower(double frontLeftAnglePower, double frontRightAnglePower, double backLeftAnglePower,
+			double backRightAnglePower) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

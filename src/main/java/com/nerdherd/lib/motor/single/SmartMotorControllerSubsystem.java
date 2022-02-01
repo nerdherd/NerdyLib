@@ -9,7 +9,9 @@ package com.nerdherd.lib.motor.single;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
+
+// import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
 
 /**
  * Add your docs here.
