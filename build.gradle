@@ -1,16 +1,17 @@
-plugins{
+import edu.wpi.first.gradlerio.deploy.roborio.RoboRIO
+
+plugins {
     id "java"
-    // id "edu.wpi.first.GradleRIO" version "2020.1.2"
-    id "edu.wpi.first.GradleRIO"
+    id "edu.wpi.first.GradleRIO" version "2022.1.1"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
-def ROBOT_MAIN_CLASS = "com.nerdherd.robot.Main"
+def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
-// This is added by GradleRIO's backing project EmbeddedTools.
+// This is added by GradleRIO's backing project DeployUtils.
 deploy {
     targets {
         roborio(getTargetTypeClass('RoboRIO')) {
@@ -38,15 +39,19 @@ deploy {
     }
 }
 
+def deployArtifact = deploy.targets.roborio.artifacts.frcJava
+
+// Set to true to use debug for JNI.
+wpi.java.debugJni = false
+
 // Set this to true to enable desktop support.
-def includeDesktopSupport = true
+def includeDesktopSupport = false
 
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
-    // implementation wpi.java.deps.vendor.java()
 
     roborioDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.roborio)
     roborioDebug wpi.java.vendor.jniDebug(wpi.platforms.roborio)
@@ -60,25 +65,10 @@ dependencies {
 
     nativeRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.desktop)
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
-
-    // nativeZip wpi.java.deps.wpilibJni(wpi.platforms.roborio)
-    // nativeDesktopZip wpi.java.deps.wpilibJni(wpi.platforms.desktop)
-
-
-    // nativeZip wpi.java.deps.vendor.jni(wpi.platforms.roborio)
-    // nativeDesktopZip wpi.java.deps.vendor.jni(wpi.platforms.desktop)
+    simulationRelease wpi.sim.enableRelease()
 
     testImplementation 'junit:junit:4.12'
-
-    // Enable simulation gui support. Must check the box in vscode to enable support
-    // upon debugging
-    simulationRelease wpi.sim.enableRelease()
-    // simulation wpi.java.deps.sim.gui(wpi.platforms.desktop, false)
-
-    //  implementation 'com.github.5190GreenHopeRobotics:FalconLibrary:2019.1.15'
     implementation 'com.github.nerdherd:badlog:bb49ca38f2ea0a201327ba36960695590a97b708'
-    implementation 'gov.nist.math:jama:1.0.3'
-    implementation group: 'org.ejml', name: 'ejml-all', version: '0.38'
 }
 
 repositories {
@@ -87,7 +77,11 @@ repositories {
         url "https://jitpack.io"
     }
 }
- 
+
+// Simulation configuration (e.g. environment variables).
+wpi.sim.addGui().defaultEnabled = true
+wpi.sim.addDriverstation()
+
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
 // in order to make them all available at runtime. Also adding the manifest so WPILib
 // knows where to look for our Robot Class.
@@ -96,3 +90,8 @@ jar {
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
+
+// Configure jar and deploy tasks
+deployArtifact.jarTask = jar
+wpi.java.configureExecutableTasks(jar)
+wpi.java.configureTestTasks(test)
