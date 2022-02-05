@@ -64,4 +64,12 @@ public class AirCompressor extends SubsystemBase {
     public void initSendable(SendableBuilder sendableBuilder) {
         m_compressor.initSendable(sendableBuilder);
     }   
+
+    @Override
+    public void reportToSmartDashboard() {
+        super.reportToSmartDashboard();
+        SmartDashboard.putNumber(name + " Analog Voltage", getAnalogVoltage());
+        SmartDashboard.putNumber(name + " Current", getCurrent());
+        SmartDashboard.putNumber(name + " Pressure", getPressure());
+    }
 }
