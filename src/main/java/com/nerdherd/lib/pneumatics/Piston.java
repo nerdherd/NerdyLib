@@ -10,6 +10,7 @@ package com.nerdherd.lib.pneumatics;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 /**
  * Add your docs here.
@@ -20,6 +21,14 @@ public class Piston extends SubsystemBase {
 
   public Piston(int port1, int port2) {
     m_piston = new DoubleSolenoid(null, port1, port2);
+  }
+
+  public Piston(PneumaticsModuleType moduleType, int forwardChannel, int reverseChannel) {
+    m_piston = new DoubleSolenoid(moduleType, forwardChannel, reverseChannel);
+  }
+
+  public Piston(int moduleNumber, PneumaticsModuleType moduleType, int forwardChannel, int reverseChannel) {
+    m_piston = new DoubleSolenoid(moduleNumber, moduleType, forwardChannel, reverseChannel);
   }
 
   public void setForwards() {
