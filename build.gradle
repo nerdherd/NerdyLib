@@ -2,7 +2,7 @@ import edu.wpi.first.gradlerio.deploy.roborio.RoboRIO
 
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2022.1.1"
+    id "edu.wpi.first.GradleRIO" version "2022.3.1"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -67,19 +67,12 @@ dependencies {
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
     simulationRelease wpi.sim.enableRelease()
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.1'
     implementation 'com.github.nerdherd:badlog:bb49ca38f2ea0a201327ba36960695590a97b708'
 }
 
-// Simulation configuration (e.g. environment variables).
-wpi.sim.addGui().defaultEnabled = true
-wpi.sim.addDriverstation()
-
 repositories {
-    mavenCentral()
-    maven {
-        url "https://jitpack.io"
-    }
+    maven { url "https://jitpack.io" }
 }
 
 // Simulation configuration (e.g. environment variables).
